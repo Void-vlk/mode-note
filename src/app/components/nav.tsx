@@ -136,7 +136,7 @@ const Nav = () => {
         )
         .fromTo(
           ["#info", "p"],
-          { y: +20, opacity: 0, visibility: "invisible" },
+          { y: -20, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -356,7 +356,7 @@ const Nav = () => {
                 onClick={() => setIsInfoOpen(!isInfoOpen)}
                 id="item"
               >
-                <span className="text-3xl">&#8505;</span>
+                <span className="text-3xl -mt-0.5">&#8505;</span>
               </ControlButton>
               <ControlButton variant="menu" onClick={setIsMenuOpen} id="item">
                 OK

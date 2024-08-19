@@ -45,7 +45,7 @@ const Loading = () => {
           duration: 1.5,
           strokeDashoffset: 0,
           ease: "none",
-          repeat: 1, //infinite
+          repeat: 1,
         },
         "<"
       );
