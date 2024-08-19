@@ -249,7 +249,7 @@ const Nav = () => {
             <ControlButton
               onClick={togglePlay}
               icon={isPlaying ? <FaStop /> : <FaPlay />}
-              className="flex justify-center items-center h-6 w-6 border-2 p-0 border-gray-500 rounded-full text-gray-500 hover:border-gray-800 hover:text-gray-800 cursor-pointer z-[90]"
+              className="flex justify-center items-center h-6 w-6 border-2 p-0 border-gray-500 rounded-full text-gray-500 hover:border-gray-800 hover:text-gray-800 cursor-pointer z-[100]"
               id="navbar"
             />
             <div id="navbar" className="font-bold text-xs text-gray-500">
