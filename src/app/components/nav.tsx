@@ -85,7 +85,7 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { y: 0, opacity: 1, visibility: "visible" },
-          { y: 5, duration: 0.2, opacity: 0, visibility: "invisible" }
+          { y: 5, duration: 0.1, opacity: 0, visibility: "invisible" }
         )
         .fromTo(
           "#bg-overlay",
@@ -93,7 +93,7 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             ease: "power2.inOut",
             visibility: "visible",
           }
@@ -104,7 +104,7 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             ease: "power2.inOut",
             visibility: "visible",
           }
@@ -129,7 +129,7 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             ease: "power2.inOut",
             visibility: "visible",
           }
@@ -140,7 +140,7 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             ease: "power2.inOut",
             visibility: "visible",
           }
@@ -163,7 +163,7 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { opacity: 1, visibility: "visible" },
-          { duration: 0.5, opacity: 0, visibility: "invisible" }
+          { duration: 0.2, opacity: 0, visibility: "invisible" }
         )
         .fromTo(
           "#bg-metronome",
@@ -182,7 +182,7 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.1,
             ease: "power2.inOut",
             visibility: "visible",
           }
