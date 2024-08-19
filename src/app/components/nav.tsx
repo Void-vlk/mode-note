@@ -85,7 +85,7 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { y: 0, opacity: 1, visibility: "visible" },
-          { y: 5, duration: 0.2, opacity: 0, visibility: "invisible" }
+          { y: 5, opacity: 0, visibility: "invisible", duration: 0.2 }
         )
         .fromTo(
           "#bg-overlay",
