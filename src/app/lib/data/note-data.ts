@@ -6,16 +6,16 @@ export interface NoteNameTextProps {
 
 export const noteNames: readonly NoteNameTextProps[] = [
   { id: 0, name: "C" },
-  { id: 1, name: { sharp: "C#", flat: "Db" } },
+  { id: 1, name: { sharp: "C♯", flat: "D♭" } },
   { id: 2, name: "D" },
-  { id: 3, name: { sharp: "D#", flat: "Eb" } },
+  { id: 3, name: { sharp: "D♯", flat: "E♭" } },
   { id: 4, name: "E" },
   { id: 5, name: "F" },
-  { id: 6, name: { sharp: "F#", flat: "Gb" } },
+  { id: 6, name: { sharp: "F♯", flat: "G♭" } },
   { id: 7, name: "G" },
-  { id: 8, name: { sharp: "G#", flat: "Ab" } },
+  { id: 8, name: { sharp: "G♯", flat: "A♭" } },
   { id: 9, name: "A" },
-  { id: 10, name: { sharp: "A#", flat: "Bb" } },
+  { id: 10, name: { sharp: "A♯", flat: "B♭" } },
   { id: 11, name: "B" },
 ];
 

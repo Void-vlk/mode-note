@@ -2,13 +2,19 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { useCombiStore } from "@/lib/stores/combi-store";
+
 import { useMetronomeStore } from "@/lib/stores/metronome-state";
 import { useNavStore } from "@/lib/stores/nav-state";
+import { useNoteStore } from "@/lib/stores/note-state";
+import { useOrientationStore } from "@/lib/stores/orientation-state";
+import { useInstrumentStore } from "@/lib/stores/instrument-state";
+import { useScalesStore } from "@/lib/stores/scales-state";
+import { useTuningStore } from "@/lib/stores/tuning-state";
 
-// import { TbGuitarPick } from "react-icons/tb";
 import { MdSettingsInputComponent } from "react-icons/md";
 import { GiGuitarHead, GiGuitarBassHead } from "react-icons/gi";
+import { TbBulb, TbBulbOff } from "react-icons/tb";
+import { PiMetronome } from "react-icons/pi";
 import {
   IoPhoneLandscapeOutline,
   IoPhonePortraitOutline,
@@ -21,32 +27,62 @@ import {
   FaPlay,
   FaStop,
 } from "react-icons/fa6";
-import { TbBulb, TbBulbOff } from "react-icons/tb";
-import { PiMetronome } from "react-icons/pi";
+
+import {
+  Trees,
+  Volume2,
+  VolumeOff,
+  Music,
+  PlayCircle,
+  StopCircle,
+  SlidersVertical,
+  Lightbulb,
+  LightbulbOff,
+  Smartphone,
+  Speaker,
+  Settings2,
+  SlidersHorizontal,
+  EllipsisVertical,
+  Ellipsis,
+  Menu,
+} from "lucide-react";
 
 import ControlButton from "@/components/control-button";
 import Dropdown from "@/components/dropdown";
 import Switch from "@/components/switch";
-import TuneAll from "@/app/components/tune-all";
+import TuneAll from "@/components/tune-all";
+import CurrentTuning from "@/components/current-tuning";
 import BpmControls from "@/components/bpm-controls";
 import MetronomeVisual from "@/components/metronome-visual";
 import MetronomeAudio from "@/components/metronome-audio";
+import Tooltip from "@/app/components/tooltip";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+
 gsap.registerPlugin(useGSAP);
 
 const Nav = () => {
   const {
     showSharp,
     toggleSharp,
+    resetSharps,
     showIntervals,
     toggleIntervals,
-    selectedInstrument,
-    isLandscape,
-    toggleOrientation,
-    resetSelection,
-  } = useCombiStore();
+    resetIntervals,
+  } = useNoteStore();
+  const {
+    isMenuOpen,
+    setIsMenuOpen,
+    isMetronomeOpen,
+    setIsMetronomeOpen,
+    showTooltips,
+    setShowTooltips,
+  } = useNavStore();
+  const { isLandscape, toggleOrientation } = useOrientationStore();
+  const { selectedInstrument } = useInstrumentStore();
+  const { resetSelection } = useScalesStore();
+  const { resetTuning } = useTuningStore();
   const {
     bpm,
     setBpm,
@@ -60,8 +96,6 @@ const Nav = () => {
     isVolume,
     toggleVolume,
   } = useMetronomeStore();
-  const { isMenuOpen, setIsMenuOpen, isMetronomeOpen, setIsMetronomeOpen } =
-    useNavStore();
 
   //main menu
   const container = useRef<HTMLDivElement>(null);
@@ -85,15 +119,15 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { y: 0, opacity: 1, visibility: "visible" },
-          { y: 5, duration: 0.2, opacity: 0, visibility: "invisible" }
+          { y: 5, opacity: 0, visibility: "invisible", duration: 0.2 }
         )
         .fromTo(
           "#bg-overlay",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -1500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
-            duration: 1,
+            duration: 0.2,
             ease: "power2.inOut",
             visibility: "visible",
           }
@@ -104,11 +138,12 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.04,
             ease: "power2.inOut",
             visibility: "visible",
           }
         )
+        .timeScale(2)
         .reverse();
     },
     { scope: container, dependencies: [tl], revertOnUpdate: true }
@@ -125,26 +160,27 @@ const Nav = () => {
         .timeline()
         .fromTo(
           "#info-overlay",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -1500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
-            duration: 1,
+            duration: 0.2,
             ease: "power2.inOut",
             visibility: "visible",
           }
         )
         .fromTo(
           ["#info", "p"],
-          { y: +20, opacity: 0, visibility: "invisible" },
+          { y: -20, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.04,
             ease: "power2.inOut",
             visibility: "visible",
           }
         )
+        .timeScale(2)
         .reverse();
     },
     { scope: container, dependencies: [infoTl], revertOnUpdate: true }
@@ -163,15 +199,15 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { opacity: 1, visibility: "visible" },
-          { duration: 0.5, opacity: 0, visibility: "invisible" }
+          { duration: 0.2, opacity: 0, visibility: "invisible" }
         )
         .fromTo(
           "#bg-metronome",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -1500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
-            duration: 1,
+            duration: 0.2,
             ease: "power2.inOut",
             visibility: "visible",
           }
@@ -182,11 +218,12 @@ const Nav = () => {
           {
             y: 0,
             opacity: 1,
-            stagger: 0.2,
+            stagger: 0.04,
             ease: "power2.inOut",
             visibility: "visible",
           }
         )
+        .timeScale(2)
         .reverse();
     },
     { scope: container, dependencies: [metronomeTl], revertOnUpdate: true }
@@ -203,6 +240,13 @@ const Nav = () => {
       <GiGuitarBassHead className="text-white text-md" />
     );
 
+  const resetAll = () => {
+    resetSelection();
+    resetSharps();
+    resetIntervals();
+    resetTuning();
+  };
+
   return (
     <div
       ref={container}
@@ -210,7 +254,7 @@ const Nav = () => {
     >
       {/* Header Nav */}
       <div className="w-full pb-2 gap-1">
-        <div className="flex justify-between items-center text-center px-4">
+        <div className="flex justify-between items-center text-center px-4 select-none">
           <ControlButton
             onClick={setIsMenuOpen}
             className="w-6 h-6 text-gray-500 hover:text-gray-800 cursor-pointer text-2xl mt-2 z-[90]"
@@ -222,7 +266,7 @@ const Nav = () => {
             alt="mode note logo"
             width={100}
             height={40}
-            className="mt-1"
+            className="mt-1 select-none"
             id="navbar"
           />
           <div
@@ -246,17 +290,26 @@ const Nav = () => {
                 />
               )}
             </div>
-            <ControlButton
-              onClick={togglePlay}
-              icon={isPlaying ? <FaStop /> : <FaPlay />}
-              className="flex justify-center items-center h-6 w-6 border-2 p-0 border-gray-500 rounded-full text-gray-500 hover:border-gray-800 hover:text-gray-800 cursor-pointer z-[90]"
+            <Tooltip
+              content="Open Metronome Settings"
+              position="bottom"
+              isEnabled={showTooltips}
+            >
+              <ControlButton
+                onClick={togglePlay}
+                icon={isPlaying ? <FaStop /> : <FaPlay />}
+                className="flex justify-center items-center h-6 w-6 border-2 p-0 border-gray-500 rounded-full text-gray-500 hover:border-gray-800 hover:text-gray-800 cursor-pointer z-[100]"
+                id="navbar"
+              />
+            </Tooltip>
+            <div
               id="navbar"
-            />
-            <div id="navbar" className="font-bold text-xs text-gray-500">
+              className="font-bold text-xs text-gray-500 select-none"
+            >
               {bpm} bpm
             </div>
+
             <ControlButton
-              // onClick={() => setIsMetronomeOpen(!isMetronomeOpen)}
               onClick={setIsMetronomeOpen}
               className="w-8 h-8 text-gray-500 hover:text-gray-700 cursor-pointer text-4xl z-[100]"
               icon={<PiMetronome />}
@@ -268,17 +321,18 @@ const Nav = () => {
       {/* Main Settings Menu */}
       <div
         id="bg-overlay"
-        className="fixed inset-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transform -translate-y-full z-[70] overflow-auto"
+        className="fixed inset-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transform z-[70] overflow-auto"
       >
-        <ControlButton
-          onClick={setIsMenuOpen}
-          className="w-6 h-6 text-gray-500 hover:text-gray-300 right-4 top-3 absolute cursor-pointer z-[90]"
-          id="item"
-        >
-          <span className="text-4xl">&times;</span>
-        </ControlButton>
-
-        <div className="flex flex-col h-full w-full mx-auto text-center items-center justify-start gap-4 z-[80]">
+        <div className="flex absolute w-[97%] h-16 m-0 inset-0 justify-end">
+          <ControlButton
+            onClick={setIsMenuOpen}
+            className="relative select-none w-6 h-6 text-gray-500 hover:text-gray-300 left-4 top-4 text-4xl cursor-pointer z-[90]"
+            id="item"
+          >
+            &times;
+          </ControlButton>
+        </div>
+        <div className="flex flex-col h-full w-full mx-auto text-center items-center justify-start gap-4 z-[80] select-none">
           {/* <div className="item flex text-3xl lg:text-4xl font-bold text-gray-500 mt-2"><TbGuitarPick /></div> */}
           <Image
             priority
@@ -298,41 +352,95 @@ const Nav = () => {
               itemStyle="accordionItem"
               id="item"
             />
+            <Dropdown
+              variant="tuning"
+              buttonStyle="accordion"
+              itemStyle="accordionItem"
+              id="item"
+            />
             <div
               id="item"
               className="flex flex-col text-center items-center border-2 border-gray-200 rounded-lg bg-gray-800 gap-2 w-full py-1"
             >
-              <span id="item" className="text-gray-100 text-sm pt-1">
+              <CurrentTuning />
+              <span
+                id="item"
+                className="text-gray-100 text-sm my-0 -mb-1 select-none"
+              >
                 Tune all strings up/down:
               </span>
               <TuneAll tunerStyle="tunersMenu" id="item" />
 
-              <div className="flex flex-row">
-                <Switch isActive={showSharp} onClick={toggleSharp} id="item">
-                  {showSharp ? "#" : "b"}
-                </Switch>
-                <Switch
-                  isActive={showIntervals}
-                  onClick={toggleIntervals}
-                  id="item"
+              <div className="flex flex-row gap-2 mb-1">
+                <Tooltip
+                  content="Switch between sharp or flat note values"
+                  position="top"
+                  isEnabled={showTooltips}
                 >
-                  {showIntervals ? (
-                    <span style={{ fontFamily: "Times New Roman" }}>III</span>
-                  ) : (
-                    <span>&#9835;</span>
-                  )}
-                </Switch>
-                <Switch
-                  isActive={isLandscape}
-                  onClick={toggleOrientation}
-                  id="item"
+                  <Switch isActive={showSharp} onClick={toggleSharp} id="item">
+                    {showSharp ? (
+                      <span className="mb-1 md:mb-0">♯</span>
+                    ) : (
+                      <span className="mb-1 md:mb-0">♭</span>
+                    )}
+                  </Switch>
+                </Tooltip>
+                <Tooltip
+                  content="Switch between musical note names & scale interval values - you must choose a tonic note before enabling"
+                  position="top"
+                  isEnabled={showTooltips}
                 >
-                  {isLandscape ? (
-                    <IoPhoneLandscapeOutline />
-                  ) : (
-                    <IoPhonePortraitOutline />
-                  )}
-                </Switch>
+                  <Switch
+                    isActive={showIntervals}
+                    onClick={toggleIntervals}
+                    id="item"
+                  >
+                    {showIntervals ? (
+                      <span style={{ fontFamily: "Times New Roman" }}>III</span>
+                    ) : (
+                      <span>&#9835;</span>
+                    )}
+                  </Switch>
+                </Tooltip>
+                <Tooltip
+                  content="Change fretboard orientation"
+                  position="top"
+                  isEnabled={showTooltips}
+                >
+                  <Switch
+                    isActive={isLandscape}
+                    onClick={toggleOrientation}
+                    id="item"
+                    disabled={true}
+                  >
+                    {isLandscape ? (
+                      <IoPhoneLandscapeOutline />
+                    ) : (
+                      <IoPhonePortraitOutline />
+                    )}
+                  </Switch>
+                </Tooltip>
+                <Tooltip
+                  content="Turn Tooltips on & off"
+                  position="top"
+                  isEnabled={showTooltips}
+                >
+                  <Switch
+                    isActive={showTooltips}
+                    onClick={setShowTooltips}
+                    id="item"
+                  >
+                    {showTooltips ? (
+                      <span className="select-none text-[0.5rem] transition-transform duration-300">
+                        ON
+                      </span>
+                    ) : (
+                      <span className="select-none text-[0.5rem] transition-transform duration-300">
+                        OFF
+                      </span>
+                    )}
+                  </Switch>
+                </Tooltip>
               </div>
             </div>
             <Dropdown
@@ -347,16 +455,17 @@ const Nav = () => {
               itemStyle="accordionItem"
               id="item"
             />
-            <div className="menu-item flex justify-between w-full">
-              <ControlButton variant="menu" onClick={resetSelection} id="item">
+            <div className="menu-item flex justify-between w-full gap-2">
+              <ControlButton variant="menu" onClick={resetAll} id="item">
                 Reset
               </ControlButton>
+
               <ControlButton
                 variant="menu"
                 onClick={() => setIsInfoOpen(!isInfoOpen)}
                 id="item"
               >
-                <span className="text-3xl">&#8505;</span>
+                <span className="text-2xl -mt-0.5 no-bg">&#8505;</span>
               </ControlButton>
               <ControlButton variant="menu" onClick={setIsMenuOpen} id="item">
                 OK
@@ -367,10 +476,10 @@ const Nav = () => {
         {/* Info menu */}
         <div
           id="info-overlay"
-          className="invisible fixed inset-0 flex items-center justify-center w-full bg-gray-900 bg-opacity-80 z-[150]"
+          className="invisible fixed inset-0 flex items-center justify-center w-full bg-gray-900 bg-opacity-80 z-[150] select-none"
         >
           <div
-            className="flex flex-col justify-center items-center my-16 w-80 rounded-2xl text-white text-sm p-4 gap-2 border-2 bg-gray-900 z-[200]"
+            className="flex flex-col justify-center items-center my-16 w-80 rounded-2xl text-white text-sm p-4 gap-2 border-2 bg-gray-900 z-[200] select-none"
             id="info"
           >
             <Image
@@ -388,7 +497,7 @@ const Nav = () => {
             <p>
               Start by selecting an Instrument, the Tonic note you want your
               scale to begin on, and the musical scale of your choice, to view
-              the note positions on the instrument`&#39;`s fretboard.
+              the note positions on the instrument&#39;s fretboard.
             </p>
             <p>
               Choose between sharps or flats, musical note names or interval
@@ -407,7 +516,7 @@ const Nav = () => {
             </p>
             <ControlButton
               onClick={() => setIsInfoOpen(!isInfoOpen)}
-              className="flex mt-2 text-gray-800 text-md bg-gray-300 hover:bg-green-600 hover:text-white hover:scale-105 rounded-lg px-2 font-bold z-50"
+              className="flex mt-2 text-gray-800 text-md bg-gray-300 hover:bg-green-600 hover:text-white hover:scale-110 rounded-lg px-2 font-bold z-50"
               id="info"
             >
               OK, LET&#39;S GO!
@@ -421,19 +530,21 @@ const Nav = () => {
         id="bg-metronome"
         className="invisible fixed inset-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transform -translate-y-full z-[70] overflow-auto"
       >
-        <ControlButton
-          onClick={setIsMetronomeOpen}
-          className="w-6 h-6 text-gray-500 hover:text-gray-300 right-4 top-3 absolute cursor-pointer z-[90]"
-          id="metronome"
-        >
-          <span className="text-4xl">&times;</span>
-        </ControlButton>
+        <div className="flex absolute w-[97%] h-16 m-0 inset-0 justify-end">
+          <ControlButton
+            onClick={setIsMenuOpen}
+            className="relative select-none w-6 h-6 text-gray-500 hover:text-gray-300 left-4 top-4 text-4xl cursor-pointer z-[90]"
+            id="item"
+          >
+            &times;
+          </ControlButton>
+        </div>
 
         <div
           className="flex flex-col h-full w-full mx-auto text-center items-center justify-start z-[80]"
           id="metronome"
         >
-          <div className="flex flex-col w-80 pb-8 px-16 items-center justify-center rounded-b-lg border-2 border-t-0 gap-2 bg-gray-800 bg-opacity-90">
+          <div className="flex flex-col w-80 pb-8 px-16 items-center justify-center rounded-b-lg border-2 border-t-0 gap-2 bg-gray-800 bg-opacity-90 select-none">
             <Image
               src="/mode-note-white.png"
               alt="mode note logo"
@@ -442,7 +553,10 @@ const Nav = () => {
               className="-mt-0.5"
               id="metronome"
             />
-            <h2 className="font-semibold tracking-wide" id="metronome">
+            <h2
+              className="font-semibold tracking-wide text-white"
+              id="metronome"
+            >
               Metronome
             </h2>
             <div
@@ -474,40 +588,60 @@ const Nav = () => {
               itemStyle="accordionItem"
               id="metronome"
             />
-            <p className="text-white" id="metronome">
+            <p className="text-white text-md" id="metronome">
               Sound & Visual Controls:
             </p>
-            <div className="flex flex-row -mt-2">
+            <div className="flex flex-row -mt-2 mb-2 gap-4">
               {/* sound type toggle */}
-              <Switch
-                isActive={isClick}
-                onClick={toggleSoundType}
-                id="metronome"
+              <Tooltip
+                content="Change Metronome sound"
+                position="top"
+                isEnabled={showTooltips}
               >
-                {isClick ? (
-                  <FaTree className="text-sm" />
-                ) : (
-                  <FaRobot className="text-sm" />
-                )}
-              </Switch>
-
+                <Switch
+                  isActive={isClick}
+                  onClick={toggleSoundType}
+                  id="metronome"
+                >
+                  {isClick ? (
+                    <FaTree className="text-sm" />
+                  ) : (
+                    <FaRobot className="text-sm" />
+                  )}
+                </Switch>
+              </Tooltip>
               {/* sound on/off */}
-              <Switch isActive={isVolume} onClick={toggleVolume} id="metronome">
-                {isVolume ? (
-                  <FaVolumeHigh className="text-sm" />
-                ) : (
-                  <FaVolumeXmark className="text-sm" />
-                )}
-              </Switch>
-
+              <Tooltip
+                content="Toggle sound on or off"
+                position="top"
+                isEnabled={showTooltips}
+              >
+                <Switch
+                  isActive={isVolume}
+                  onClick={toggleVolume}
+                  id="metronome"
+                >
+                  {isVolume ? (
+                    <FaVolumeHigh className="text-sm" />
+                  ) : (
+                    <FaVolumeXmark className="text-sm" />
+                  )}
+                </Switch>
+              </Tooltip>
               {/* flash on/off */}
-              <Switch isActive={isFlash} onClick={toggleFlash} id="metronome">
-                {isFlash ? (
-                  <TbBulb className="text-sm" />
-                ) : (
-                  <TbBulbOff className="text-sm" />
-                )}
-              </Switch>
+              <Tooltip
+                content="Toggle flash on or off"
+                position="top"
+                isEnabled={showTooltips}
+              >
+                <Switch isActive={isFlash} onClick={toggleFlash} id="metronome">
+                  {isFlash ? (
+                    <TbBulb className="text-sm" />
+                  ) : (
+                    <TbBulbOff className="text-sm" />
+                  )}
+                </Switch>
+              </Tooltip>
             </div>
             <ControlButton
               onClick={togglePlay}

@@ -1,25 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useCombiStore } from "@/lib/stores/combi-store";
+import { useEffect } from "react";
+import { useOrientationStore } from "@/lib/stores/orientation-state";
 import { useNavStore } from "@/lib/stores/nav-state";
 
 import Nav from "@/components/nav";
 import InstrumentFretboard from "@/components/instrument-fretboard";
-import Loading from "./loading";
 
 export default function Home() {
-  const { isLandscape } = useCombiStore();
+  const { isLandscape, isOnMobile, setIsOnMobile } = useOrientationStore();
   const { isMenuOpen, isMetronomeOpen } = useNavStore();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   //scroll lock when menus open / in landscape mode
   useEffect(() => {
@@ -31,21 +21,30 @@ export default function Home() {
     }
   }, [isMenuOpen, isMetronomeOpen, isLandscape]);
 
+  // Detect mobile screen size & turn text/icons
+  useEffect(() => {
+    const handleResize = () => {
+      setIsOnMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setIsOnMobile]);
+
   return (
     <main className="min-h-screen">
-      {isLoading && <Loading />}
-      {!isLoading && (
-        <>
-          <Nav />
-          <div
-            className={`transition-transform duration-300 mb-8 flex justify-center items-center w-full ${
-              isLandscape ? "h-screen -rotate-90" : "h-full rotate-0"
-            }`}
-          >
-            <InstrumentFretboard />
-          </div>
-        </>
-      )}
+      <Nav />
+      <div
+        className={`transition-transform duration-300 mb-8 flex justify-center items-center w-full ${
+          isLandscape ? "h-screen -rotate-90" : "h-full rotate-0"
+        }`}
+      >
+        <InstrumentFretboard />
+      </div>
     </main>
   );
 }

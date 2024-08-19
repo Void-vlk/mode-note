@@ -1,30 +1,34 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import NoteTextDisplay from '@/components/note-text-display';
-import TuneString from '@/app/components/tune-string';
-import { useCombiStore } from '@/lib/stores/combi-store';
+import { useEffect } from "react";
+
+import NoteTextDisplay from "@/components/note-text-display";
+import TuneString from "@/app/components/tune-string";
+
+import { useNoteStore } from "@/lib/stores/note-state";
+import { useTuningStore } from "@/lib/stores/tuning-state";
 
 interface FretboardStringItemsProps {
   stringIndex: number;
 }
 
 const FretboardStringItems = ({ stringIndex }: FretboardStringItemsProps) => {
-  const { setOpenNote, selectedInstrument } = useCombiStore();
+  const { setOpenNote } = useNoteStore();
+  const { selectedTuning } = useTuningStore();
 
   useEffect(() => {
-    const tuning = selectedInstrument.stringTunings[stringIndex];
+    const tuning = selectedTuning.stringTunings[stringIndex];
     if (tuning) {
       setOpenNote(stringIndex, tuning.openNote);
     }
-  }, [stringIndex, selectedInstrument, setOpenNote]);
+  }, [stringIndex, selectedTuning, setOpenNote]);
 
   return (
     <div className="flex flex-col items-center justify-center">
       <TuneString stringIndex={stringIndex} />
       <NoteTextDisplay stringIndex={stringIndex} />
-    </div>  
+    </div>
   );
-}
+};
 
 export default FretboardStringItems;
