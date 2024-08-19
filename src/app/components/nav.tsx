@@ -89,7 +89,7 @@ const Nav = () => {
         )
         .fromTo(
           "#bg-overlay",
-          { y: -500, opacity: 0, visibility: "invisible" },
+          { y: -1000, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -167,7 +167,7 @@ const Nav = () => {
         )
         .fromTo(
           "#bg-metronome",
-          { y: -500, opacity: 0, visibility: "invisible" },
+          { y: -1000, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
