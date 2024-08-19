@@ -24,6 +24,7 @@ const InstrumentFretboard = () => {
 
   return (
     <div className="flex justify-center">
+      {/* fretboard */}
       <div className="relative flex flex-row items-center justify-center border-2 border-black px-1 py-2 bg-orange-950 z-0">
         {/* nut */}
         <div className="absolute top-[5.4rem] left-0 h-1.5 w-full bg-gray-500 -z-10" />
