@@ -388,7 +388,7 @@ const Nav = () => {
             <p>
               Start by selecting an Instrument, the Tonic note you want your
               scale to begin on, and the musical scale of your choice, to view
-              the note positions on the instrument`&#39;`s fretboard.
+              the note positions on the instrument&#39;s fretboard.
             </p>
             <p>
               Choose between sharps or flats, musical note names or interval
