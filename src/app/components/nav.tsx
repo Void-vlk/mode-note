@@ -85,7 +85,7 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { y: 0, opacity: 1, visibility: "visible" },
-          { y: 5, duration: 0.04, opacity: 0, visibility: "invisible" }
+          { y: 5, duration: 0.1, opacity: 0, visibility: "invisible" }
         )
         .fromTo(
           "#bg-overlay",
@@ -165,7 +165,7 @@ const Nav = () => {
         .fromTo(
           "#navbar",
           { opacity: 1, visibility: "visible" },
-          { duration: 0.04, opacity: 0, visibility: "invisible" }
+          { duration: 0.1, opacity: 0, visibility: "invisible" }
         )
         .fromTo(
           "#bg-metronome",
