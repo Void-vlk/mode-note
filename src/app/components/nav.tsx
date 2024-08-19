@@ -109,8 +109,7 @@ const Nav = () => {
             visibility: "visible",
           }
         )
-        .reverse()
-        .timeScale(2);
+        .reverse();
     },
     { scope: container, dependencies: [tl], revertOnUpdate: true }
   );
@@ -188,8 +187,7 @@ const Nav = () => {
             visibility: "visible",
           }
         )
-        .reverse()
-        .timeScale(2);
+        .reverse();
     },
     { scope: container, dependencies: [metronomeTl], revertOnUpdate: true }
   );
