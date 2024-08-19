@@ -89,7 +89,7 @@ const Nav = () => {
         )
         .fromTo(
           "#bg-overlay",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -146,8 +146,7 @@ const Nav = () => {
             visibility: "visible",
           }
         )
-        .reverse()
-        .timeScale(2);
+        .reverse();
     },
     { scope: container, dependencies: [infoTl], revertOnUpdate: true }
   );
@@ -169,7 +168,7 @@ const Nav = () => {
         )
         .fromTo(
           "#bg-metronome",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -213,7 +212,7 @@ const Nav = () => {
     >
       {/* Header Nav */}
       <div className="w-full pb-2 gap-1">
-        <div className="flex justify-between items-center text-center px-4">
+        <div className="flex justify-between items-center text-center px-4 opacity-0">
           <ControlButton
             onClick={setIsMenuOpen}
             className="w-6 h-6 text-gray-500 hover:text-gray-800 cursor-pointer text-2xl mt-2 z-[90]"
