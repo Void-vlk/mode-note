@@ -2,13 +2,18 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { useCombiStore } from "@/lib/stores/combi-store";
+
 import { useMetronomeStore } from "@/lib/stores/metronome-state";
 import { useNavStore } from "@/lib/stores/nav-state";
+import { useNoteStore } from "@/lib/stores/note-state";
+import { useOrientationStore } from "@/lib/stores/orientation-state";
+import { useInstrumentStore } from "@/lib/stores/instrument-state";
+import { useScalesStore } from "@/lib/stores/scales-state";
 
-// import { TbGuitarPick } from "react-icons/tb";
 import { MdSettingsInputComponent } from "react-icons/md";
 import { GiGuitarHead, GiGuitarBassHead } from "react-icons/gi";
+import { TbBulb, TbBulbOff } from "react-icons/tb";
+import { PiMetronome } from "react-icons/pi";
 import {
   IoPhoneLandscapeOutline,
   IoPhonePortraitOutline,
@@ -21,32 +26,35 @@ import {
   FaPlay,
   FaStop,
 } from "react-icons/fa6";
-import { TbBulb, TbBulbOff } from "react-icons/tb";
-import { PiMetronome } from "react-icons/pi";
 
 import ControlButton from "@/components/control-button";
 import Dropdown from "@/components/dropdown";
 import Switch from "@/components/switch";
-import TuneAll from "@/app/components/tune-all";
+import TuneAll from "@/components/tune-all";
+import CurrentTuning from "@/components/current-tuning";
 import BpmControls from "@/components/bpm-controls";
 import MetronomeVisual from "@/components/metronome-visual";
 import MetronomeAudio from "@/components/metronome-audio";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+
 gsap.registerPlugin(useGSAP);
 
 const Nav = () => {
   const {
     showSharp,
     toggleSharp,
+    resetSharps,
     showIntervals,
     toggleIntervals,
-    selectedInstrument,
-    isLandscape,
-    toggleOrientation,
-    resetSelection,
-  } = useCombiStore();
+    resetIntervals,
+  } = useNoteStore();
+  const { isMenuOpen, setIsMenuOpen, isMetronomeOpen, setIsMetronomeOpen } =
+    useNavStore();
+  const { isLandscape, toggleOrientation } = useOrientationStore();
+  const { selectedInstrument } = useInstrumentStore();
+  const { resetSelection } = useScalesStore();
   const {
     bpm,
     setBpm,
@@ -60,8 +68,6 @@ const Nav = () => {
     isVolume,
     toggleVolume,
   } = useMetronomeStore();
-  const { isMenuOpen, setIsMenuOpen, isMetronomeOpen, setIsMetronomeOpen } =
-    useNavStore();
 
   //main menu
   const container = useRef<HTMLDivElement>(null);
@@ -89,7 +95,7 @@ const Nav = () => {
         )
         .fromTo(
           "#bg-overlay",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -1500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -125,7 +131,7 @@ const Nav = () => {
         .timeline()
         .fromTo(
           "#info-overlay",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -1500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -167,7 +173,7 @@ const Nav = () => {
         )
         .fromTo(
           "#bg-metronome",
-          { y: -1000, opacity: 0, visibility: "invisible" },
+          { y: -1500, opacity: 0, visibility: "invisible" },
           {
             y: 0,
             opacity: 1,
@@ -202,6 +208,12 @@ const Nav = () => {
     ) : (
       <GiGuitarBassHead className="text-white text-md" />
     );
+
+  const resetAll = () => {
+    resetSelection();
+    resetSharps();
+    resetIntervals();
+  };
 
   return (
     <div
@@ -255,8 +267,8 @@ const Nav = () => {
             <div id="navbar" className="font-bold text-xs text-gray-500">
               {bpm} bpm
             </div>
+
             <ControlButton
-              // onClick={() => setIsMetronomeOpen(!isMetronomeOpen)}
               onClick={setIsMetronomeOpen}
               className="w-8 h-8 text-gray-500 hover:text-gray-700 cursor-pointer text-4xl z-[100]"
               icon={<PiMetronome />}
@@ -298,19 +310,27 @@ const Nav = () => {
               itemStyle="accordionItem"
               id="item"
             />
+            <Dropdown
+              variant="tuning"
+              buttonStyle="accordion"
+              itemStyle="accordionItem"
+              id="item"
+            />
             <div
               id="item"
               className="flex flex-col text-center items-center border-2 border-gray-200 rounded-lg bg-gray-800 gap-2 w-full py-1"
             >
-              <span id="item" className="text-gray-100 text-sm pt-1">
+              <CurrentTuning />
+              <span id="item" className="text-gray-100 text-sm pt-1 mb-0">
                 Tune all strings up/down:
               </span>
               <TuneAll tunerStyle="tunersMenu" id="item" />
 
               <div className="flex flex-row">
                 <Switch isActive={showSharp} onClick={toggleSharp} id="item">
-                  {showSharp ? "#" : "b"}
+                  {showSharp ? "♯" : "♭"}
                 </Switch>
+
                 <Switch
                   isActive={showIntervals}
                   onClick={toggleIntervals}
@@ -322,10 +342,12 @@ const Nav = () => {
                     <span>&#9835;</span>
                   )}
                 </Switch>
+
                 <Switch
                   isActive={isLandscape}
                   onClick={toggleOrientation}
                   id="item"
+                  disabled={true}
                 >
                   {isLandscape ? (
                     <IoPhoneLandscapeOutline />
@@ -348,7 +370,7 @@ const Nav = () => {
               id="item"
             />
             <div className="menu-item flex justify-between w-full">
-              <ControlButton variant="menu" onClick={resetSelection} id="item">
+              <ControlButton variant="menu" onClick={resetAll} id="item">
                 Reset
               </ControlButton>
               <ControlButton

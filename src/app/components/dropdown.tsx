@@ -2,15 +2,29 @@
 
 import { useRef } from 'react';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
+
 import { instrumentData } from '@/lib/data/instrument-data';
 import { scalesData } from '@/lib/data/scales-data';
 import { noteNames } from '@/lib/data/note-data';
 import { timeSignatureData } from '@/lib/data/metronome-data';
-import { useCombiStore } from '@/lib/stores/combi-store';
+import { tuningData } from '@/lib/data/tuning-data';
+
+import { useTuningStore } from '@/lib/stores/tuning-state';
 import { useMetronomeStore } from '@/lib/stores/metronome-state';
+import { useDropdownStore } from '../lib/stores/dropdown-state';
+import { useNoteStore } from '../lib/stores/note-state';
+import { useScalesStore } from '../lib/stores/scales-state';
+import { useInstrumentStore } from '../lib/stores/instrument-state';
+
 import ControlButton from '@/components/control-button';
 
-type DropdownVariant = 'instrument' | 'scale' | 'tonic' | 'timeSignature';
+type DropdownVariant =
+  | "instrument"
+  | "scale"
+  | "tonic"
+  | "timeSignature"
+  | "tuning";
+
 type ButtonVariant = 'accordion' | 'dropdown';
 type ItemVariant = 'accordionItem' | 'dropdownItem';
  
@@ -24,6 +38,7 @@ const dropdownStyles = {
   scale: 'grid grid-cols-2 w-72 -ml-20', 
   tonic: 'grid grid-cols-2 w-32 ml-2',
   timeSignature: '',
+  tuning: '',
   menu: '',
 };
 
@@ -44,18 +59,16 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
     toggleTonicOpen, 
     closeAll, 
     forcePlaceholder, 
-    setForcePlaceholder, 
-    showSharp, 
-    selectedScale, 
-    setSelectedScale, 
-    selectedTonic, 
-    setSelectedTonic, 
-    selectedInstrument, 
-    setSelectedInstrument,
+    setForcePlaceholder,
+    tuningOpen, 
+    toggleTuningOpen,
     timeSignatureOpen, 
-    toggleTimeSignatureOpen,
-    // menuOpen // not needed
-  } = useCombiStore();
+    toggleTimeSignatureOpen
+   } = useDropdownStore();
+  const { selectedScale, setSelectedScale, selectedTonic, setSelectedTonic } = useScalesStore();
+  const { showSharp } = useNoteStore();
+  const { selectedInstrument, setSelectedInstrument, } = useInstrumentStore();
+  const { selectedTuning, setSelectedTuning  } = useTuningStore();
   const { selectedTimeSignature, setSelectedTimeSignature } = useMetronomeStore();
   
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -105,6 +118,18 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
         closeAll();
       },
     },
+    tuning: {
+      items: tuningData
+        .filter((tuning) => tuning.instrumentTitle === selectedInstrument?.title)
+        .map((tuning) => ({ id: tuning.id, title: tuning.title })),
+      selectedItem: selectedTuning ? { id: selectedTuning.id, title: selectedTuning.title } : null,
+      isOpen: tuningOpen,
+      toggleDropdown: toggleTuningOpen,
+      handleItemClick: (id: string) => {
+        setSelectedTuning(id);
+        closeAll();
+      }
+    },
   };
 
   const { items, selectedItem, isOpen, toggleDropdown, handleItemClick } = dropdownMaps[variant];
@@ -114,12 +139,14 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
     scale: string;
     tonic: string;
     timeSignature: string;
+    tuning: string;
   };
   const placeholderText: PlaceholderText = {
     instrument: 'Select an Instrument',
     scale: 'Select a Scale',
     tonic: 'Select Tonic Note',
     timeSignature: 'Select a Time Signature',
+    tuning: 'Select a Tuning',
   };
 
   //if accordion variant use accordion styling & dont use dropdown styling

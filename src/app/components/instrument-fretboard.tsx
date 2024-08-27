@@ -1,7 +1,9 @@
 "use client";
 
 import FretboardStringItems from "@/components/fretboard-string-items";
+
 import { useInstrumentStore } from "@/lib/stores/instrument-state";
+
 import { IoMdPlay } from "react-icons/io";
 
 const InstrumentFretboard = () => {

@@ -7,6 +7,7 @@ type DropdownState = {
   timeSignatureOpen: boolean;
   forcePlaceholder: boolean;
   infoOpen: boolean;
+  tuningOpen: boolean;
   toggleTonicOpen: () => void;
   toggleScaleOpen: () => void;
   toggleInstrumentOpen: () => void;
@@ -17,6 +18,7 @@ type DropdownState = {
   unregisterClickOutsideListener: () => void;
   setForcePlaceholder: (value: boolean) => void;
   toggleInfo: () => void;
+  toggleTuningOpen: () => void;
 };
 
 export const useDropdownStore = create<DropdownState>((set, get) => ({
@@ -26,6 +28,7 @@ export const useDropdownStore = create<DropdownState>((set, get) => ({
   timeSignatureOpen: false,
   forcePlaceholder: true,
   infoOpen: false,
+  tuningOpen: false,
   toggleTonicOpen: () => {
     set((state) => {
       const newTonicOpen = !state.tonicOpen;
@@ -66,8 +69,18 @@ export const useDropdownStore = create<DropdownState>((set, get) => ({
     });
     get().registerClickOutsideListener();
   },
+  //
+  toggleTuningOpen: () => {
+    set((state) => {
+      const newTuningOpen = !state.tuningOpen;
+      get().closeAll();
+      return { tuningOpen: newTuningOpen };
+    });
+    get().registerClickOutsideListener();
+  },
+  //
   closeAll: () => {
-    set({ tonicOpen: false, scaleOpen: false, instrumentOpen: false, timeSignatureOpen: false });
+    set({ tonicOpen: false, scaleOpen: false, instrumentOpen: false, timeSignatureOpen: false, tuningOpen: false });
     get().unregisterClickOutsideListener();
   },
   handleClickOutside: (event: MouseEvent) => {

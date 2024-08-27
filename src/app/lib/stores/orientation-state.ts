@@ -1,13 +1,12 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface OrientationState {
   isLandscape: boolean;
   toggleOrientation: () => void;
-  resetOrientation: () => void;
 }
 
 export const useOrientationStore = create<OrientationState>((set) => ({
   isLandscape: false,
-  toggleOrientation: () => set((state) => ({ isLandscape: !state.isLandscape })),
-  resetOrientation: () => set({ isLandscape: false }),
+  toggleOrientation: () =>
+    set((state) => ({ isLandscape: !state.isLandscape })),
 }));

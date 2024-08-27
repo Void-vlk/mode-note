@@ -2,7 +2,8 @@
 
 import ControlButton from '@/components/control-button';
 import { noteNames } from '@/lib/data/note-data';
-import { useCombiStore } from '@/lib/stores/combi-store';
+import { useInstrumentStore } from '@/lib/stores/instrument-state';
+import { useNoteStore } from "@/lib/stores/note-state";
 
 type ControlAllProps = {
   tunerStyle: "tunersMenu" | "tunersAll";
@@ -11,7 +12,8 @@ type ControlAllProps = {
 }
 
 const TuneAll = ({ tunerStyle, className, id }: ControlAllProps) => {
-  const { stringNotes, setCurrentIndex, selectedInstrument } = useCombiStore();
+  const { stringNotes, setCurrentIndex } = useNoteStore();
+  const { selectedInstrument } = useInstrumentStore();
 
   const handleTuneDown = (steps: number) => {
     for (let i = 0; i < selectedInstrument.stringQty; i++) {

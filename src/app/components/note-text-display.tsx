@@ -2,22 +2,18 @@
 
 import { useMemo } from "react";
 import NoteText from "@/components/note-text";
-import { useCombiStore } from "@/lib/stores/combi-store";
+
+import { useNoteStore } from "@/lib/stores/note-state";
+import { useScalesStore } from "@/lib/stores/scales-state";
 
 interface NoteTextDisplayProps {
   stringIndex: number;
 }
 
 const NoteTextDisplay = ({ stringIndex }: NoteTextDisplayProps) => {
-  const {
-    noteNames,
-    showSharp,
-    intervalNames,
-    showIntervals,
-    selectedTonic,
-    selectedScale,
-    stringNotes,
-  } = useCombiStore();
+  const { noteNames, showSharp, intervalNames, showIntervals, stringNotes } = useNoteStore();
+  const { selectedTonic, selectedScale } = useScalesStore();
+
   const stringState = stringNotes[stringIndex] || {
     currentIndex: 0,
     openNoteId: 0,

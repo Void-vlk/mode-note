@@ -1,25 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useCombiStore } from "@/lib/stores/combi-store";
+import { useEffect } from "react";
+import { useOrientationStore } from "@/lib/stores/orientation-state";
 import { useNavStore } from "@/lib/stores/nav-state";
 
 import Nav from "@/components/nav";
 import InstrumentFretboard from "@/components/instrument-fretboard";
-// import Loading from "./loading";
 
 export default function Home() {
-  const { isLandscape } = useCombiStore();
+  const { isLandscape } = useOrientationStore();
   const { isMenuOpen, isMetronomeOpen } = useNavStore();
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 1000);
-
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   //scroll lock when menus open / in landscape mode
   useEffect(() => {
@@ -33,9 +23,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* {isLoading && <Loading />}
-      {!isLoading && (
-        <> */}
       <Nav />
       <div
         className={`transition-transform duration-300 mb-8 flex justify-center items-center w-full ${
@@ -44,8 +31,6 @@ export default function Home() {
       >
         <InstrumentFretboard />
       </div>
-      {/* </>
-      )} */}
     </main>
   );
 }

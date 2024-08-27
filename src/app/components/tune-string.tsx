@@ -2,14 +2,14 @@
 
 import ControlButton from "@/components/control-button";
 import { noteNames } from "@/lib/data/note-data";
-import { useCombiStore } from "@/lib/stores/combi-store";
+import { useNoteStore } from "@/lib/stores/note-state";
 
 interface TuneStringProps {
   stringIndex: number;
 }
 
 const TuneString = ({ stringIndex }: TuneStringProps) => {
-  const { stringNotes, setCurrentIndex } = useCombiStore();
+  const { stringNotes, setCurrentIndex } = useNoteStore();
   const stringState = stringNotes[stringIndex] || {
     currentIndex: 0,
     openNoteid: 0,
