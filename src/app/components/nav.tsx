@@ -354,7 +354,7 @@ const Nav = () => {
                   </Switch>
                 </Tooltip>
                 <Tooltip
-                  content="Switch between musical note names & scale interval values - you must choose a tonic note first to view the intervals"
+                  content="Switch between musical note names & scale interval values - you must choose a tonic note before enabling"
                   position="top"
                   isEnabled={showTooltips}
                 >

@@ -32,7 +32,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     <div className="relative inline-block group">
       {children}
       <div
-        className={`absolute hidden group-hover:block z-[999] p-2 text-wrap w-42 text-sm text-white bg-gray-900 border-2 rounded-lg whitespace-nowrap  transition-opacity duration-300 ${getPosition(
+        className={`absolute hidden group-hover:block z-[999] p-2 text-wrap w-40 text-sm text-white bg-gray-900 border-2 rounded-lg whitespace-nowrap  transition-opacity duration-300 ${getPosition(
           position
         )}`}
       >
