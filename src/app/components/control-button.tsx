@@ -31,7 +31,7 @@ const ControlButton = forwardRef<HTMLButtonElement, Props>(({
     //intro menu reset, info, ok buttons
     menu: "w-[4.5rem] text-gray-400 text-sm rounded-lg bg-gray-800 cursor-pointer hover:bg-gray-900 hover:text-gray-100 border-2 border-gray-200 rounded-lg",
     //switches
-    toggle: "absolute -left-0.5 w-6 h-6 rounded-full border-2 border-gray-300 group-hover:border-gray-100 bg-transparent transition-transform duration-300",
+    toggle: "absolute w-6 h-6 rounded-full border-2 border-gray-300 group-hover:border-gray-100 bg-transparent transition-transform duration-300",
     //float nav dropdown
     dropdown: "px-4 py-1 outline-none rounded-lg text-gray-400 font-medium text-xs font-semibold border-2 border-gray-300 bg-transparent cursor-pointer hover:border-gray-400 hover:text-gray-600 whitespace-nowrap",
     //float nav dropdown content
@@ -42,7 +42,7 @@ const ControlButton = forwardRef<HTMLButtonElement, Props>(({
     accordionItem: "flex justify-center items-center px-2 py-2 w-full text-gray-400 border-b border-gray-300 hover:bg-green-700 hover:text-gray-100",
   };
   //toggle
-  const moveSwitch = active ? 'translate-x-full' : '';
+  const moveSwitch = active ? "translate-x-full -left-0.5" : "-left-0.5";
   
   return (
     <button

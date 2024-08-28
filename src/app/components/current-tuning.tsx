@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from 'react';
-import { tuningData } from '@/lib/data/tuning-data';
+import { useEffect } from "react";
+import { tuningData } from "@/lib/data/tuning-data";
 import { useTuningStore } from "@/lib/stores/tuning-state";
 import { useNoteStore } from "@/lib/stores/note-state";
-import { useInstrumentStore } from "@/lib/stores/instrument-state"; 
+import { useInstrumentStore } from "@/lib/stores/instrument-state";
 
 const CurrentTuning = () => {
   const { selectedTuning, setSelectedTuning } = useTuningStore();
@@ -12,9 +12,11 @@ const CurrentTuning = () => {
   const { selectedInstrument } = useInstrumentStore();
 
   useEffect(() => {
-    const defaultTuning = tuningData.find((tuning) => tuning.instrumentTitle === selectedInstrument.title);
+    const defaultTuning = tuningData.find(
+      (tuning) => tuning.instrumentTitle === selectedInstrument.title
+    );
     if (defaultTuning) {
-        setSelectedTuning(defaultTuning.id);
+      setSelectedTuning(defaultTuning.id);
     }
   }, [selectedInstrument, setSelectedTuning]);
 
@@ -42,10 +44,10 @@ const CurrentTuning = () => {
     .join("-");
 
   return (
-    <div className="flex flex-col pt-2 mb-0 gap-1 w-48">
-      <span className="text-sm">Current Tuning:</span>
+    <div className="flex flex-col mb-0 px-2 w-56">
+      <span className="text-sm text-gray-400">Current Tuning:</span>
       <span className="tracking-normal">{noteNameList}</span>
-      <div className="bg-gray-400 h-0.5 w-full"></div>
+      <div className="bg-gray-400 h-0.5 w-full mt-1"></div>
     </div>
   );
 };

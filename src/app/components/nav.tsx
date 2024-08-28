@@ -35,6 +35,7 @@ import CurrentTuning from "@/components/current-tuning";
 import BpmControls from "@/components/bpm-controls";
 import MetronomeVisual from "@/components/metronome-visual";
 import MetronomeAudio from "@/components/metronome-audio";
+import Tooltip from "@/app/components/tooltip";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -50,8 +51,14 @@ const Nav = () => {
     toggleIntervals,
     resetIntervals,
   } = useNoteStore();
-  const { isMenuOpen, setIsMenuOpen, isMetronomeOpen, setIsMetronomeOpen } =
-    useNavStore();
+  const {
+    isMenuOpen,
+    setIsMenuOpen,
+    isMetronomeOpen,
+    setIsMetronomeOpen,
+    showTooltips,
+    setShowTooltips,
+  } = useNavStore();
   const { isLandscape, toggleOrientation } = useOrientationStore();
   const { selectedInstrument } = useInstrumentStore();
   const { resetSelection } = useScalesStore();
@@ -258,12 +265,18 @@ const Nav = () => {
                 />
               )}
             </div>
-            <ControlButton
-              onClick={togglePlay}
-              icon={isPlaying ? <FaStop /> : <FaPlay />}
-              className="flex justify-center items-center h-6 w-6 border-2 p-0 border-gray-500 rounded-full text-gray-500 hover:border-gray-800 hover:text-gray-800 cursor-pointer z-[100]"
-              id="navbar"
-            />
+            <Tooltip
+              content="Open Metronome Settings"
+              position="bottom"
+              isEnabled={showTooltips}
+            >
+              <ControlButton
+                onClick={togglePlay}
+                icon={isPlaying ? <FaStop /> : <FaPlay />}
+                className="flex justify-center items-center h-6 w-6 border-2 p-0 border-gray-500 rounded-full text-gray-500 hover:border-gray-800 hover:text-gray-800 cursor-pointer z-[100]"
+                id="navbar"
+              />
+            </Tooltip>
             <div id="navbar" className="font-bold text-xs text-gray-500">
               {bpm} bpm
             </div>
@@ -321,40 +334,77 @@ const Nav = () => {
               className="flex flex-col text-center items-center border-2 border-gray-200 rounded-lg bg-gray-800 gap-2 w-full py-1"
             >
               <CurrentTuning />
-              <span id="item" className="text-gray-100 text-sm pt-1 mb-0">
+              <span id="item" className="text-gray-100 text-sm my-0 -mb-1">
                 Tune all strings up/down:
               </span>
               <TuneAll tunerStyle="tunersMenu" id="item" />
 
-              <div className="flex flex-row">
-                <Switch isActive={showSharp} onClick={toggleSharp} id="item">
-                  {showSharp ? "♯" : "♭"}
-                </Switch>
-
-                <Switch
-                  isActive={showIntervals}
-                  onClick={toggleIntervals}
-                  id="item"
+              <div className="flex flex-row gap-2 mb-1">
+                <Tooltip
+                  content="Switch between sharp or flat note values"
+                  position="top"
+                  isEnabled={showTooltips}
                 >
-                  {showIntervals ? (
-                    <span style={{ fontFamily: "Times New Roman" }}>III</span>
-                  ) : (
-                    <span>&#9835;</span>
-                  )}
-                </Switch>
-
-                <Switch
-                  isActive={isLandscape}
-                  onClick={toggleOrientation}
-                  id="item"
-                  disabled={true}
+                  <Switch isActive={showSharp} onClick={toggleSharp} id="item">
+                    {showSharp ? (
+                      <span className="mb-1 md:mb-0">♯</span>
+                    ) : (
+                      <span className="mb-1 md:mb-0">♭</span>
+                    )}
+                  </Switch>
+                </Tooltip>
+                <Tooltip
+                  content="Switch between musical note names & scale interval values - you must choose a tonic note first to view the intervals"
+                  position="top"
+                  isEnabled={showTooltips}
                 >
-                  {isLandscape ? (
-                    <IoPhoneLandscapeOutline />
-                  ) : (
-                    <IoPhonePortraitOutline />
-                  )}
-                </Switch>
+                  <Switch
+                    isActive={showIntervals}
+                    onClick={toggleIntervals}
+                    id="item"
+                  >
+                    {showIntervals ? (
+                      <span style={{ fontFamily: "Times New Roman" }}>III</span>
+                    ) : (
+                      <span>&#9835;</span>
+                    )}
+                  </Switch>
+                </Tooltip>
+                <Tooltip
+                  content="Change fretboard orientation"
+                  position="top"
+                  isEnabled={showTooltips}
+                >
+                  <Switch
+                    isActive={isLandscape}
+                    onClick={toggleOrientation}
+                    id="item"
+                    disabled={true}
+                  >
+                    {isLandscape ? (
+                      <IoPhoneLandscapeOutline />
+                    ) : (
+                      <IoPhonePortraitOutline />
+                    )}
+                  </Switch>
+                </Tooltip>
+                <Tooltip
+                  content="Turn Tooltips on & off"
+                  position="top"
+                  isEnabled={showTooltips}
+                >
+                  <Switch
+                    isActive={showTooltips}
+                    onClick={setShowTooltips}
+                    id="toggle-tooltips"
+                  >
+                    {showTooltips ? (
+                      <span className="text-[0.5rem]">ON</span>
+                    ) : (
+                      <span className="text-[0.5rem]">OFF</span>
+                    )}
+                  </Switch>
+                </Tooltip>
               </div>
             </div>
             <Dropdown
@@ -369,10 +419,11 @@ const Nav = () => {
               itemStyle="accordionItem"
               id="item"
             />
-            <div className="menu-item flex justify-between w-full">
+            <div className="menu-item flex justify-between w-full gap-2">
               <ControlButton variant="menu" onClick={resetAll} id="item">
                 Reset
               </ControlButton>
+
               <ControlButton
                 variant="menu"
                 onClick={() => setIsInfoOpen(!isInfoOpen)}
@@ -501,35 +552,55 @@ const Nav = () => {
             </p>
             <div className="flex flex-row -mt-2">
               {/* sound type toggle */}
-              <Switch
-                isActive={isClick}
-                onClick={toggleSoundType}
-                id="metronome"
+              <Tooltip
+                content="Change Metronome sound"
+                position="top"
+                isEnabled={showTooltips}
               >
-                {isClick ? (
-                  <FaTree className="text-sm" />
-                ) : (
-                  <FaRobot className="text-sm" />
-                )}
-              </Switch>
-
+                <Switch
+                  isActive={isClick}
+                  onClick={toggleSoundType}
+                  id="metronome"
+                >
+                  {isClick ? (
+                    <FaTree className="text-sm" />
+                  ) : (
+                    <FaRobot className="text-sm" />
+                  )}
+                </Switch>
+              </Tooltip>
               {/* sound on/off */}
-              <Switch isActive={isVolume} onClick={toggleVolume} id="metronome">
-                {isVolume ? (
-                  <FaVolumeHigh className="text-sm" />
-                ) : (
-                  <FaVolumeXmark className="text-sm" />
-                )}
-              </Switch>
-
+              <Tooltip
+                content="Toggle sound on or off"
+                position="top"
+                isEnabled={showTooltips}
+              >
+                <Switch
+                  isActive={isVolume}
+                  onClick={toggleVolume}
+                  id="metronome"
+                >
+                  {isVolume ? (
+                    <FaVolumeHigh className="text-sm" />
+                  ) : (
+                    <FaVolumeXmark className="text-sm" />
+                  )}
+                </Switch>
+              </Tooltip>
               {/* flash on/off */}
-              <Switch isActive={isFlash} onClick={toggleFlash} id="metronome">
-                {isFlash ? (
-                  <TbBulb className="text-sm" />
-                ) : (
-                  <TbBulbOff className="text-sm" />
-                )}
-              </Switch>
+              <Tooltip
+                content="Toggle flash on or off"
+                position="top"
+                isEnabled={showTooltips}
+              >
+                <Switch isActive={isFlash} onClick={toggleFlash} id="metronome">
+                  {isFlash ? (
+                    <TbBulb className="text-sm" />
+                  ) : (
+                    <TbBulbOff className="text-sm" />
+                  )}
+                </Switch>
+              </Tooltip>
             </div>
             <ControlButton
               onClick={togglePlay}

@@ -5,6 +5,8 @@ interface NavState {
   setIsMenuOpen: () => void;
   isMetronomeOpen: boolean;
   setIsMetronomeOpen: () => void;
+  showTooltips: boolean;
+  setShowTooltips: () => void;
 }
 
 export const useNavStore = create<NavState>((set) => ({
@@ -13,4 +15,6 @@ export const useNavStore = create<NavState>((set) => ({
   isMetronomeOpen: false,
   setIsMetronomeOpen: () =>
     set((state) => ({ isMetronomeOpen: !state.isMetronomeOpen })),
+  showTooltips: true,
+  setShowTooltips: () => set((state) => ({ showTooltips: !state.showTooltips })),
 }));
