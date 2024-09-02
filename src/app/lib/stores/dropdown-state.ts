@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type DropdownState = {
   tonicOpen: boolean;
@@ -80,11 +80,17 @@ export const useDropdownStore = create<DropdownState>((set, get) => ({
   },
   //
   closeAll: () => {
-    set({ tonicOpen: false, scaleOpen: false, instrumentOpen: false, timeSignatureOpen: false, tuningOpen: false });
+    set({
+      tonicOpen: false,
+      scaleOpen: false,
+      instrumentOpen: false,
+      timeSignatureOpen: false,
+      tuningOpen: false,
+    });
     get().unregisterClickOutsideListener();
   },
   handleClickOutside: (event: MouseEvent) => {
-    const dropdowns = document.querySelectorAll('.dropdown-container');
+    const dropdowns = document.querySelectorAll(".dropdown-container");
     let isClickInside = false;
     dropdowns.forEach((dropdown) => {
       if (dropdown.contains(event.target as Node)) {
@@ -96,10 +102,10 @@ export const useDropdownStore = create<DropdownState>((set, get) => ({
     }
   },
   registerClickOutsideListener: () => {
-    document.addEventListener('mousedown', get().handleClickOutside);
+    document.addEventListener("mousedown", get().handleClickOutside);
   },
   unregisterClickOutsideListener: () => {
-    document.removeEventListener('mousedown', get().handleClickOutside);
+    document.removeEventListener("mousedown", get().handleClickOutside);
   },
   setForcePlaceholder: (value: boolean) => set({ forcePlaceholder: value }),
 }));
