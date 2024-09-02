@@ -685,4 +685,20 @@ export const tuningData: readonly TuningProps[] = [
       { openNote: 2 },
     ],
   },
+  {
+    id: "8g7",
+    title: "9 String Standard Low",
+    instrumentTitle: "Guitar - 8 String",
+    stringQty: 8,
+    stringTunings: [
+      { openNote: 1 },
+      { openNote: 6 },
+      { openNote: 11 },
+      { openNote: 4 },
+      { openNote: 9 },
+      { openNote: 2 },
+      { openNote: 7 },
+      { openNote: 11 },
+    ],
+  },
 ] as const;

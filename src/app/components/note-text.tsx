@@ -4,9 +4,10 @@ import { useOrientationStore } from '@/lib/stores/orientation-state';
 
 type NoteTextProps = {
   displayedNote: string | undefined;
+  className: string;
 }
 
-const NoteText = ({ displayedNote }: NoteTextProps) => {
+const NoteText = ({ displayedNote, className }: NoteTextProps) => {
   const isLandscape = useOrientationStore((state) => state.isLandscape);
 
   return (

@@ -122,6 +122,7 @@ const Nav = () => {
             visibility: "visible",
           }
         )
+        .timeScale(2)
         .reverse();
     },
     { scope: container, dependencies: [tl], revertOnUpdate: true }
@@ -158,6 +159,7 @@ const Nav = () => {
             visibility: "visible",
           }
         )
+        .timeScale(2)
         .reverse();
     },
     { scope: container, dependencies: [infoTl], revertOnUpdate: true }
@@ -200,6 +202,7 @@ const Nav = () => {
             visibility: "visible",
           }
         )
+        .timeScale(2)
         .reverse();
     },
     { scope: container, dependencies: [metronomeTl], revertOnUpdate: true }
@@ -429,7 +432,7 @@ const Nav = () => {
                 onClick={() => setIsInfoOpen(!isInfoOpen)}
                 id="item"
               >
-                <span className="text-2xl -mt-0.5">&#8505;</span>
+                <span className="text-2xl -mt-0.5 no-bg">&#8505;</span>
               </ControlButton>
               <ControlButton variant="menu" onClick={setIsMenuOpen} id="item">
                 OK
@@ -515,7 +518,7 @@ const Nav = () => {
               className="-mt-0.5"
               id="metronome"
             />
-            <h2 className="font-semibold tracking-wide" id="metronome">
+            <h2 className="font-semibold tracking-wide text-white" id="metronome">
               Metronome
             </h2>
             <div
@@ -547,10 +550,10 @@ const Nav = () => {
               itemStyle="accordionItem"
               id="metronome"
             />
-            <p className="text-white" id="metronome">
+            <p className="text-white text-md" id="metronome">
               Sound & Visual Controls:
             </p>
-            <div className="flex flex-row -mt-2">
+            <div className="flex flex-row -mt-2 mb-2 gap-4">
               {/* sound type toggle */}
               <Tooltip
                 content="Change Metronome sound"

@@ -1,8 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import NoteText from "@/components/note-text";
-
 import { useNoteStore } from "@/lib/stores/note-state";
 import { useScalesStore } from "@/lib/stores/scales-state";
 
@@ -11,8 +10,17 @@ interface NoteTextDisplayProps {
 }
 
 const NoteTextDisplay = ({ stringIndex }: NoteTextDisplayProps) => {
-  const { noteNames, showSharp, intervalNames, showIntervals, stringNotes } = useNoteStore();
+  const { noteNames, showSharp, intervalNames, showIntervals, stringNotes } =
+    useNoteStore();
   const { selectedTonic, selectedScale } = useScalesStore();
+  const [isMac, setIsMac] = useState(false);
+
+  // check if user is on mac
+  useEffect(() => {
+    if (navigator.userAgent.includes("Mac")) {
+      setIsMac(true);
+    }
+  }, []);
 
   const stringState = stringNotes[stringIndex] || {
     currentIndex: 0,
@@ -20,15 +28,11 @@ const NoteTextDisplay = ({ stringIndex }: NoteTextDisplayProps) => {
   };
   const { currentIndex, openNoteId } = stringState;
 
-  const getIntervalIndex = useMemo(
-    () =>
-      (index: number): number | null => {
-        if (!showIntervals || !selectedTonic) return null;
-        const tonicIndex = selectedTonic.id;
-        return (index - tonicIndex + 12) % 12;
-      },
-    [showIntervals, selectedTonic]
-  );
+  const getIntervalIndex = (index: number): number | null => {
+    if (!showIntervals || !selectedTonic) return null;
+    const tonicIndex = selectedTonic.id;
+    return (index - tonicIndex + 12) % 12;
+  };
 
   //note & interval text display
   const getDisplayedNote = (index: number): string | undefined => {
@@ -54,7 +58,7 @@ const NoteTextDisplay = ({ stringIndex }: NoteTextDisplayProps) => {
     let baseStyle =
       "flex items-center justify-center w-8 h-8 text-white text-sm font-semibold ";
 
-    // Apply the base styles depending on the conditions
+    // Apply the base styles depending on conditions
     if (intervalIndex !== null && showIntervals) {
       const intervalColor = intervalNames[intervalIndex]?.color;
       baseStyle += ` ${intervalColor} rounded-full`;
@@ -92,10 +96,17 @@ const NoteTextDisplay = ({ stringIndex }: NoteTextDisplayProps) => {
         const displayedNote = getDisplayedNote(index);
         const cellStyle = getCellStyle(noteNames[index].id, offset);
         const scaleNoteOpacity = setScaleNotes(noteNames[index].id);
+        const onMac = isMac && !showIntervals;
+        const symbolSpacing = onMac ? "tracking-tighter" : "";
 
         return (
           <div key={offset} className={`${cellStyle} ${scaleNoteOpacity}`}>
-            {displayedNote ? <NoteText displayedNote={displayedNote} /> : null}
+            {displayedNote ? (
+              <NoteText
+                displayedNote={displayedNote}
+                className={symbolSpacing}
+              />
+            ) : null}
           </div>
         );
       })}
