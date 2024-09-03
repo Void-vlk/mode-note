@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import {
   NoteNameTextProps,
   noteNames,
@@ -77,7 +77,12 @@ export const useNoteStore = create<NoteState>()(
     }),
     {
       name: "note-storage",
-      partialize: (state) => ({ showSharp: state.showSharp }),
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        showSharp: state.showSharp,
+        stringNotes: state.stringNotes,
+        noteNames: state.noteNames,
+      }),
     }
   )
 );

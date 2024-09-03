@@ -296,16 +296,17 @@ const Nav = () => {
       {/* Main Settings Menu */}
       <div
         id="bg-overlay"
-        className="fixed inset-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transform -translate-y-full z-[70] overflow-auto"
+        className="fixed inset-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transform z-[70] overflow-auto"
       >
-        <ControlButton
-          onClick={setIsMenuOpen}
-          className="w-6 h-6 text-gray-500 hover:text-gray-300 right-4 top-3 absolute cursor-pointer z-[90]"
-          id="item"
-        >
-          <span className="text-4xl">&times;</span>
-        </ControlButton>
-
+        <div className="flex absolute w-[97%] h-16 m-0 inset-0 justify-end">
+          <ControlButton
+            onClick={setIsMenuOpen}
+            className="relative w-6 h-6 text-gray-500 hover:text-gray-300 left-4 top-4 text-4xl cursor-pointer z-[90]"
+            id="item"
+          >
+            &times;
+          </ControlButton>
+        </div>
         <div className="flex flex-col h-full w-full mx-auto text-center items-center justify-start gap-4 z-[80]">
           {/* <div className="item flex text-3xl lg:text-4xl font-bold text-gray-500 mt-2"><TbGuitarPick /></div> */}
           <Image
@@ -483,7 +484,7 @@ const Nav = () => {
             </p>
             <ControlButton
               onClick={() => setIsInfoOpen(!isInfoOpen)}
-              className="flex mt-2 text-gray-800 text-md bg-gray-300 hover:bg-green-600 hover:text-white hover:scale-105 rounded-lg px-2 font-bold z-50"
+              className="flex mt-2 text-gray-800 text-md bg-gray-300 hover:bg-green-600 hover:text-white hover:scale-110 rounded-lg px-2 font-bold z-50"
               id="info"
             >
               OK, LET&#39;S GO!
@@ -518,7 +519,10 @@ const Nav = () => {
               className="-mt-0.5"
               id="metronome"
             />
-            <h2 className="font-semibold tracking-wide text-white" id="metronome">
+            <h2
+              className="font-semibold tracking-wide text-white"
+              id="metronome"
+            >
               Metronome
             </h2>
             <div

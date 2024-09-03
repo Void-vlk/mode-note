@@ -14,7 +14,8 @@ export interface InstrumentState {
 export const useInstrumentStore = create<InstrumentState>()(
   persist(
     (set, get) => ({
-      selectedInstrument: instrumentData[5], // Default to 8 string
+      selectedInstrument: get()?.selectedInstrument || instrumentData[5],
+      // Default instrument to 8 string
       stringIndex: 0,
 
       setSelectedInstrument: (instrumentId: string) => {
@@ -25,7 +26,8 @@ export const useInstrumentStore = create<InstrumentState>()(
         const tuningStore = useTuningStore.getState();
         const defaultTuning = tuningStore.selectedTuning;
         const noteStore = useNoteStore.getState();
-        //reset to default tuning when switching instrument
+
+        //set to instrument's default tuning when switching instrument
         defaultTuning.stringTunings.forEach((tuning, index) => {
           noteStore.setOpenNote(index, tuning.openNote);
         });

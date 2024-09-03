@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 interface NavState {
   isMenuOpen: boolean;
@@ -24,6 +24,7 @@ export const useNavStore = create<NavState>()(
     }),
     {
       name: "tooltip-storage",
+      storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ showTooltips: state.showTooltips }),
     }
   )

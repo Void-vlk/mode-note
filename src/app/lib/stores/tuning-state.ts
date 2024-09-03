@@ -44,6 +44,9 @@ export const useTuningStore = create<TuningState>()(
     {
       name: "tuning-storage",
       storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        selectedTuning: state.selectedTuning,
+      }),
     }
   )
 );
