@@ -263,8 +263,8 @@ export const tuningData: readonly TuningProps[] = [
     stringTunings: [
       { openNote: 2 },
       { openNote: 9 },
-      { openNote: 7 },
       { openNote: 2 },
+      { openNote: 7 },
       { openNote: 9 },
       { openNote: 2 },
     ],
