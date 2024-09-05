@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 import { instrumentData } from "@/lib/data/instrument-data";
 import { scalesData } from "@/lib/data/scales-data";
@@ -60,12 +60,12 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
     tonicOpen,
     toggleTonicOpen,
     closeAll,
-    forcePlaceholder,
-    setForcePlaceholder,
     tuningOpen,
     toggleTuningOpen,
     timeSignatureOpen,
     toggleTimeSignatureOpen,
+    headerText,
+    setHeaderText,
   } = useDropdownStore();
   const { selectedScale, setSelectedScale, selectedTonic, setSelectedTonic } =
     useScalesStore();
@@ -76,6 +76,14 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
     useMetronomeStore();
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const placeholderText: Record<DropdownVariant, string> = {
+    instrument: "Select an Instrument",
+    scale: "Select a Scale",
+    tonic: "Select Tonic Note",
+    timeSignature: "Select a Time Signature",
+    tuning: "Select a Tuning",
+  };
 
   const dropdownMaps = {
     instrument: {
@@ -90,8 +98,8 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
       toggleDropdown: toggleInstrumentOpen,
       handleItemClick: (id: string) => {
         setSelectedInstrument(id);
+        setHeaderText("instrument", selectedInstrument.title);
         closeAll();
-        setForcePlaceholder(false); // instrument has default so force placeholder until user chooses
       },
     },
     scale: {
@@ -101,8 +109,9 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
         : null,
       isOpen: scaleOpen,
       toggleDropdown: toggleScaleOpen,
-      handleItemClick: (id: number) => {
+      handleItemClick: (id: number, title: string) => {
         setSelectedScale(id);
+        setHeaderText("scale", title);
         closeAll();
       },
     },
@@ -129,8 +138,9 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
         : null,
       isOpen: tonicOpen,
       toggleDropdown: toggleTonicOpen,
-      handleItemClick: (id: number) => {
+      handleItemClick: (id: number, title: string) => {
         setSelectedTonic(id);
+        setHeaderText("tonic", title);
         closeAll();
       },
     },
@@ -146,6 +156,7 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
       toggleDropdown: toggleTimeSignatureOpen,
       handleItemClick: (id: number) => {
         setSelectedTimeSignature(id);
+        setHeaderText("timeSignature", selectedTimeSignature.title);
         closeAll();
       },
     },
@@ -162,6 +173,7 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
       toggleDropdown: toggleTuningOpen,
       handleItemClick: (id: string) => {
         setSelectedTuning(id);
+        setHeaderText("tuning", selectedTuning.title);
         closeAll();
       },
     },
@@ -169,21 +181,6 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
 
   const { items, selectedItem, isOpen, toggleDropdown, handleItemClick } =
     dropdownMaps[variant];
-
-  type PlaceholderText = {
-    instrument: string;
-    scale: string;
-    tonic: string;
-    timeSignature: string;
-    tuning: string;
-  };
-  const placeholderText: PlaceholderText = {
-    instrument: "Select an Instrument",
-    scale: "Select a Scale",
-    tonic: "Select Tonic Note",
-    timeSignature: "Select a Time Signature",
-    tuning: "Select a Tuning",
-  };
 
   //if accordion variant use accordion styling & dont use dropdown styling
   const dropdownFormat = `${
@@ -194,17 +191,11 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
     buttonStyle === "accordion" ? dropdownStyles.menu : dropdownStyles[variant]
   }`;
 
-  const headerText = () => {
-    // Show placeholder if forcePlaceholder is true or no item is selected
-    // return (variant === 'instrument' ? forcePlaceholder : !selectedItem)
-    return forcePlaceholder || !selectedItem
-      ? placeholderText[variant]
-      : selectedItem!.title;
-  };
+  const displayHeaderText = selectedItem?.title || placeholderText[variant];
 
   const addAccordionContent = () => (
     <div className="flex justify-between items-center w-full">
-      <span className="flex px-4">{headerText()}</span>
+      <span className="flex px-4">{displayHeaderText}</span>
       {isOpen ? (
         <FaChevronUp className="transform transition-transform duration-200 h-3 w-3 text-gray-300 mr-2" />
       ) : (
@@ -214,11 +205,11 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
   );
 
   const headerContent = () => {
-    return buttonStyle === "accordion" ? addAccordionContent() : headerText();
+    return buttonStyle === "accordion" ? addAccordionContent() : displayHeaderText;
   };
 
   return (
-    <div className="relative dropdown-container w-full" id={id}>
+    <div className="relative dropdown-container w-full select-none" id={id}>
       <div>
         <ControlButton onClick={toggleDropdown} variant={buttonStyle}>
           {headerContent()}
@@ -228,7 +219,7 @@ const Dropdown = ({ variant, buttonStyle, itemStyle, id }: DropdownProps) => {
             {items.map((item) => (
               <ControlButton
                 key={item.id}
-                onClick={() => handleItemClick(item.id as never)}
+                onClick={() => handleItemClick(item.id as never, item.title)}
                 variant={itemStyle}
               >
                 {item.title}

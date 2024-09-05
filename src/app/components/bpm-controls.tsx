@@ -31,7 +31,7 @@ const BpmControls = ({ bpm, setBpm, id }: BpmControlsProps) => {
       className="flex flex-col items-center justify-center w-full text-sm"
       id={id}
     >
-      <span className="flex flex-row text-lg text-white w-full justify-center items-center">
+      <span className="flex flex-row text-lg text-white w-full justify-center items-center select-none">
         {bpm} bpm
       </span>
       <div className="flex flex-row items-center justify-center gap-1">

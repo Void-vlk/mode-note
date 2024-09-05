@@ -11,12 +11,19 @@ interface SwitchProps {
   className?: string;
 }
 
-const Switch = ({ isActive, onClick, children, id, disabled, className }: SwitchProps) => {
+const Switch = ({
+  isActive,
+  onClick,
+  children,
+  id,
+  disabled,
+  className,
+}: SwitchProps) => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const isDisabled = disabled && isMobile;
   const switchClass = `relative flex flex-shrink-0 justify-center items-center w-12 h-6 rounded-full bg-transparent border-2 border-gray-300 group hover:border-gray-100 text-gray-400 hover:text-gray-100 hover:bg-gray-900 cursor-pointer ${
     isDisabled ? "cursor-not-allowed opacity-30" : "cursor-pointer"
-  }`;
+  } transition-transform duration-300 select-none`;
 
   return (
     <div

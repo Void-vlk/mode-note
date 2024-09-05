@@ -45,9 +45,9 @@ const CurrentTuning = () => {
 
   return (
     <div className="flex flex-col mb-0 px-2 w-56">
-      <span className="text-sm text-gray-400">Current Tuning:</span>
+      <span className="text-sm text-gray-400 select-none">Current Tuning:</span>
       <span className="tracking-normal">{noteNameList}</span>
-      <div className="bg-gray-400 h-0.5 w-full mt-1"></div>
+      <div className="bg-gray-400 h-0.5 w-full"></div>
     </div>
   );
 };

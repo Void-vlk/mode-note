@@ -7,12 +7,13 @@ import { useNoteStore } from "@/lib/stores/note-state";
 export interface TuningState {
   selectedTuning: TuningProps;
   setSelectedTuning: (tuningId: string) => void;
+  resetTuning:() => void;
 }
 
 export const useTuningStore = create<TuningState>()(
   persist(
     (set, get) => ({
-      selectedTuning: get()?.selectedTuning ?? tuningData[41],
+      selectedTuning: tuningData[41], //default: standard 8 string tuning
 
       setSelectedTuning: (tuningId: string) => {
         const selectedInstrument =
@@ -39,6 +40,19 @@ export const useTuningStore = create<TuningState>()(
         get().selectedTuning?.stringTunings.forEach((tuning, index) => {
           noteStore.setOpenNote(index, tuning.openNote);
         });
+      },
+      resetTuning: () => {
+        const selectedInstrument = useInstrumentStore.getState().selectedInstrument;
+        const defaultTuning = tuningData.find(
+          (tuning) => tuning.instrumentTitle === selectedInstrument.title
+        );
+        if (defaultTuning) {
+          set({ selectedTuning: defaultTuning });
+          const noteStore = useNoteStore.getState();
+          defaultTuning.stringTunings.forEach((tuning, index) => {
+            noteStore.setOpenNote(index, tuning.openNote);
+          });
+        }
       },
     }),
     {

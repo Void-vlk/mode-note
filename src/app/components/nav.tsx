@@ -9,6 +9,7 @@ import { useNoteStore } from "@/lib/stores/note-state";
 import { useOrientationStore } from "@/lib/stores/orientation-state";
 import { useInstrumentStore } from "@/lib/stores/instrument-state";
 import { useScalesStore } from "@/lib/stores/scales-state";
+import { useTuningStore } from "@/lib/stores/tuning-state";
 
 import { MdSettingsInputComponent } from "react-icons/md";
 import { GiGuitarHead, GiGuitarBassHead } from "react-icons/gi";
@@ -62,6 +63,7 @@ const Nav = () => {
   const { isLandscape, toggleOrientation } = useOrientationStore();
   const { selectedInstrument } = useInstrumentStore();
   const { resetSelection } = useScalesStore();
+  const { resetTuning } = useTuningStore();
   const {
     bpm,
     setBpm,
@@ -223,6 +225,7 @@ const Nav = () => {
     resetSelection();
     resetSharps();
     resetIntervals();
+    resetTuning();
   };
 
   return (
@@ -232,7 +235,7 @@ const Nav = () => {
     >
       {/* Header Nav */}
       <div className="w-full pb-2 gap-1">
-        <div className="flex justify-between items-center text-center px-4">
+        <div className="flex justify-between items-center text-center px-4 select-none">
           <ControlButton
             onClick={setIsMenuOpen}
             className="w-6 h-6 text-gray-500 hover:text-gray-800 cursor-pointer text-2xl mt-2 z-[90]"
@@ -244,7 +247,7 @@ const Nav = () => {
             alt="mode note logo"
             width={100}
             height={40}
-            className="mt-1"
+            className="mt-1 select-none"
             id="navbar"
           />
           <div
@@ -280,7 +283,10 @@ const Nav = () => {
                 id="navbar"
               />
             </Tooltip>
-            <div id="navbar" className="font-bold text-xs text-gray-500">
+            <div
+              id="navbar"
+              className="font-bold text-xs text-gray-500 select-none"
+            >
               {bpm} bpm
             </div>
 
@@ -301,13 +307,13 @@ const Nav = () => {
         <div className="flex absolute w-[97%] h-16 m-0 inset-0 justify-end">
           <ControlButton
             onClick={setIsMenuOpen}
-            className="relative w-6 h-6 text-gray-500 hover:text-gray-300 left-4 top-4 text-4xl cursor-pointer z-[90]"
+            className="relative select-none w-6 h-6 text-gray-500 hover:text-gray-300 left-4 top-4 text-4xl cursor-pointer z-[90]"
             id="item"
           >
             &times;
           </ControlButton>
         </div>
-        <div className="flex flex-col h-full w-full mx-auto text-center items-center justify-start gap-4 z-[80]">
+        <div className="flex flex-col h-full w-full mx-auto text-center items-center justify-start gap-4 z-[80] select-none">
           {/* <div className="item flex text-3xl lg:text-4xl font-bold text-gray-500 mt-2"><TbGuitarPick /></div> */}
           <Image
             priority
@@ -338,7 +344,10 @@ const Nav = () => {
               className="flex flex-col text-center items-center border-2 border-gray-200 rounded-lg bg-gray-800 gap-2 w-full py-1"
             >
               <CurrentTuning />
-              <span id="item" className="text-gray-100 text-sm my-0 -mb-1">
+              <span
+                id="item"
+                className="text-gray-100 text-sm my-0 -mb-1 select-none"
+              >
                 Tune all strings up/down:
               </span>
               <TuneAll tunerStyle="tunersMenu" id="item" />
@@ -400,12 +409,16 @@ const Nav = () => {
                   <Switch
                     isActive={showTooltips}
                     onClick={setShowTooltips}
-                    id="toggle-tooltips"
+                    id="item"
                   >
                     {showTooltips ? (
-                      <span className="text-[0.5rem]">ON</span>
+                      <span className="select-none text-[0.5rem] transition-transform duration-300">
+                        ON
+                      </span>
                     ) : (
-                      <span className="text-[0.5rem]">OFF</span>
+                      <span className="select-none text-[0.5rem] transition-transform duration-300">
+                        OFF
+                      </span>
                     )}
                   </Switch>
                 </Tooltip>
@@ -444,10 +457,10 @@ const Nav = () => {
         {/* Info menu */}
         <div
           id="info-overlay"
-          className="invisible fixed inset-0 flex items-center justify-center w-full bg-gray-900 bg-opacity-80 z-[150]"
+          className="invisible fixed inset-0 flex items-center justify-center w-full bg-gray-900 bg-opacity-80 z-[150] select-none"
         >
           <div
-            className="flex flex-col justify-center items-center my-16 w-80 rounded-2xl text-white text-sm p-4 gap-2 border-2 bg-gray-900 z-[200]"
+            className="flex flex-col justify-center items-center my-16 w-80 rounded-2xl text-white text-sm p-4 gap-2 border-2 bg-gray-900 z-[200] select-none"
             id="info"
           >
             <Image
@@ -498,19 +511,21 @@ const Nav = () => {
         id="bg-metronome"
         className="invisible fixed inset-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transform -translate-y-full z-[70] overflow-auto"
       >
-        <ControlButton
-          onClick={setIsMetronomeOpen}
-          className="w-6 h-6 text-gray-500 hover:text-gray-300 right-4 top-3 absolute cursor-pointer z-[90]"
-          id="metronome"
-        >
-          <span className="text-4xl">&times;</span>
-        </ControlButton>
+        <div className="flex absolute w-[97%] h-16 m-0 inset-0 justify-end">
+          <ControlButton
+            onClick={setIsMenuOpen}
+            className="relative select-none w-6 h-6 text-gray-500 hover:text-gray-300 left-4 top-4 text-4xl cursor-pointer z-[90]"
+            id="item"
+          >
+            &times;
+          </ControlButton>
+        </div>
 
         <div
           className="flex flex-col h-full w-full mx-auto text-center items-center justify-start z-[80]"
           id="metronome"
         >
-          <div className="flex flex-col w-80 pb-8 px-16 items-center justify-center rounded-b-lg border-2 border-t-0 gap-2 bg-gray-800 bg-opacity-90">
+          <div className="flex flex-col w-80 pb-8 px-16 items-center justify-center rounded-b-lg border-2 border-t-0 gap-2 bg-gray-800 bg-opacity-90 select-none">
             <Image
               src="/mode-note-white.png"
               alt="mode note logo"

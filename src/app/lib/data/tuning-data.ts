@@ -263,8 +263,8 @@ export const tuningData: readonly TuningProps[] = [
     stringTunings: [
       { openNote: 2 },
       { openNote: 9 },
-      { openNote: 7 },
       { openNote: 2 },
+      { openNote: 7 },
       { openNote: 9 },
       { openNote: 2 },
     ],
@@ -286,7 +286,7 @@ export const tuningData: readonly TuningProps[] = [
   //Guitar VI
   {
     id: "6g0",
-    title: "Standard",
+    title: "Standard Tuning",
     instrumentTitle: "Guitar - 6 String",
     stringQty: 6,
     stringTunings: [
@@ -376,8 +376,8 @@ export const tuningData: readonly TuningProps[] = [
     stringTunings: [
       { openNote: 2 },
       { openNote: 9 },
-      { openNote: 7 },
       { openNote: 2 },
+      { openNote: 7 },
       { openNote: 9 },
       { openNote: 2 },
     ],
@@ -572,6 +572,21 @@ export const tuningData: readonly TuningProps[] = [
       { openNote: 11 },
     ],
   },
+  {
+    id: "7g7",
+    title: "ADADGAD",
+    instrumentTitle: "Guitar - 6 String",
+    stringQty: 6,
+    stringTunings: [
+      { openNote: 9 },
+      { openNote: 2 },
+      { openNote: 9 },
+      { openNote: 2 },
+      { openNote: 7 },
+      { openNote: 9 },
+      { openNote: 2 },
+    ],
+  },
   //Guitar VIII
   {
     id: "8g0",
@@ -677,10 +692,10 @@ export const tuningData: readonly TuningProps[] = [
     stringTunings: [
       { openNote: 2 },
       { openNote: 9 },
-      { openNote: 7 },
+      { openNote: 2 },
       { openNote: 2 },
       { openNote: 9 },
-      { openNote: 2 },
+      { openNote: 7 },
       { openNote: 9 },
       { openNote: 2 },
     ],

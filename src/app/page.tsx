@@ -23,13 +23,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <Nav />
-      <div
-        className={`transition-transform duration-300 mb-8 flex justify-center items-center w-full ${
-          isLandscape ? "h-screen -rotate-90" : "h-full rotate-0"
-        }`}
-      >
-        <InstrumentFretboard />
+        <Nav />
+        <div
+          className={`transition-transform duration-300 mb-8 flex justify-center items-center w-full ${
+            isLandscape ? "h-screen -rotate-90" : "h-full rotate-0"
+            }`}
+          >
+            <InstrumentFretboard />
       </div>
     </main>
   );
