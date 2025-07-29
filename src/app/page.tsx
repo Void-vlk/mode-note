@@ -1,50 +1,63 @@
 "use client";
 
-import { useEffect } from "react";
-import { useOrientationStore } from "@/lib/stores/orientation-state";
-import { useNavStore } from "@/lib/stores/nav-state";
+import { useRef } from "react";
+import { SwitchTransition, Transition } from "react-transition-group";
+import { useNavStore } from "@/hooks/useNavStore";
+import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import SetupWizardStage from "@/components/settings/SetupStage";
+import Instrument from "@/components/instrument/Instrument";
+import { twJoin } from "tailwind-merge";
+import MetronomeMenu from "@/components/metronome/MetronomeMenu";
 
-import Nav from "@/components/nav";
-import InstrumentFretboard from "@/components/instrument-fretboard";
+// const Instrument = lazy(() => import("@/components/Instrument")); lazy,
 
 export default function Home() {
-  const { isLandscape, isOnMobile, setIsOnMobile } = useOrientationStore();
-  const { isMenuOpen, isMetronomeOpen } = useNavStore();
+  const hasHydrated = useNavStore((s) => s.hasHydrated);
+  const hasDoneSetup = useNavStore((s) => s.hasDoneSetup);
+  const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
+  const instrument = useInstrumentStore((s) => s.instrument);
+  const stringQty = useInstrumentStore((s) => s.stringQty);
+  const container = useRef<HTMLDivElement>(null);
 
-  //scroll lock when menus open / in landscape mode
-  useEffect(() => {
-    const body = document.body;
-    if (isMenuOpen || isMetronomeOpen || isLandscape) {
-      body.classList.add("no-scroll");
-    } else {
-      body.classList.remove("no-scroll");
-    }
-  }, [isMenuOpen, isMetronomeOpen, isLandscape]);
+  const transitionKey = hasDoneSetup ? `${instrument}-${stringQty}` : "setup";
 
-  // Detect mobile screen size & turn text/icons
-  useEffect(() => {
-    const handleResize = () => {
-      setIsOnMobile(window.innerWidth <= 768);
-    };
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [setIsOnMobile]);
+  if (!hasHydrated) {
+    return null;
+  }
 
   return (
-    <main className="min-h-screen">
-      <Nav />
-      <div
-        className={`transition-transform duration-300 mb-8 flex justify-center items-center w-full ${
-          isLandscape ? "h-screen -rotate-90" : "h-full rotate-0"
-        }`}
-      >
-        <InstrumentFretboard />
-      </div>
+    <main
+      className={twJoin(
+        "size-full min-h-screen flex items-center ease-in-out transition-all will-change-transform duration-300 overflow-x-auto custom-scrollbar",
+        isSidebarOpen ? "ml-72 xl:ml-80" : "ml-0"
+      )}
+    >
+      <SwitchTransition>
+        <Transition
+          key={transitionKey}
+          timeout={{ enter: 0, exit: 300 }}
+          appear={true}
+          nodeRef={container}
+        >
+          {() => (
+            <div
+              className={twJoin(
+                "w-full items-center flex",
+                isSidebarOpen ? "" : "lg:justify-center"
+              )}
+              ref={container}
+            >
+              {hasDoneSetup ? (
+                <Instrument key={instrument} show={true} />
+              ) : (
+                <SetupWizardStage />
+              )}
+            </div>
+          )}
+        </Transition>
+      </SwitchTransition>
+
+      <MetronomeMenu />
     </main>
   );
 }
