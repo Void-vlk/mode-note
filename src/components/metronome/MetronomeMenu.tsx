@@ -1,8 +1,8 @@
 "use client";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+// import { useGSAP } from "@gsap/react";
+// import gsap from "gsap";
 import { type FC, useRef } from "react";
-import { twJoin } from "tailwind-merge";
+// import { twJoin } from "tailwind-merge";
 import { useNavStore } from "@/hooks/useNavStore";
 import { Transition } from "react-transition-group";
 
