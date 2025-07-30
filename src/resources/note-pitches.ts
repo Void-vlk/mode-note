@@ -1,4 +1,5 @@
-import { NotePitch, NoteVariant } from "@/resources/types";
+import type { NoteVariant } from "@/resources/types";
+import type { NotePitch } from "@/resources/themes";
 
 export const NOTE_PITCHES: Record<NotePitch, NoteVariant> = {
   0: { natural: "C" },

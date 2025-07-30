@@ -1,4 +1,4 @@
-import { OptionValue } from "@/resources/types";
+import type { OptionValue } from "@/resources/themes";
 import { type FC } from "react";
 import { twMerge } from "tailwind-merge";
 

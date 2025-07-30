@@ -1,4 +1,4 @@
-import { NotePitch, StringQty } from "@/resources/themes";
+import type { NotePitch, StringQty } from "@/resources/themes";
 
 export type WizardStage = (typeof WIZARD_STAGES)[number];
 export const WIZARD_STAGES = [

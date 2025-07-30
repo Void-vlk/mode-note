@@ -1,5 +1,6 @@
 import { INTERVALS, NOTE_PITCHES } from "@/resources/note-pitches";
-import { NotePitch, NoteVariant } from "@/resources/types";
+import type { NotePitch } from "@/resources/themes";
+import type { NoteVariant } from "@/resources/types";
 
 // handle sharps/flats for NoteName
 export const getNoteName = (
@@ -44,15 +45,3 @@ export const getTonicNotes = (isSharp: boolean) =>
 
 export const getIntervalNames = (isSharp: boolean) =>
   getNoteDisplay(INTERVALS, isSharp);
-
-// Get all tonic notes
-// export const getTonicNotes = (
-//   isSharp: boolean
-// ): { pitch: NotePitch; name: string }[] =>
-//   Object.entries(NOTE_PITCHES).map(([pitch]) => {
-//     const pitchValue = parseInt(pitch, 10) as NotePitch;
-//     return {
-//       pitch: pitchValue,
-//       name: getNoteName(pitchValue, isSharp),
-//     };
-//   });
