@@ -1,7 +1,7 @@
 "use client";
 import { Diamond, TriangleRight } from "lucide-react";
 import { type FC } from "react";
-import { twMerge } from "tailwind-merge";
+import { twJoin, twMerge } from "tailwind-merge";
 
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
@@ -53,7 +53,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
         )}
         contentHeader="String Quantity"
       />
-      <section className="flex">
+      <section className={twJoin("flex", isInSetup && "justify-center")}>
         <ContentToggle
           isChecked={fretQuantity === 24}
           onChange={() => setFretQuantity(fretQuantity === 24 ? 21 : 24)}

@@ -373,3 +373,8 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
     8: [],
   },
 };
+
+export const STRING_QTY_OPTIONS: Record<Instruments, StringQty[]> = {
+  [Instruments.Guitar]: [6, 7, 8],
+  [Instruments.Bass]: [4, 5, 6],
+};
