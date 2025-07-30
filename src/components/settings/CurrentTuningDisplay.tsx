@@ -1,7 +1,7 @@
 "use client";
 import { type FC, useMemo } from "react";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { NotePitch } from "@/resources/types";
+import type { NotePitch } from "@/resources/themes";
 import { getNoteName } from "@/hooks/getNoteValues";
 
 const CurrentTuningDisplay: FC = () => {

@@ -1,5 +1,6 @@
 import { INTERVALS, NOTE_PITCHES } from "@/resources/note-pitches";
-import { NotePitch, NoteVariant } from "@/resources/types";
+import type { NoteVariant } from "@/resources/types";
+import type { NotePitch } from "@/resources/themes";
 
 // handle sharps/flats for NoteName
 export const getNoteName = (
