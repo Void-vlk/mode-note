@@ -33,7 +33,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
         onChange={toggleSharpFlat}
         iconLeft="♭"
         iconRight="♯"
-        className={twMerge(isInSetup ? "mx-auto mb-2" : "ml-3 mt-0.5")}
+        className={twMerge(isInSetup ? "mx-auto mb-2" : "ml-3 mt-px")}
       />
       <MenuSelectionList
         canDeselect={true}
@@ -43,7 +43,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
           checked: scale.tonicNote === pitch,
           onSelect: () => handleTonicSelect(pitch),
         }))}
-        className={twJoin(isInSetup && "grid-cols-4")}
+        className={twJoin(isInSetup && "grid-cols-4 -mt-3")}
       />
     </>
   );

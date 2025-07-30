@@ -43,8 +43,8 @@ const WizardSetupStage: FC = () => {
     "min-w-24 border hover:text-white text-white/80 py-1 px-6 rounded-md cursor-pointer text-sm";
 
   return (
-    <main className="h-full w-full overflow-hidden justify-start items-center flex flex-col px-4 sm:px-10 mt-16 sm:mt-28">
-      <section className="lg:min-w-1/2 max-w-lg w-full rounded-lg bg-white/10 border pt-6 text-center space-y-2">
+    <main className="h-full w-full overflow-hidden justify-center items-center flex flex-col px-4 sm:px-10">
+      <section className="lg:min-w-1/2 max-w-lg w-full rounded-lg bg-white/10 border pt-6 text-center space-y-1">
         <h2 className="text-center text-3xl text-white">
           Welcome to Mode Note!
         </h2>
@@ -82,14 +82,14 @@ const WizardSetupStage: FC = () => {
                   )}
                   {wizardStage === "scale" && (
                     <section className="flex flex-col">
-                      <p className="text-sm mb-1">Choose a scale:</p>
+                      <p className="text-sm">Choose a scale:</p>
                       <ScalesChoice isInSetup={true} />
-                      <p className="text-sm mb-1">Choose a tonic note:</p>
+                      <p className="text-sm">Choose a tonic note:</p>
                       <TonicChoice isInSetup={true} />
                     </section>
                   )}
 
-                  <div className="flex w-full justify-between sm:px-8 items-center pt-8">
+                  <div className="flex w-full justify-between sm:px-8 items-center pt-4">
                     <button
                       className={twMerge(
                         BUTTON_CLASSES,
