@@ -1,10 +1,11 @@
 "use client";
 import type { FC } from "react";
-import type { NoteDisplay, NotePitch } from "@/resources/types";
+import type { NoteDisplay } from "@/resources/types";
 import { twJoin } from "tailwind-merge";
 import { getIntervalName, getNoteName } from "@/hooks/getNoteValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { useThemeStore } from "@/hooks/useThemeStore";
+import { NotePitch } from "@/resources/themes";
 
 type Props = {
   notePitchValue: NotePitch;

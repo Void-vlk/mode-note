@@ -1,14 +1,8 @@
 "use client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import {
-  NoteDisplay,
-  type NotePitch,
-  type StringQty,
-  DEFAULT_STRINGS,
-  type FretQuantity,
-  Instrument,
-} from "@/resources/types";
+import { NoteDisplay, DEFAULT_STRINGS, Instruments } from "@/resources/types";
+import type { FretQuantity, NotePitch, StringQty } from "@/resources/themes";
 import { defaultTuning } from "@/hooks/getInstrumentValues";
 
 export type Scale = {
@@ -17,13 +11,13 @@ export type Scale = {
 };
 
 type CustomTunings = {
-  [K in Instrument]?: {
+  [K in Instruments]?: {
     [S in StringQty]?: NotePitch[];
   };
 };
 
 export type InstrumentState = {
-  instrument: Instrument;
+  instrument: Instruments;
   stringQty: StringQty;
   currentTuning: NotePitch[];
   scale: Scale;
@@ -33,7 +27,7 @@ export type InstrumentState = {
   fretQuantity: FretQuantity;
   customTunings: CustomTunings;
 
-  setInstrument: (instrument: Instrument) => void;
+  setInstrument: (instrument: Instruments) => void;
   setStringQty: (stringQty: StringQty) => void;
   setTuning: (tuning: NotePitch[]) => void;
   setScale: (scale: Scale) => void;
@@ -48,8 +42,8 @@ export type InstrumentState = {
 export const useInstrumentStore = create<InstrumentState>()(
   persist(
     (set, get) => ({
-      instrument: Instrument.Guitar,
-      stringQty: DEFAULT_STRINGS[Instrument.Guitar],
+      instrument: Instruments.Guitar,
+      stringQty: DEFAULT_STRINGS[Instruments.Guitar],
       currentTuning: [4, 9, 2, 7, 11, 4],
       scale: {
         tonicNote: null,
@@ -61,7 +55,7 @@ export const useInstrumentStore = create<InstrumentState>()(
       fretQuantity: 24,
       customTunings: {},
 
-      setInstrument: (instrument: Instrument) =>
+      setInstrument: (instrument: Instruments) =>
         set(() => {
           const stringQty = DEFAULT_STRINGS[instrument];
           return {

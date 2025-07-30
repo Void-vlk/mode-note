@@ -6,7 +6,7 @@ import {
   // APP_THEMES,
   FRETBOARD_THEMES,
   NOTE_THEMES,
-} from "@/resources/types";
+} from "@/resources/themes";
 
 import { useThemeStore } from "@/hooks/useThemeStore";
 

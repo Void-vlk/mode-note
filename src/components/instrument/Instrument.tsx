@@ -5,8 +5,8 @@ import { type FC, useMemo, useRef } from "react";
 // import gsap from "gsap";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import String from "@/components/instrument/String";
-import { NotePitch } from "@/resources/types";
-import { SCALES } from "@/resources/scales";
+import { NotePitch } from "@/resources/themes";
+import { Scales, SCALES } from "@/resources/scales";
 import Fretboard from "@/components/instrument/Fretboard";
 import { twJoin } from "tailwind-merge";
 
@@ -20,7 +20,7 @@ const Instrument: FC<Props> = ({}) => {
 
   const isNoteInScale = useMemo(() => {
     // get scale pattern intervals
-    const scalePattern = SCALES.find((s) => s.id === scale.scalePattern);
+    const scalePattern = SCALES[scale.scalePattern as Scales];
     if (!scalePattern) return () => false;
 
     // transpose pattern to chosen tonic note
@@ -38,7 +38,7 @@ const Instrument: FC<Props> = ({}) => {
     <div
       ref={container}
       className={twJoin(
-        "relative grid w-full min-w-4xl md:w-5xl",
+        "relative grid w-full min-w-4xl md:w-5xl xl:-ml-8",
         fretQuantity === 24 ? "lg:w-6xl xl:w-7xl" : "lg:w-5xl xl:w-6xl"
       )}
     >

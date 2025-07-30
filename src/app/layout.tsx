@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import MetronomeMenu from "@/components/metronome/MetronomeMenu";
 import Sidebar from "@/components/settings/Sidebar";
 import Nav from "@/components/settings/Nav";
 
@@ -30,6 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
         <Sidebar />
+        <MetronomeMenu />
         <Nav />
         {children}
       </body>

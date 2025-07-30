@@ -21,6 +21,7 @@ const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
   const setCustomTuning = useInstrumentStore((s) => s.setCustomTuning);
 
   const tuningPresets = getInstrumentTunings(instrument, stringQty);
+  
   const tuningIsMatching = tuningPresets.some((tuningOption) =>
     isTuningMatching(currentTuning, tuningOption)
   );

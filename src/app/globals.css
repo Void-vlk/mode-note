@@ -17,8 +17,9 @@
   --color-grey-mid: #969696;
   --color-grey-light: #acacac;
   --color-white: #efefef;
-
-  --color-amber: #f59e42;
+  --color-black-80: #000000cc; /* 80% opacity */
+  --color-black-70: #000000b3; /* 70% opacity */
+  --color-grey-dark-80: #616161cc /* 80% opacity */ --color-amber: #f59e42;
   --color-blue: #0284c7;
   --color-emerald: #059669;
   --color-fuchsia: #c026d3;
@@ -48,6 +49,8 @@
   --string-colour: var(--color-gold);
   --note-colour: var(--color-green);
   --tonic-colour: var(--color-fuchsia);
+  --headstock-bg: var(--color-black-70);
+  --nut-colour: var(--color-black);
   --background: #2f2f2f;
   --foreground: #efefef;
 }
@@ -64,6 +67,24 @@ html[data-fretboard="ebony"] {
 }
 html[data-fretboard="pale"] {
   --fretboard-colour: var(--color-white);
+}
+
+/* nut and headstock colour */
+html[data-headstock="rosewood"] {
+  --headstock-bg: var(--color-black-70);
+  --nut-colour: var(--color-black);
+}
+html[data-headstock="maple"] {
+  --headstock-bg: var(--color-rosewood);
+  --nut-colour: var(--color-black);
+}
+html[data-headstock="ebony"] {
+  --headstock-bg: var(--color-grey-dark-80);
+  --nut-colour: var(--color-grey-dark);
+}
+html[data-headstock="pale"] {
+  --headstock-bg: var(--color-black-80);
+  --nut-colour: var(--color-grey-dark);
 }
 
 /* string colour */

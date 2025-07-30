@@ -15,7 +15,7 @@ const Fretboard: FC<{ className: string }> = ({ className }) => {
         className
       )}
     >
-      <div className="bg-black/80 min-w-12 -ml-1 h-full border-r-8 border-black" />
+      <div className="min-w-12 -ml-1 h-full border-r-8 bg-(--headstock-bg) border-(--nut-colour)" />
       {Array.from({ length: fretQuantity }).map((_, i) => (
         <div
           key={i}

@@ -8,7 +8,7 @@ import {
   type NoteTheme,
   type StringTheme,
   NOTE_TO_TONIC,
-} from "@/resources/types";
+} from "@/resources/themes";
 
 type themeStore = {
   fretboardTheme: FretboardTheme;
@@ -21,31 +21,30 @@ type themeStore = {
   setNoteTheme: (theme: NoteTheme) => void;
 };
 
-export const useThemeStore = create<themeStore>(
-    (set) => ({
-      fretboardTheme: "rosewood",
-      stringTheme: "gold",
-      appTheme: "default",
-      noteTheme: "green",
+export const useThemeStore = create<themeStore>((set) => ({
+  fretboardTheme: "rosewood",
+  stringTheme: "gold",
+  appTheme: "default",
+  noteTheme: "green",
 
-      setFretboardTheme: (fretboardTheme) => {
-        set({ fretboardTheme });
-        document.documentElement.setAttribute("data-fretboard", fretboardTheme);
-      },
-      setStringTheme: (stringTheme) => {
-        set({ stringTheme });
-        document.documentElement.setAttribute("data-string", stringTheme);
-      },
-      setAppTheme: (appTheme) => {
-        set({ appTheme });
-        document.documentElement.setAttribute("data-app", appTheme);
-      },
-      setNoteTheme: (noteTheme) => {
-        set({ noteTheme });
-        document.documentElement.setAttribute("data-note", noteTheme);
-        document.documentElement.setAttribute("data-tonic", NOTE_TO_TONIC[noteTheme])
-      },
-
-    }),
-
-);
+  setFretboardTheme: (fretboardTheme) => {
+    set({ fretboardTheme });
+    document.documentElement.setAttribute("data-fretboard", fretboardTheme);
+  },
+  setStringTheme: (stringTheme) => {
+    set({ stringTheme });
+    document.documentElement.setAttribute("data-string", stringTheme);
+  },
+  setAppTheme: (appTheme) => {
+    set({ appTheme });
+    document.documentElement.setAttribute("data-app", appTheme);
+  },
+  setNoteTheme: (noteTheme) => {
+    set({ noteTheme });
+    document.documentElement.setAttribute("data-note", noteTheme);
+    document.documentElement.setAttribute(
+      "data-tonic",
+      NOTE_TO_TONIC[noteTheme]
+    );
+  },
+}));

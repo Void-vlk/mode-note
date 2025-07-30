@@ -6,7 +6,7 @@ import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import Switch from "@/components/settings/Switch";
 import { getTonicNotes } from "@/hooks/getNoteValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { NotePitch } from "@/resources/types";
+import { NotePitch } from "@/resources/themes";
 
 type Props = { isInSetup?: boolean };
 

@@ -1,22 +1,16 @@
 import { TUNINGS } from "@/resources/tunings";
-import type { Instrument, NotePitch, StringQty } from "@/resources/types";
+import type { Instruments, Tuning } from "@/resources/types";
+import type { NotePitch, StringQty } from "@/resources/themes";
 
 // Get all available string quantities for selected Instrument
-export const getStringQuantities = (instrument: Instrument): StringQty[] =>
-  [
-    ...new Set(
-      TUNINGS.filter((t) => t.instrument === instrument).map((t) => t.stringQty)
-    ),
-  ].sort();
+export const getStringQuantities = (instrument: Instruments): StringQty[] =>
+  Object.keys(TUNINGS[instrument]).map(Number) as StringQty[];
 
 // Get all available tunings for selected Instrument & string quantities
 export const getInstrumentTunings = (
-  instrument: Instrument,
+  instrument: Instruments,
   stringQty: StringQty
-) =>
-  TUNINGS.filter(
-    (t) => t.instrument === instrument && t.stringQty === stringQty
-  );
+): Tuning[] => TUNINGS[instrument][stringQty] ?? [];
 
 // check tuning
 export const isTuningMatching = (
@@ -30,11 +24,9 @@ export const isTuningMatching = (
 
 // default tuning for instrument/stringQty combo
 export const defaultTuning = (
-  instrument: Instrument,
+  instrument: Instruments,
   stringQty: StringQty
 ): NotePitch[] => {
-  const tuning = TUNINGS.find(
-    (t) => t.instrument === instrument && t.stringQty === stringQty
-  );
-  return tuning!.stringTunings;
+  const tunings = TUNINGS[instrument][stringQty];
+  return tunings && tunings.length > 0 ? tunings[0].stringTunings : [];
 };

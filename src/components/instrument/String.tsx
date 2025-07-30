@@ -1,13 +1,11 @@
 "use client";
 import { type FC } from "react";
-import Note from "@/components/instrument/Note";
-import {
-  Instrument,
-  type NotePitch,
-  STRING_THICKNESS,
-} from "@/resources/types";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { twJoin } from "tailwind-merge";
+
+import Note from "@/components/instrument/Note";
+import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { STRING_THICKNESS, type NotePitch } from "@/resources/themes";
+import { Instruments  } from "@/resources/types";
 
 type Props = {
   openString: NotePitch;
@@ -29,7 +27,7 @@ const String: FC<Props> = ({
     <section
       className={twJoin(
         "relative w-full flex items-center ml-0.5 pr-3",
-        instrument === Instrument.Guitar
+        instrument === Instruments.Guitar
           ? "my-1 lg:my-1.25 lg:first:mt-1 lg:last:mb-1"
           : "my-1.75 lg:my-3 lg:first:mt-1.5 lg:last:mb-1.5"
       )}

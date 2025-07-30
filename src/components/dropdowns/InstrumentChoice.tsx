@@ -7,7 +7,7 @@ import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
 import { getStringQuantities } from "@/hooks/getInstrumentValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { INSTRUMENTS } from "@/resources/types";
+import { Instruments, INSTRUMENTS } from "@/resources/types";
 
 type Props = {
   isInSetup?: boolean;
@@ -27,14 +27,16 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
     setIsDiamond(!isDiamond);
   };
 
+  const instrumentOptions = Object.entries(INSTRUMENTS);
+
   return (
     <>
       <MenuSelectionList
-        options={INSTRUMENTS.map((instrument) => ({
-          value: instrument,
-          label: instrument[0].toUpperCase() + instrument.slice(1),
-          checked: currentInstrument === instrument,
-          onSelect: () => setInstrument(instrument),
+        options={instrumentOptions.map(([key, instrument]) => ({
+          value: key,
+          label: instrument.label,
+          checked: currentInstrument === key,
+          onSelect: () => setInstrument(key as Instruments),
         }))}
         className={twMerge(isInSetup && "sm:px-16 gap-3 mb-4 w-full !px-16")}
         contentHeader="Instrument Type"
