@@ -11,7 +11,7 @@ const Nav: FC = () => {
   const setIsMetronomeOpen = useNavStore((state) => state.setIsMetronomeOpen);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 flex w-full items-center justify-between border-b-2 px-4 py-1 md:py-1.5 xl:py-2">
+    <nav className="fixed top-0 bg-black/90 left-0 right-0 z-10 flex w-full items-center justify-between border-b-2 px-4 py-1 md:py-1.5 xl:py-2">
       <button
         onClick={() => setIsSidebarOpen(true)}
         className="cursor-pointer p-1"

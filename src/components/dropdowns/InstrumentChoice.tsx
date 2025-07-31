@@ -23,10 +23,6 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
   const isDiamond = useInstrumentStore((s) => s.isDiamond);
   const setIsDiamond = useInstrumentStore((s) => s.setIsDiamond);
 
-  const toggleFretMarkers = () => {
-    setIsDiamond(!isDiamond);
-  };
-
   const instrumentOptions = Object.entries(INSTRUMENTS);
 
   return (
@@ -38,7 +34,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           checked: currentInstrument === key,
           onSelect: () => setInstrument(key as Instruments),
         }))}
-        className={twMerge(isInSetup && "sm:px-16 gap-3 mb-4 w-full !px-16")}
+        className={twMerge(isInSetup && "md:px-16 gap-3 mb-4 w-full px-8")}
         contentHeader="Instrument Type"
       />
       <MenuSelectionList
@@ -49,7 +45,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           onSelect: () => setStringQty(qty),
         }))}
         className={twMerge(
-          isInSetup && "grid-cols-3 gap-3 mb-4 sm:px-2 !px-16"
+          isInSetup && "grid-cols-3 gap-3 mb-4 sm:px-2 px-8"
         )}
         contentHeader="String Quantity"
       />
@@ -65,7 +61,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
         />
         <ContentToggle
           isChecked={isDiamond}
-          onChange={toggleFretMarkers}
+          onChange={() => setIsDiamond(!isDiamond)}
           isInSetup={isInSetup}
           optionHeader="Fret Markers"
           leftOption={

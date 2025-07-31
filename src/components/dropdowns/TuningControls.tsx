@@ -1,9 +1,14 @@
 "use client";
+import {
+  ChevronsDown,
+  ChevronDown,
+  ChevronsUp,
+  ChevronUp,
+  Save,
+} from "lucide-react";
 import { type FC, ReactNode } from "react";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { ChevronsDown, ChevronDown, ChevronsUp, ChevronUp } from "lucide-react";
 import Switch from "@/components/settings/Switch";
-import { Save } from "lucide-react";
 
 type Props = {
   icon: ReactNode;
@@ -40,7 +45,7 @@ const TuningControls: FC = () => {
         isChecked={isSharp}
         onChange={toggleSharpFlat}
         iconLeft="♭"
-        iconRight="♯"
+        iconRight={<span className="-mt-px">♯</span>}
         aria-label="Toggle sharp/flat"
       />
       <div className="flex gap-1 items-center">
