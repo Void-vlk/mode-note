@@ -41,6 +41,7 @@ const TuningControls: FC = () => {
         onChange={toggleSharpFlat}
         iconLeft="♭"
         iconRight="♯"
+        aria-label="Toggle sharp/flat"
       />
       <div className="flex gap-1 items-center">
         <p className="text-xs pr-1">Tune all: </p>

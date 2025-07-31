@@ -11,7 +11,7 @@ const Fretboard: FC<{ className: string }> = ({ className }) => {
   return (
     <section
       className={twJoin(
-        "size-full bg-(--fretboard-colour) px-1 flex",
+        "size-full bg-(--fretboard-colour) px-1 flex border-b border-t border-white/10",
         className
       )}
     >

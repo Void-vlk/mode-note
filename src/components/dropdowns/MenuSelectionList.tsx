@@ -23,7 +23,7 @@ const MenuSelectionList: FC<Props> = ({
   contentHeader,
 }) => (
   <>
-    <h4 className="sub-header">{contentHeader}</h4>
+    <p className="sub-header">{contentHeader}</p>
     <div
       className={twMerge(
         "grid items-stretch grid-cols-2 gap-1.5 w-full mb-1.5 px-2",

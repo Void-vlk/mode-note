@@ -61,6 +61,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           optionHeader="Fret Quantity"
           leftOption="21"
           rightOption="24"
+          aria-label="Toggle fret quantity"
         />
         <ContentToggle
           isChecked={isDiamond}
@@ -71,6 +72,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
             <TriangleRight className="scale-y-[-1] rotate-90 size-4 lg:size-5 mt-px lg:mt-0" />
           }
           rightOption={<Diamond className="size-4 lg:size-5 mt-px lg:mt-0" />}
+          aria-label="Toggle fret markers"
         />
       </section>
     </>

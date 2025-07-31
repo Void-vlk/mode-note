@@ -59,6 +59,7 @@ const ThemeChoice: FC = () => {
         isInSetup={false}
         leftOption="Ag"
         rightOption="Au"
+        aria-label="Toggle string colour"
       />
     </>
   );

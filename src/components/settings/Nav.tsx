@@ -15,6 +15,7 @@ const Nav: FC = () => {
       <button
         onClick={() => setIsSidebarOpen(true)}
         className="cursor-pointer p-1"
+        aria-label="settings"
       >
         <SlidersHorizontal className="size-5 xl:size-6" strokeWidth={1.5} />
       </button>
@@ -22,10 +23,13 @@ const Nav: FC = () => {
         src={modeNoteLogo}
         alt="Logo"
         className="w-auto h-6 md:h-7 xl:h-8"
+        priority
+        quality={80}
       />
       <button
         onClick={() => setIsMetronomeOpen(true)}
         className="cursor-pointer p-1"
+        aria-label="metronome"
       >
         <Timer className="size-5 xl:size-7" strokeWidth={1.5} />
       </button>
