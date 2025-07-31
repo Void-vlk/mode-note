@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 import { useNavStore } from "@/hooks/useNavStore";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import SetupWizardStage from "@/components/settings/SetupStage";
 import Instrument from "@/components/instrument/Instrument";
 
@@ -13,10 +12,6 @@ export default function Home() {
   const hasHydrated = useNavStore((s) => s.hasHydrated);
   const hasDoneSetup = useNavStore((s) => s.hasDoneSetup);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
-  const instrument = useInstrumentStore((s) => s.instrument);
-  const stringQty = useInstrumentStore((s) => s.stringQty);
-
-  const transitionKey = hasDoneSetup ? `${instrument}-${stringQty}` : "setup";
 
   useGSAP(
     () => {
@@ -33,21 +28,17 @@ export default function Home() {
     { dependencies: [isSidebarOpen] }
   );
 
-  const { contextSafe } = useGSAP({ scope: container });
+  // const { contextSafe } = useGSAP({ scope: container });
 
-  const onEnter = contextSafe(() => {
-    if (!container.current) return;
-    gsap.fromTo(
-      container.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.3 }
-    );
-  });
+  // const onEnter = contextSafe(() => {
+  //   if (!container.current) return;
+  //   gsap.fromTo(container.current, { opacity: 0 }, { duration: 2, opacity: 1 });
+  // });
 
-  const onExit = contextSafe(() => {
-    if (!container.current) return;
-    gsap.to(container.current, { opacity: 0, duration: 0.3 });
-  });
+  // const onExit = contextSafe(() => {
+  //   if (!container.current) return;
+  //   gsap.to(container.current, { duration: 2, opacity: 0 });
+  // });
 
   if (!hasHydrated) {
     return null;
@@ -56,25 +47,21 @@ export default function Home() {
   return (
     <SwitchTransition>
       <Transition
-        key={transitionKey}
-        timeout={{ enter: 0, exit: 300 }}
+        key={hasDoneSetup ? "main" : "setup"}
+        timeout={0}
         nodeRef={container}
-        onEnter={onEnter}
-        onExit={onExit}
-        unmountOnExit
-        mountOnEnter
-        appear
+        // onEnter={onEnter}
+        // onExit={onExit}
+        // unmountOnExit
+        // mountOnEnter
+        // appear
       >
         {() => (
           <main
             className="w-full h-screen items-center flex xl:justify-center overflow-x-auto custom-scrollbar"
             ref={container}
           >
-            {hasDoneSetup ? (
-              <Instrument key={instrument} show={true} />
-            ) : (
-              <SetupWizardStage />
-            )}
+            {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}
           </main>
         )}
       </Transition>
