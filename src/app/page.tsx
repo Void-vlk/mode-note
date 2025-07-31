@@ -28,17 +28,17 @@ export default function Home() {
     { dependencies: [isSidebarOpen] }
   );
 
-  // const { contextSafe } = useGSAP({ scope: container });
+  const { contextSafe } = useGSAP({ scope: container });
 
-  // const onEnter = contextSafe(() => {
-  //   if (!container.current) return;
-  //   gsap.fromTo(container.current, { opacity: 0 }, { duration: 2, opacity: 1 });
-  // });
+  const onEnter = contextSafe(() => {
+    if (!container.current) return;
+    gsap.fromTo(container.current, { opacity: 0 }, { duration: 1, opacity: 1 });
+  });
 
-  // const onExit = contextSafe(() => {
-  //   if (!container.current) return;
-  //   gsap.to(container.current, { duration: 2, opacity: 0 });
-  // });
+  const onExit = contextSafe(() => {
+    if (!container.current) return;
+    gsap.to(container.current, { duration: 1, opacity: 0 });
+  });
 
   if (!hasHydrated) {
     return null;
@@ -50,11 +50,11 @@ export default function Home() {
         key={hasDoneSetup ? "main" : "setup"}
         timeout={0}
         nodeRef={container}
-        // onEnter={onEnter}
-        // onExit={onExit}
-        // unmountOnExit
-        // mountOnEnter
-        // appear
+        onEnter={onEnter}
+        onExit={onExit}
+        unmountOnExit
+        mountOnEnter
+        appear
       >
         {() => (
           <main
