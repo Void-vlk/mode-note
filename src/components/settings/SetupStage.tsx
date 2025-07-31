@@ -38,9 +38,9 @@ const WizardSetupStage: FC = () => {
   };
 
   return (
-    <main className="size-full justify-center items-start sm:items-center flex px-2 py-11 sm:pt-0">
-      <section className="xl:max-w-2xl max-w-md w-full flex flex-col rounded-lg bg-white/5 border pt-4 text-center space-y-1">
-        <h2 className="text-center text-2xl md:text-3xl text-white">
+    <main className="size-full justify-center items-start sm:items-center flex px-2 py-11 sm:py-0">
+      <section className="lg:max-w-xl max-w-md w-full flex flex-col rounded-lg bg-white/5 border pt-6 text-center space-y-1">
+        <h2 className="text-center text-2xl md:text-3xl text-white font-bold">
           Welcome to Mode Note!
         </h2>
         <h4 className="text-base md:text-lg text-white px-8 md:px-4 leading-tight">
@@ -87,7 +87,7 @@ const WizardSetupStage: FC = () => {
                     </section>
                   )}
 
-                  <div className="flex w-full justify-between items-center pt-4 pb-8 sm:pb-0">
+                  <div className="flex w-full justify-between items-center pt-4 pb-5 sm:pb-0 px-4">
                     <button
                       className={twMerge(
                         "btn",
