@@ -33,6 +33,22 @@ export default function Home() {
     { dependencies: [isSidebarOpen] }
   );
 
+  const { contextSafe } = useGSAP({ scope: container });
+
+  const onEnter = contextSafe(() => {
+    if (!container.current) return;
+    gsap.fromTo(
+      container.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3 }
+    );
+  });
+
+  const onExit = contextSafe(() => {
+    if (!container.current) return;
+    gsap.to(container.current, { opacity: 0, duration: 0.3 });
+  });
+
   if (!hasHydrated) {
     return null;
   }
@@ -42,8 +58,12 @@ export default function Home() {
       <Transition
         key={transitionKey}
         timeout={{ enter: 0, exit: 300 }}
-        appear={true}
         nodeRef={container}
+        onEnter={onEnter}
+        onExit={onExit}
+        unmountOnExit
+        mountOnEnter
+        appear
       >
         {() => (
           <main

@@ -43,9 +43,9 @@ const WizardSetupStage: FC = () => {
         <h2 className="text-center text-3xl text-white">
           Welcome to Mode Note!
         </h2>
-        <p className="text-lg text-white px-8 sm:px-4 leading-tight">
+        <h4 className="text-lg text-white px-8 sm:px-4 leading-tight">
           Your helpful guide to learning scales and notes.
-        </p>
+        </h4>
 
         <SwitchTransition>
           <Transition

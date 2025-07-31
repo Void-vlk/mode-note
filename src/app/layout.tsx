@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import MetronomeMenu from "@/components/metronome/MetronomeMenu";
 import Sidebar from "@/components/settings/Sidebar";
@@ -35,6 +36,7 @@ export default function RootLayout({
         <MetronomeMenu />
         <Nav />
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
