@@ -200,4 +200,7 @@ body {
   .custom-scrollbar {
     @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-md scrollbar-thumb-white/10;
   }
+  .btn {
+    @apply min-w-24 border hover:text-white text-white/80 py-1 px-6 rounded-md cursor-pointer text-sm
+  }
 }

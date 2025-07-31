@@ -37,9 +37,6 @@ const WizardSetupStage: FC = () => {
     setHasDoneSetup(true);
   };
 
-  const BUTTON_CLASSES =
-    "min-w-24 border hover:text-white text-white/80 py-1 px-6 rounded-md cursor-pointer text-sm";
-
   return (
     <main className="h-full w-full overflow-hidden justify-center items-center flex flex-col px-4 sm:px-10">
       <section className="lg:min-w-1/2 max-w-lg w-full rounded-lg bg-white/10 border pt-6 text-center space-y-1">
@@ -90,7 +87,7 @@ const WizardSetupStage: FC = () => {
                   <div className="flex w-full justify-between sm:px-8 items-center pt-4">
                     <button
                       className={twMerge(
-                        BUTTON_CLASSES,
+                        'btn',
                         wizardStage === "instrument" && "opacity-50"
                       )}
                       onClick={handleBack}
@@ -99,12 +96,12 @@ const WizardSetupStage: FC = () => {
                       Back
                     </button>
                     <button
-                      className={BUTTON_CLASSES}
+                      className="btn"
                       onClick={handleNextStage}
                     >
                       {wizardStage !== "scale" ? "Continue" : "Let's Go!"}
                     </button>
-                    <button className={BUTTON_CLASSES} onClick={handleSkip}>
+                    <button className="btn" onClick={handleSkip}>
                       Skip
                     </button>
                   </div>
