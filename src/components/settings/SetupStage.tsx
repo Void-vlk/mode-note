@@ -22,7 +22,6 @@ const WizardSetupStage: FC = () => {
     if (nextIndex < WIZARD_STAGES.length) {
       setWizardStage(WIZARD_STAGES[nextIndex]);
     } else {
-      setWizardStage("complete");
       setHasDoneSetup(true);
     }
   };
@@ -35,7 +34,6 @@ const WizardSetupStage: FC = () => {
   };
 
   const handleSkip = () => {
-    setWizardStage("complete");
     setHasDoneSetup(true);
   };
 

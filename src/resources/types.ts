@@ -5,7 +5,6 @@ export const WIZARD_STAGES = [
   "instrument",
   "tuning",
   "scale",
-  "complete",
 ] as const;
 
 export enum Instruments {
