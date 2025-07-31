@@ -33,7 +33,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
         onChange={toggleSharpFlat}
         iconLeft="♭"
         iconRight="♯"
-        className={twMerge(isInSetup ? "mx-auto mb-2" : "ml-3 mt-px")}
+        className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3 mt-px")}
       />
       <MenuSelectionList
         canDeselect={true}

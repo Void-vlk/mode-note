@@ -7,6 +7,8 @@ type Store = {
   setTimeSignature: (timeSignature: TimeSig) => void;
   sound: Sound;
   setSound: (sound: Sound) => void;
+  audioOn: boolean;
+  setAudioOn: (audioOn: boolean) => void;
 };
 
 export const useMetronomeStore = create<Store>()((set) => ({
@@ -14,4 +16,6 @@ export const useMetronomeStore = create<Store>()((set) => ({
   setTimeSignature: (timeSignature) => set({ timeSignature }),
   sound: Sound.Click,
   setSound: (sound) => set({ sound }),
+  audioOn: true,
+  setAudioOn: (audioOn) => set({ audioOn }),
 }));

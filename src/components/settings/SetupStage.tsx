@@ -38,12 +38,12 @@ const WizardSetupStage: FC = () => {
   };
 
   return (
-    <main className="h-full w-full overflow-hidden justify-center items-center flex flex-col px-4 sm:px-10">
-      <section className="lg:min-w-1/2 max-w-lg w-full rounded-lg bg-white/10 border pt-6 text-center space-y-1">
-        <h2 className="text-center text-3xl text-white">
+    <main className="size-full justify-center items-start sm:items-center flex px-2 py-11 sm:py-0">
+      <section className="lg:max-w-xl max-w-md w-full flex flex-col rounded-lg bg-white/5 border pt-6 text-center space-y-1">
+        <h2 className="text-center text-2xl md:text-3xl text-white font-bold">
           Welcome to Mode Note!
         </h2>
-        <h4 className="text-lg text-white px-8 sm:px-4 leading-tight">
+        <h4 className="text-base md:text-lg text-white px-8 md:px-4 leading-tight">
           Your helpful guide to learning scales and notes.
         </h4>
 
@@ -57,7 +57,10 @@ const WizardSetupStage: FC = () => {
             {() => {
               //status - prop transitionStatus: TransitionStatus for isExiting
               return (
-                <div ref={container} className="w-full px-4 py-4">
+                <div
+                  ref={container}
+                  className="w-full p-2 md:p-4 overflow-y-auto custom-scrollbar"
+                >
                   {wizardStage === "instrument" && (
                     <>
                       <p className="text-balance text-sm text-white/80 pb-4">
@@ -79,15 +82,15 @@ const WizardSetupStage: FC = () => {
                     <section className="flex flex-col">
                       <p className="text-sm">Choose a scale:</p>
                       <ScalesChoice isInSetup={true} />
-                      <p className="text-sm">Choose a tonic note:</p>
+                      <p className="text-sm my-1">Choose a tonic note:</p>
                       <TonicChoice isInSetup={true} />
                     </section>
                   )}
 
-                  <div className="flex w-full justify-between sm:px-8 items-center pt-4">
+                  <div className="flex w-full justify-between items-center pt-4 pb-5 sm:pb-0 px-4">
                     <button
                       className={twMerge(
-                        'btn',
+                        "btn",
                         wizardStage === "instrument" && "opacity-50"
                       )}
                       onClick={handleBack}
@@ -95,10 +98,7 @@ const WizardSetupStage: FC = () => {
                     >
                       Back
                     </button>
-                    <button
-                      className="btn"
-                      onClick={handleNextStage}
-                    >
+                    <button className="btn" onClick={handleNextStage}>
                       {wizardStage !== "scale" ? "Continue" : "Let's Go!"}
                     </button>
                     <button className="btn" onClick={handleSkip}>

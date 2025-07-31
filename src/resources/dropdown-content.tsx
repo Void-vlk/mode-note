@@ -6,6 +6,7 @@ import TonicChoice from "@/components/dropdowns/TonicChoice";
 import ScalesChoice from "@/components/dropdowns/ScalesChoice";
 import ThemeChoice from "@/components/dropdowns/ThemeChoice";
 import TimeSignatureChoice from "@/components/metronome/TimeSignatureChoice";
+import SoundChoice from "@/components/metronome/SoundChoice";
 
 export type MenuContent = {
   id: string;
@@ -48,12 +49,8 @@ export const METRONOME_CONTENT: MenuContent[] = [
     content: <TimeSignatureChoice />,
   },
   {
-    id: "metronome-theme",
-    heading: "Theme",
-    content: (
-      <>
-        <div> SPEED ADJUSTER</div>
-      </>
-    ),
+    id: "sound",
+    heading: "Sound",
+    content: <SoundChoice />,
   },
 ];
