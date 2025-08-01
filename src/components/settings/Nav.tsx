@@ -1,14 +1,16 @@
 "use client";
 import Image from "next/image";
 import { type FC } from "react";
+
 import { useNavStore } from "@/hooks/useNavStore";
 import modeNoteLogo from "@/assets/mode-note-logo.svg";
 import React from "react";
 import { SlidersHorizontal, Timer } from "lucide-react";
+import MetronomeController from "../metronome/MetronomeController";
 
 const Nav: FC = () => {
-  const setIsSidebarOpen = useNavStore((state) => state.setIsSidebarOpen);
-  const setIsMetronomeOpen = useNavStore((state) => state.setIsMetronomeOpen);
+  const setIsSidebarOpen = useNavStore((s) => s.setIsSidebarOpen);
+  const setIsMetronomeOpen = useNavStore((s) => s.setIsMetronomeOpen);
 
   return (
     <nav className="fixed top-0 bg-black/90 left-0 right-0 z-10 flex w-full items-center justify-between border-b-2 px-4 py-1 md:py-1.5 xl:py-2">
@@ -26,13 +28,16 @@ const Nav: FC = () => {
         priority
         quality={80}
       />
-      <button
-        onClick={() => setIsMetronomeOpen(true)}
-        className="cursor-pointer p-1"
-        aria-label="metronome"
-      >
-        <Timer className="size-5 xl:size-7" strokeWidth={1.5} />
-      </button>
+      <section className="gap-2 flex">
+        <MetronomeController />
+        <button
+          onClick={() => setIsMetronomeOpen(true)}
+          className="cursor-pointer p-1"
+          aria-label="metronome"
+        >
+          <Timer className="size-5 xl:size-8" strokeWidth={1.5} />
+        </button>
+      </section>
     </nav>
   );
 };

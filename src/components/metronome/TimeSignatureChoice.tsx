@@ -14,7 +14,7 @@ const TimeSignatureChoice: FC = () => {
     <MenuSelectionList
       options={timeSignatureOptions.map(([key, timeSig]) => ({
         value: key,
-        label: timeSig.id,
+        label: timeSig.beat + " / " + timeSig.bar,
         checked: timeSignature === key,
         onSelect: () => setTimeSignature(key as typeof timeSignature),
       }))}

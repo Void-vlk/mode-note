@@ -19,65 +19,89 @@ export enum TimeSig {
 }
 
 export type TimeSignature = {
-  id: string;
   beat: Beat;
   bar: Bar;
 };
 
 export const TIME_SIGNATURES: Record<TimeSig, TimeSignature> = {
-  [TimeSig.TwoFour]: { id: "2/4", beat: 2, bar: 4 },
-  [TimeSig.ThreeFour]: { id: "3/4", beat: 3, bar: 4 },
-  [TimeSig.FourFour]: { id: "4/4", beat: 4, bar: 4 },
-  [TimeSig.FiveFour]: { id: "5/4", beat: 5, bar: 4 },
-  [TimeSig.SixFour]: { id: "6/4", beat: 6, bar: 4 },
-  [TimeSig.SevenFour]: { id: "7/4", beat: 7, bar: 4 },
-  [TimeSig.ThreeEight]: { id: "3/8", beat: 3, bar: 8 },
-  [TimeSig.FiveEight]: { id: "5/8", beat: 5, bar: 8 },
-  [TimeSig.SixEight]: { id: "6/8", beat: 6, bar: 8 },
-  [TimeSig.SevenEight]: { id: "7/8", beat: 7, bar: 8 },
-  [TimeSig.NineEight]: { id: "9/8", beat: 9, bar: 8 },
-  [TimeSig.ElevenEight]: { id: "11/8", beat: 11, bar: 8 },
-  [TimeSig.ThirteenEight]: { id: "13/8", beat: 13, bar: 8 },
-  [TimeSig.FifteenEight]: { id: "15/8", beat: 15, bar: 8 },
+  [TimeSig.TwoFour]: { beat: 2, bar: 4 },
+  [TimeSig.ThreeFour]: { beat: 3, bar: 4 },
+  [TimeSig.FourFour]: { beat: 4, bar: 4 },
+  [TimeSig.FiveFour]: { beat: 5, bar: 4 },
+  [TimeSig.SixFour]: { beat: 6, bar: 4 },
+  [TimeSig.SevenFour]: { beat: 7, bar: 4 },
+  [TimeSig.ThreeEight]: { beat: 3, bar: 8 },
+  [TimeSig.FiveEight]: { beat: 5, bar: 8 },
+  [TimeSig.SixEight]: { beat: 6, bar: 8 },
+  [TimeSig.SevenEight]: { beat: 7, bar: 8 },
+  [TimeSig.NineEight]: { beat: 9, bar: 8 },
+  [TimeSig.ElevenEight]: { beat: 11, bar: 8 },
+  [TimeSig.ThirteenEight]: { beat: 13, bar: 8 },
+  [TimeSig.FifteenEight]: { beat: 15, bar: 8 },
 };
 
 export enum Sound {
   Click = "click",
+  Clap = "clap",
+  Snap = "snap",
   Block = "block",
   Drum = "drum",
   Cymbal = "cymbal",
+  Bell = "bell",
+  Beep = "beep",
 }
 
 export type MetronomeSound = {
-  id: string;
   label: string;
   file: string;
   fileAccent?: string;
 };
 
 export const METRONOME_SOUNDS: Record<Sound, MetronomeSound> = {
+  [Sound.Clap]: {
+    label: "Clap",
+    file: "/sounds/Perc_Clap_lo.wav", // Perc_Tongue_lo
+    fileAccent: "/sounds/Perc_Clap_hi.wav",
+  },
   [Sound.Click]: {
-    id: "click",
     label: "Click",
-    file: "/sounds/click.wav",
-    fileAccent: "/sounds/click-accent.wav",
+    file: "/sounds/Perc_Clackhead_lo.wav",
+    fileAccent: "/sounds/Perc_Clackhead_hi.wav",
+  },
+  [Sound.Snap]: {
+    label: "Snap",
+    file: "/sounds/Perc_Snap_lo.wav",
+    fileAccent: "/sounds/Perc_Snap_hi.wav",
   },
   [Sound.Block]: {
-    id: "block",
     label: "Block",
-    file: "/sounds/block.wav",
-    fileAccent: "/sounds/block-accent.wav",
+    file: "/sounds/Perc_Castanet_lo.wav",
+    fileAccent: "/sounds/Perc_Castanet_hi.wav",
   },
   [Sound.Drum]: {
-    id: "drum",
     label: "Drum",
-    file: "/sounds/drum.wav",
-    fileAccent: "/sounds/drum-accent.wav",
+    file: "/sounds/Perc_PracticePad_lo.wav",
+    fileAccent: "/sounds/Perc_PracticePad_hi.wav",
   },
   [Sound.Cymbal]: {
-    id: "cymbal",
     label: "Cymbal",
-    file: "/sounds/cymbal.wav",
-    fileAccent: "/sounds/cymbal-accent.wav",
+    file: "/sounds/Perc_Tamb_A_hi.wav",
+    fileAccent: "/sounds/Perc_Tamb_A_lo.wav",
+  },
+  [Sound.Bell]: {
+    label: "Bell",
+    file: "/sounds/Synth_Bell_A_lo.wav",
+    fileAccent: "/sounds/Synth_Bell_A_hi.wav",
+  },
+  [Sound.Beep]: {
+    label: "Beep",
+    file: "/sounds/Synth_Square_D_lo.wav",
+    fileAccent: "/sounds/Synth_Square_D_hi.wav",
   },
 };
+
+  // file: "/sounds/Perc_Stick_lo.wav",
+    // fileAccent: "/sounds/Perc_Stick_hi.wav",
+
+    //file: "/sounds/Synth_Block_D_lo.wav",
+   // fileAccent: "/sounds/Synth_Block_D_hi.wav",
