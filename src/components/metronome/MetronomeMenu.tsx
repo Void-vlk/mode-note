@@ -6,14 +6,17 @@ import { type FC, useRef } from "react";
 import { Transition } from "react-transition-group";
 
 import Dropdown from "@/components/dropdowns/DropdownAccordion";
+import BPMControls from "@/components/metronome/BPMControls";
 import { useNavStore } from "@/hooks/useNavStore";
 import { METRONOME_CONTENT } from "@/resources/dropdown-content";
+import { useMetronomeStore } from "@/hooks/useMetronomeStore";
 
 const MetronomeMenu: FC = () => {
   const background = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
   const isMetronomeOpen = useNavStore((s) => s.isMetronomeOpen);
   const setIsMetronomeOpen = useNavStore((s) => s.setIsMetronomeOpen);
+  const bpm = useMetronomeStore((s) => s.bpm);
 
   const { contextSafe } = useGSAP({ scope: container });
 
@@ -75,10 +78,16 @@ const MetronomeMenu: FC = () => {
                 strokeWidth={1.5}
               />
             </button>
+
             <h2 className="text-base xl:text-lg font-bold text-white pb-1 xl:pb-2 mb-2 xl:mb-4 uppercase border-b">
               metronome
             </h2>
             <Dropdown content={METRONOME_CONTENT} />
+
+            <section className="flex flex-col w-full py-4 gap-3">
+              <h3 className="font-bold text-xl">BPM: {bpm}</h3>
+              <BPMControls />
+            </section>
           </section>
           <div
             ref={background}

@@ -61,27 +61,3 @@ const Instrument: FC<Props> = ({}) => {
 };
 
 export default Instrument;
-
-// const { contextSafe } = useGSAP({ scope: container });
-
-// const fadeIn = contextSafe(() =>
-//   gsap.fromTo(
-//     container.current,
-//     { opacity: 0 },
-//     { opacity: 1, duration: 0.3 }
-//   )
-// );
-
-// const fadeOut = contextSafe(() =>
-//   gsap.to(container.current, { opacity: 0, duration: 0.3 })
-// );
-
-// <Transition
-//   nodeRef={container}
-//   in={show}
-//   mountOnEnter
-//   unmountOnExit
-//   timeout={300}
-//   onEnter={fadeIn}
-//   onExit={fadeOut}
-// >
