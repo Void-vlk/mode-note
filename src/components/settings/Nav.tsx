@@ -6,7 +6,14 @@ import { useNavStore } from "@/hooks/useNavStore";
 import modeNoteLogo from "@/assets/mode-note-logo.svg";
 import React from "react";
 import { SlidersHorizontal, Timer } from "lucide-react";
-import MetronomeController from "../metronome/MetronomeController";
+import dynamic from "next/dynamic";
+
+const MetronomeController = dynamic(
+  () => import("@/components/metronome/MetronomeController"),
+  {
+    ssr: false,
+  }
+);
 
 const Nav: FC = () => {
   const setIsSidebarOpen = useNavStore((s) => s.setIsSidebarOpen);
