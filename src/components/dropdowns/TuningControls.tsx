@@ -22,7 +22,7 @@ const TuningButton: FC<Props> = ({ icon, semitone }) => {
   return (
     <button
       onClick={handleClick}
-      className="bg-white/90 size-6 flex justify-center items-center cursor-pointer hover:bg-white rounded-sm text-black/80"
+      className="bg-grey-light size-6 flex justify-center items-center cursor-pointer hover:bg-white/80 rounded-sm text-black/80"
     >
       {icon}
     </button>
@@ -60,7 +60,7 @@ const TuningControls: FC = () => {
       </div>
       <button
         onClick={() => setCustomTuning(currentTuning)}
-        className="cursor-pointer rounded-sm text-white/90 hover:text-white"
+        className="cursor-pointer rounded-sm text-grey-light hover:text-white"
       >
         <Save className="size-6" strokeWidth={1.5} />
       </button>

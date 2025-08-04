@@ -62,7 +62,7 @@ const Sidebar: FC = () => {
         >
           <div
             ref={sidebar}
-            className="z-30 fixed h-full top-0 left-0 xl:w-80 w-72 bg-black border-r-2"
+            className="z-30 fixed h-full top-0 left-0 xl:w-80 w-72 bg-black border-r-2 border-white/30"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -76,7 +76,7 @@ const Sidebar: FC = () => {
             </button>
 
             <section className="py-2 md:py-3 xl:py-4 px-4 flex flex-col justify-center items-left">
-              <h2 className="text-base xl:text-xl font-bold text-white pb-1 xl:pb-2 mb-2 xl:mb-4 uppercase border-b">
+              <h2 className="text-base xl:text-xl font-bold text-grey-light pb-1 xl:pb-2 mb-2 xl:mb-4 uppercase border-b border-white/50">
                 settings
               </h2>
               <Dropdown content={MENU_CONTENT} />

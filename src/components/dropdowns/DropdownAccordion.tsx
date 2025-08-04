@@ -15,16 +15,10 @@ type Props = {
 const AccordionItem: FC<Props> = ({ heading, content, isOpen, onClick }) => {
   return (
     <div
-      className={twJoin(
-        "text-light rounded-lg w-full",
-        isOpen && "shadow-darkest bg-white/15 shadow-lg max-h-fit"
-      )}
+      className={twJoin("rounded-lg w-full", isOpen && "bg-white/10 max-h-fit")}
     >
       <button
-        className={twJoin(
-          "paragraph-md flex w-full items-center border-b px-3 cursor-pointer justify-between py-2 text-left font-bold focus:outline-none md:py-3",
-          isOpen ? "text-darkest border-b" : "text-light"
-        )}
+        className="flex w-full items-center border-b border-grey-light text-white/90 px-3 cursor-pointer justify-between py-2 text-left font-bold focus:outline-none md:py-3"
         onClick={onClick}
       >
         {heading}
@@ -37,7 +31,7 @@ const AccordionItem: FC<Props> = ({ heading, content, isOpen, onClick }) => {
       </button>
       <div
         className={twJoin(
-          "paragraph-sm text-darkest transition-all duration-250 ease-in-out",
+          "transition-all duration-250 ease-in-out",
           isOpen
             ? "max-h-96 md:max-h-[28rem] py-1.5 opacity-100 pointer-events-auto overflow-y-auto custom-scrollbar pb-4"
             : "h-0 max-h-0 opacity-0 overflow-hidden pointer-events-none"

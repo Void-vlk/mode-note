@@ -58,7 +58,7 @@ export default function Home() {
       >
         {() => (
           <main
-            className="w-full h-screen items-center flex xl:justify-center overflow-x-auto custom-scrollbar"
+            className="w-full h-svh md:h-screen items-center flex xl:justify-center overflow-x-auto custom-scrollbar"
             ref={container}
           >
             {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}
