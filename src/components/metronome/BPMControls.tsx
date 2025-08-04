@@ -6,7 +6,7 @@ import { twJoin } from "tailwind-merge";
 
 const BPMControls: FC = () => {
   return (
-    <section className="flex gap-2 ml-2">
+    <section className="flex gap-2">
       <BPMButton
         icon={
           <>
@@ -56,7 +56,7 @@ const BPMButton: FC<Props> = ({ icon, value, reset }) => {
     <button
       onClick={handleClick}
       className={twJoin(
-        "bg-white/90 text-[13px] font-semibold p-0.5 flex justify-center items-center cursor-pointer hover:bg-white rounded-sm text-black/80",
+        "bg-grey-light text-[13px] font-semibold p-0.5 flex justify-center items-center cursor-pointer hover:bg-white rounded-sm text-black/80",
         reset ? "w-fit h-7 px-1" : "size-7"
       )}
     >

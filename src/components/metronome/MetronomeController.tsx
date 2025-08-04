@@ -75,22 +75,23 @@ const MetronomeController: FC = () => {
   useEffect(() => () => clearTimeout(timeout.current), []);
 
   return (
-    <section className="flex items-center gap-1 mt-1">
+    <section className="flex items-center gap-1 md:flex-row flex-row-reverse">
       <div
         className={twJoin(
-          "size-6 rounded-full transition-colors duration-75",
+          "size-5 md:size-6 rounded-full transition-colors duration-75 md:mr-2 ml-0.5",
           isAccent ? "bg-(--tonic-colour)" : "bg-(--note-colour)"
         )}
       />
+      <h3 className="text-xs md:text-sm font-bold hidden md:block">METRONOME</h3>
       <button
         onClick={() => setIsPlaying(!isPlaying)}
-        className="cursor-pointer hover:text-white/70 p-1"
+        className="cursor-pointer hover:text-white text-white/80 md:p-2"
         aria-label={isPlaying ? "Stop metronome" : "Start metronome"}
       >
         {isPlaying ? (
-          <StopCircle className="size-5 xl:size-7" strokeWidth={1.25} />
+          <StopCircle className="size-6 xl:size-7" strokeWidth={1.25} />
         ) : (
-          <PlayCircle className="size-5 xl:size-7" strokeWidth={1.25} />
+          <PlayCircle className="size-6 xl:size-7" strokeWidth={1.25} />
         )}
       </button>
     </section>

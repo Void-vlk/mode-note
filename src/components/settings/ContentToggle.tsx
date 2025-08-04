@@ -29,9 +29,9 @@ const ContentToggle: FC<ToggleProps> = ({
           "flex gap-2 pb-2 text-[13px] lg:text-sm"
         )}
       >
-        <div className="text-white/80">{leftOption}</div>
+        <div className="text-grey-light">{leftOption}</div>
         <Switch isChecked={isChecked} onChange={onChange} />
-        <div className="text-white/80">{rightOption}</div>
+        <div className="text-grey-light">{rightOption}</div>
       </section>
     </div>
   );
