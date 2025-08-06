@@ -1,7 +1,7 @@
 "use client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { NoteDisplay, DEFAULT_STRINGS, Instruments } from "@/resources/types";
+import { NoteDisplay, DEFAULT_STRINGS, Instruments, ScalePosition } from "@/resources/types";
 import type { FretQuantity, NotePitch, StringQty } from "@/resources/themes";
 import { defaultTuning } from "@/hooks/getInstrumentValues";
 
@@ -21,6 +21,7 @@ export type InstrumentState = {
   stringQty: StringQty;
   currentTuning: NotePitch[];
   scale: Scale;
+  scalePosition: ScalePosition;
   noteDisplay: NoteDisplay;
   isSharp: boolean;
   isDiamond: boolean;
@@ -31,6 +32,7 @@ export type InstrumentState = {
   setStringQty: (stringQty: StringQty) => void;
   setTuning: (tuning: NotePitch[]) => void;
   setScale: (scale: Scale) => void;
+  setScalePosition: (position: ScalePosition) => void;
   setNoteDisplay: (noteDisplay: NoteDisplay) => void;
   setIsSharp: (isSharp: boolean) => void;
   setIsDiamond: (isDiamond: boolean) => void;
@@ -49,6 +51,7 @@ export const useInstrumentStore = create<InstrumentState>()(
         tonicNote: null,
         scalePattern: "chromatic",
       },
+      scalePosition: ScalePosition.All,
       noteDisplay: NoteDisplay.Note,
       isSharp: true,
       isDiamond: false,
@@ -73,6 +76,13 @@ export const useInstrumentStore = create<InstrumentState>()(
 
       setTuning: (currentTuning) => set({ currentTuning }),
       setScale: (scale) => set({ scale }),
+
+      setScalePosition: (scalePosition) => {
+        console.log("Store: setScalePosition called with:", scalePosition);
+        set({ scalePosition });
+        console.log("Store: scalePosition updated to:", scalePosition);
+      },
+
       setNoteDisplay: (noteDisplay) => set({ noteDisplay }),
       setIsSharp: (isSharp) => set({ isSharp }),
       setIsDiamond: (isDiamond) => set({ isDiamond }),

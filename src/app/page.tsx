@@ -33,7 +33,7 @@ export default function Home() {
         ease: "none",
       });
     },
-    { dependencies: [isSidebarOpen] }
+    { dependencies: [isSidebarOpen, fretQuantity] }
   );
 
   const { contextSafe } = useGSAP({ scope: container });
@@ -66,7 +66,7 @@ export default function Home() {
       >
         {() => (
           <main
-            className="w-full h-svh md:h-screen items-center flex xl:justify-center overflow-x-auto custom-scrollbar"
+            className="w-full items-center flex xl:justify-center h-svh max-h-svh md:h-lvh overflow-x-auto custom-scrollbar overflow-y-hidden"
             ref={container}
           >
             {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}

@@ -1,15 +1,21 @@
 "use client";
-import { type FC } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { type FC, useRef } from "react";
 import { twJoin } from "tailwind-merge";
 
 import Note from "@/components/instrument/Note";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { STRING_THICKNESS, type NotePitch } from "@/resources/themes";
-import { Instruments  } from "@/resources/types";
+import { Instruments } from "@/resources/types";
 
 type Props = {
   openString: NotePitch;
-  isNoteInScale: (p: NotePitch) => boolean;
+  isNoteInScale: (
+    p: NotePitch,
+    stringIndex?: number,
+    fretNumber?: number
+  ) => { show: boolean; isPosition: boolean };
   tonicNote: NotePitch | null;
   stringIndex: number;
 };
@@ -20,11 +26,34 @@ const String: FC<Props> = ({
   tonicNote,
   stringIndex,
 }) => {
+  const container = useRef<HTMLDivElement>(null);
   const instrument = useInstrumentStore((s) => s.instrument);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
+  const stringQty = useInstrumentStore((s) => s.stringQty);
+  const scale = useInstrumentStore((s) => s.scale);
+  const tuning = useInstrumentStore((s) => s.currentTuning);
+
+  useGSAP(
+    () => {
+      if (container.current) {
+        gsap.fromTo(
+          container.current.children,
+          { y: -4, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.2, stagger: 0.02, ease: "none" }
+        );
+      }
+    },
+    {
+      dependencies: [fretQuantity, instrument, scale, stringQty, tuning],
+      scope: container,
+    }
+  );
+
+  const openNoteResult = isNoteInScale(openString, stringIndex, 0);
 
   return (
     <section
+      ref={container}
       className={twJoin(
         "relative w-full flex items-center ml-0.5 pr-3",
         instrument === Instruments.Guitar
@@ -37,23 +66,26 @@ const String: FC<Props> = ({
       <Note
         key="open"
         notePitchValue={openString}
-        showDot={isNoteInScale(openString)}
+        showDot={openNoteResult.show}
         isTonic={tonicNote !== null && openString === tonicNote}
         isOpenNote={true}
+        isPosition={openNoteResult.isPosition}
       />
 
       {Array.from({ length: fretQuantity }).map((_, noteNumber) => {
         const fretNumber = noteNumber + 1;
         const notePitch: NotePitch = ((openString + fretNumber) %
           12) as NotePitch;
+        const noteResult = isNoteInScale(notePitch, stringIndex, fretNumber);
 
         return (
           <Note
             key={fretNumber}
             notePitchValue={notePitch}
-            showDot={isNoteInScale(notePitch)}
+            showDot={noteResult.show}
             isTonic={tonicNote !== null && notePitch === tonicNote}
             isOpenNote={false}
+            isPosition={noteResult.isPosition}
           />
         );
       })}

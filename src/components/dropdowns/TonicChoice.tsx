@@ -43,7 +43,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
           checked: scale.tonicNote === pitch,
           onSelect: () => handleTonicSelect(pitch),
         }))}
-        className={twJoin(isInSetup && "grid-cols-4 -mt-3")}
+        className={twJoin(isInSetup && "grid-cols-6 -mt-3")}
       />
     </>
   );
