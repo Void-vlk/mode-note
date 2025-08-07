@@ -55,6 +55,7 @@ const Note: FC<Props> = ({
 
   return (
     <div
+      data-note={isOpenNote ? "open" : notePitchValue}
       className={twJoin(
         "transition-colors flex items-center justify-center relative",
         isOpenNote

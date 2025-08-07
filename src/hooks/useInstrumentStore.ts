@@ -1,7 +1,12 @@
 "use client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { NoteDisplay, DEFAULT_STRINGS, Instruments, ScalePosition } from "@/resources/types";
+import {
+  NoteDisplay,
+  DEFAULT_STRINGS,
+  Instruments,
+  ScalePosition,
+} from "@/resources/types";
 import type { FretQuantity, NotePitch, StringQty } from "@/resources/themes";
 import { defaultTuning } from "@/hooks/getInstrumentValues";
 
@@ -75,12 +80,10 @@ export const useInstrumentStore = create<InstrumentState>()(
         })),
 
       setTuning: (currentTuning) => set({ currentTuning }),
-      setScale: (scale) => set({ scale }),
+      setScale: (scale) => set({ scale, scalePosition: ScalePosition.All }),
 
       setScalePosition: (scalePosition) => {
-        console.log("Store: setScalePosition called with:", scalePosition);
         set({ scalePosition });
-        console.log("Store: scalePosition updated to:", scalePosition);
       },
 
       setNoteDisplay: (noteDisplay) => set({ noteDisplay }),
