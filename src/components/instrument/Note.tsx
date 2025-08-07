@@ -39,17 +39,6 @@ const Note: FC<Props> = ({
   const noteDisplay = useInstrumentStore((s) => s.noteDisplay);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
-  const scalePosition = useInstrumentStore((s) => s.scalePosition);
-
-  if (notePitchValue === 0 && showDot) {
-    console.log("Note (C) render:", {
-      notePitchValue,
-      showDot,
-      isPosition,
-      scalePosition,
-      isOpenNote,
-    });
-  }
 
   const noteName = buildNoteDisplay(notePitchValue, noteDisplay, isSharp);
 
