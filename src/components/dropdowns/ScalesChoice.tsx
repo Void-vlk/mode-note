@@ -15,15 +15,15 @@ const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
   const scaleOptions = Object.entries(SCALES);
 
   return (
-    <MenuSelectionList
-      options={scaleOptions.map(([key, option]) => ({
-        value: key,
-        label: option.name,
-        checked: scale.scalePattern === option.id,
-        onSelect: () => setScale({ ...scale, scalePattern: option.id }),
-      }))}
-      className={twMerge(isInSetup && "grid-cols-3")}
-    />
+      <MenuSelectionList
+        options={scaleOptions.map(([key, option]) => ({
+          value: key,
+          label: option.name,
+          checked: scale.scalePattern === option.id,
+          onSelect: () => setScale({ ...scale, scalePattern: option.id }),
+        }))}
+        className={twMerge(isInSetup && "grid-cols-3")}
+      />
   );
 };
 

@@ -12,6 +12,7 @@ type Props = {
   showDot: boolean;
   isTonic: boolean;
   isOpenNote: boolean;
+  isPosition: boolean;
 };
 
 const buildNoteDisplay = (
@@ -27,16 +28,34 @@ const buildNoteDisplay = (
   return getNoteName(notePitchValue, isSharp);
 };
 
-const Note: FC<Props> = ({ notePitchValue, showDot, isOpenNote, isTonic }) => {
+const Note: FC<Props> = ({
+  notePitchValue,
+  showDot,
+  isOpenNote,
+  isTonic,
+  isPosition,
+}) => {
   const isSharp = useInstrumentStore((s) => s.isSharp);
   const noteDisplay = useInstrumentStore((s) => s.noteDisplay);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
+  const scalePosition = useInstrumentStore((s) => s.scalePosition);
+
+  if (notePitchValue === 0 && showDot) {
+    console.log("Note (C) render:", {
+      notePitchValue,
+      showDot,
+      isPosition,
+      scalePosition,
+      isOpenNote,
+    });
+  }
 
   const noteName = buildNoteDisplay(notePitchValue, noteDisplay, isSharp);
 
   return (
     <div
+      data-note={isOpenNote ? "open" : notePitchValue}
       className={twJoin(
         "transition-colors flex items-center justify-center relative",
         isOpenNote
@@ -49,7 +68,9 @@ const Note: FC<Props> = ({ notePitchValue, showDot, isOpenNote, isTonic }) => {
         fretboardTheme === "ebony" &&
           noteTheme === "black" &&
           "outline outline-white",
-        !showDot && "invisible"
+        !showDot && "invisible",
+        showDot && !isPosition && "!opacity-40",
+        showDot && isPosition && "opacity-100"
       )}
     >
       {noteName && (

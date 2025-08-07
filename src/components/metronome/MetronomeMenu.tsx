@@ -1,5 +1,5 @@
 "use client";
-import { ArrowLeft, Timer } from "lucide-react";
+import { Timer, X } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { type FC, useRef } from "react";
@@ -24,11 +24,7 @@ const MetronomeMenu: FC = () => {
     if (container.current) {
       gsap
         .timeline()
-        .fromTo(
-          container.current,
-          { xPercent: 100 },
-          { xPercent: 0, duration: 0.3 }
-        )
+        .fromTo(".wrapper", { xPercent: 100 }, { xPercent: 0, duration: 0.3 })
         .fromTo(
           background.current,
           {
@@ -36,6 +32,14 @@ const MetronomeMenu: FC = () => {
           },
           { autoAlpha: 1, duration: 0.2, ease: "none" },
           "-0.1"
+        )
+        .fromTo(
+          container.current.children,
+          {
+            autoAlpha: 0,
+          },
+          { autoAlpha: 1, duration: 0.3, stagger: 0.06, ease: "none" },
+          "-=0.1"
         );
     }
   });
@@ -67,21 +71,21 @@ const MetronomeMenu: FC = () => {
         <>
           <section
             ref={container}
-            className="fixed right-2 top-16 xl:top-18 z-30 w-64 xl:w-72 h-fit flex flex-col bg-black rounded-xl xl:rounded-3xl items-left p-4"
+            className="wrapper fixed right-2 top-16 xl:top-18 z-30 w-64 xl:w-72 h-fit flex flex-col bg-black rounded-xl xl:rounded-3xl items-left p-4"
           >
-            <div className="w-full justify-between flex items-center mb-2 xl:mb-4 border-b pb-1 xl:pb-2">
+            <div className="w-full justify-between items-center flex mb-2 xl:mb-4 border-b pb-1 xl:pb-2 border-grey-dark">
               <Timer
-                className="size-5 xl:size-8 text-grey-light"
+                className="size-6 xl:size-8 text-grey-light"
                 strokeWidth={1.5}
               />
-              <h2 className="text-base xl:text-lg font-bold text-grey-light uppercase">
+              <h2 className="text-base xl:text-lg font-bold text-grey-light uppercase mt-0.5">
                 metronome
               </h2>
               <button
                 className="p-1 xl:p-2 cursor-pointer"
                 onClick={() => setIsMetronomeOpen(false)}
               >
-                <ArrowLeft
+                <X
                   className="rotate-180 text-white/80 size-6 xl:size-8"
                   strokeWidth={1.5}
                 />
@@ -89,7 +93,7 @@ const MetronomeMenu: FC = () => {
             </div>
             <Dropdown content={METRONOME_CONTENT} />
 
-            <section className="flex flex-col w-full py-3 xl:py-4 gap-1 md:gap-2 xl:gap-3 items-center">
+            <section className="flex flex-col w-full mt-1 py-3 xl:py-4 gap-1 md:gap-2 xl:gap-3 items-center">
               <h3 className="font-bold text-xl text-white/90">BPM: {bpm}</h3>
               <BPMControls />
             </section>

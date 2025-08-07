@@ -57,16 +57,16 @@ const Sidebar: FC = () => {
       {() => (
         <section
           ref={container}
-          className="fixed inset-0 bg-black/20 z-20"
+          className="fixed inset-0 bg-black/20 z-20 overflow-hidden overscroll-none"
           onClick={() => setIsSidebarOpen(false)}
         >
           <div
             ref={sidebar}
-            className="z-30 fixed h-full top-0 left-0 xl:w-80 w-72 bg-black border-r-2 border-white/30"
+            className="z-30 fixed h-dvh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain overflow-y-auto custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute top-1 right-2 xl:right-1 p-1 xl:p-2 cursor-pointer"
+              className="absolute top-3 xl:top-4 right-1 p-2 cursor-pointer"
               onClick={() => setIsSidebarOpen(false)}
             >
               <ArrowLeft
@@ -75,8 +75,8 @@ const Sidebar: FC = () => {
               />
             </button>
 
-            <section className="py-2 md:py-3 xl:py-4 px-4 flex flex-col justify-center items-left">
-              <h2 className="text-base xl:text-xl font-bold text-grey-light pb-1 xl:pb-2 mb-2 xl:mb-4 uppercase border-b border-white/50">
+            <section className="py-5 xl:py-6 px-4 flex flex-col justify-center items-left">
+              <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 uppercase border-b border-grey-dark">
                 settings
               </h2>
               <Dropdown content={MENU_CONTENT} />

@@ -38,14 +38,20 @@ const WizardSetupStage: FC = () => {
   };
 
   return (
-    <main className="size-full justify-center items-start sm:items-center flex px-2 py-11 sm:py-0">
-      <section className="lg:max-w-xl max-w-md w-full flex flex-col rounded-lg bg-white/5 border pt-6 text-center space-y-1">
-        <h2 className="text-center text-2xl md:text-3xl text-white font-bold">
+    <main className="size-full justify-center items-start sm:items-center flex px-2 py-16 sm:py-0 overflow-y-auto custom-scrollbar">
+      <section className="relative lg:max-w-xl max-w-md w-full flex flex-col rounded-lg bg-white/5 border pt-6 text-center space-y-1">
+        <h2 className="text-center text-xl md:text-2xl xl:text-3xl text-white font-bold">
           Welcome to Mode Note!
         </h2>
-        <h4 className="text-base md:text-lg text-white px-8 md:px-4 leading-tight">
+        <h4 className="text-sm md:text-base text-grey-light md:px-4 leading-tight">
           Your helpful guide to learning scales and notes.
         </h4>
+        <button
+          className="cursor-pointer hover:text-white absolute top-1 right-1 px-2 py-1 text-[10px] text-white/80"
+          onClick={handleSkip}
+        >
+          Skip
+        </button>
 
         <SwitchTransition>
           <Transition
@@ -57,10 +63,7 @@ const WizardSetupStage: FC = () => {
             {() => {
               //status - prop transitionStatus: TransitionStatus for isExiting
               return (
-                <div
-                  ref={container}
-                  className="w-full p-2 md:p-4 overflow-y-auto custom-scrollbar"
-                >
+                <div ref={container} className="w-full p-2 md:p-4">
                   {wizardStage === "instrument" && (
                     <>
                       <p className="text-balance text-sm text-white/80 pb-4">
@@ -79,10 +82,10 @@ const WizardSetupStage: FC = () => {
                     <TuningChoice isInSetup={true} />
                   )}
                   {wizardStage === "scale" && (
-                    <section className="flex flex-col">
-                      <p className="text-sm">Choose a scale:</p>
+                    <section className="flex flex-col text-xs md:text-sm">
+                      <p className="my-1">Choose a scale & position:</p>
                       <ScalesChoice isInSetup={true} />
-                      <p className="text-sm my-1">Choose a tonic note:</p>
+                      <p className="my-1">Choose a tonic note & accidental:</p>
                       <TonicChoice isInSetup={true} />
                     </section>
                   )}
@@ -100,9 +103,6 @@ const WizardSetupStage: FC = () => {
                     </button>
                     <button className="btn" onClick={handleNextStage}>
                       {wizardStage !== "scale" ? "Continue" : "Let's Go!"}
-                    </button>
-                    <button className="btn" onClick={handleSkip}>
-                      Skip
                     </button>
                   </div>
                 </div>

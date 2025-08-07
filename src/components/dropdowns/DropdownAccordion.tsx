@@ -18,7 +18,7 @@ const AccordionItem: FC<Props> = ({ heading, content, isOpen, onClick }) => {
       className={twJoin("rounded-lg w-full", isOpen && "bg-white/10 max-h-fit")}
     >
       <button
-        className="flex w-full items-center border-b border-grey-light text-white/90 px-3 cursor-pointer justify-between py-2 text-left font-bold focus:outline-none md:py-3"
+        className="flex w-full items-center border-b border-grey-dark text-white/90 px-3 cursor-pointer justify-between py-2 text-left font-bold focus:outline-none md:py-3"
         onClick={onClick}
       >
         {heading}
@@ -33,7 +33,7 @@ const AccordionItem: FC<Props> = ({ heading, content, isOpen, onClick }) => {
         className={twJoin(
           "transition-all duration-250 ease-in-out",
           isOpen
-            ? "max-h-96 md:max-h-[28rem] py-1.5 opacity-100 pointer-events-auto overflow-y-auto custom-scrollbar pb-4"
+            ? "max-h-96 xl:max-h-[26rem] py-1.5 opacity-100 pointer-events-auto overflow-y-auto custom-scrollbar pb-4"
             : "h-0 max-h-0 opacity-0 overflow-hidden pointer-events-none"
         )}
       >

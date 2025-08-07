@@ -78,11 +78,11 @@ const MetronomeController: FC = () => {
     <section className="flex items-center gap-1 md:flex-row flex-row-reverse">
       <div
         className={twJoin(
-          "size-5 md:size-6 rounded-full transition-colors duration-75 md:mr-2 ml-0.5",
+          "size-5 min-w-5 xl:size-6 rounded-full transition-colors duration-75 md:mr-2",
           isAccent ? "bg-(--tonic-colour)" : "bg-(--note-colour)"
         )}
       />
-      <h3 className="text-xs md:text-sm font-bold hidden md:block">METRONOME</h3>
+      <h3 className="text-xs xl:text-sm font-bold hidden md:block text-grey-mid">METRONOME</h3>
       <button
         onClick={() => setIsPlaying(!isPlaying)}
         className="cursor-pointer hover:text-white text-white/80 md:p-2"

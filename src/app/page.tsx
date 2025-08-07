@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 import { useNavStore } from "@/hooks/useNavStore";
+import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import SetupWizardStage from "@/components/settings/SetupStage";
 import Instrument from "@/components/instrument/Instrument";
 
@@ -12,12 +13,19 @@ export default function Home() {
   const hasHydrated = useNavStore((s) => s.hasHydrated);
   const hasDoneSetup = useNavStore((s) => s.hasDoneSetup);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
+  const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
 
   useGSAP(
     () => {
       if (!container.current) return;
       const isXL = window.innerWidth >= 1280;
-      const sidebarWidth = isXL ? 264 : 288;
+
+      let sidebarWidth;
+      if (fretQuantity === 24) {
+        sidebarWidth = isXL ? 264 : 288;
+      } else {
+        sidebarWidth = isXL ? 184 : 280;
+      }
 
       gsap.to(container.current, {
         x: isSidebarOpen ? sidebarWidth : 0,
@@ -25,7 +33,7 @@ export default function Home() {
         ease: "none",
       });
     },
-    { dependencies: [isSidebarOpen] }
+    { dependencies: [isSidebarOpen, fretQuantity] }
   );
 
   const { contextSafe } = useGSAP({ scope: container });
@@ -58,7 +66,7 @@ export default function Home() {
       >
         {() => (
           <main
-            className="w-full h-svh md:h-screen items-center flex xl:justify-center overflow-x-auto custom-scrollbar"
+            className="w-full items-center flex xl:justify-center h-svh max-h-svh md:h-lvh overflow-x-auto custom-scrollbar overflow-y-hidden"
             ref={container}
           >
             {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}

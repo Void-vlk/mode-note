@@ -1,11 +1,7 @@
 import type { NotePitch, StringQty } from "@/resources/themes";
 
 export type WizardStage = (typeof WIZARD_STAGES)[number];
-export const WIZARD_STAGES = [
-  "instrument",
-  "tuning",
-  "scale",
-] as const;
+export const WIZARD_STAGES = ["instrument", "tuning", "scale"] as const;
 
 export enum Instruments {
   Guitar = "guitar",
@@ -39,12 +35,6 @@ export type NoteVariant = {
   flat?: string;
 };
 
-export type Scale = {
-  id: string;
-  name: string;
-  pattern: NotePitch[];
-};
-
 export type Tuning = {
   id: string;
   name: string;
@@ -52,3 +42,49 @@ export type Tuning = {
   stringQty: StringQty;
   stringTunings: NotePitch[];
 };
+
+export type Scale = {
+  id: string;
+  name: string;
+  pattern: NotePitch[];
+  positions?: ScalePositions;
+};
+
+export enum ScalePosition {
+  All = "all",
+  Open = "open",
+  First = "first",
+  Second = "second",
+  Third = "third",
+  Fourth = "fourth",
+  Fifth = "fifth",
+  Sixth = "sixth",
+  Seventh = "seventh",
+  Eighth = "eighth",
+  Ninth = "ninth",
+  Tenth = "tenth",
+  Eleventh = "eleventh",
+  Twelfth = "twelfth",
+  Thirteenth = "thirteenth",
+  Fourteenth = "fourteenth",
+  Fifteenth = "fifteenth",
+  Sixteenth = "sixteenth",
+  Seventeenth = "seventeenth",
+  Eighteenth = "eighteenth",
+  Nineteenth = "nineteenth",
+  Twentieth = "twentieth",
+}
+
+export type ScalePositionData = {
+  label: string;
+  value: ScalePosition;
+  fretRange: number[];
+};
+
+// extended type
+export type ScalePositionContent = ScalePositionData & {
+  startingNoteIndex: number;
+};
+
+// collection type
+export type ScalePositions = Record<ScalePosition, ScalePositionContent>

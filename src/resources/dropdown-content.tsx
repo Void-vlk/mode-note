@@ -7,6 +7,7 @@ import ScalesChoice from "@/components/dropdowns/ScalesChoice";
 import ThemeChoice from "@/components/dropdowns/ThemeChoice";
 import TimeSignatureChoice from "@/components/metronome/TimeSignatureChoice";
 import SoundChoice from "@/components/metronome/SoundChoice";
+import ScalePositionChoice from "@/components/dropdowns/ScalePositionChoice";
 
 export type MenuContent = {
   id: string;
@@ -32,8 +33,13 @@ export const MENU_CONTENT: MenuContent[] = [
   },
   {
     id: "scales",
-    heading: "Musical Scales",
+    heading: "Scales",
     content: <ScalesChoice />,
+  },
+  {
+    id: "positions",
+    heading: "Scale Position",
+    content: <ScalePositionChoice />,
   },
   {
     id: "theme",
