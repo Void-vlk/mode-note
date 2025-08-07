@@ -32,7 +32,7 @@ const Nav: FC = () => {
       <Image
         src={modeNoteLogo}
         alt="Logo"
-        className="w-auto h-7 xl:h-8 fixed left-1/2 top-4 -translate-x-1/2"
+        className="w-auto h-7 xl:h-8 absolute left-1/2 top-4 -translate-x-1/2"
         priority
         quality={80}
       />
