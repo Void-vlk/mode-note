@@ -251,14 +251,14 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
         stringTunings: [6, 11, 4, 9, 2, 7, 11, 4, 9],
       },
       {
-        id: "9g2",
+        id: "9g3",
         name: "Augmented 5ths",
         instrument: Instruments.Guitar,
         stringQty: 9,
         stringTunings: [8, 0, 4, 8, 0, 4, 8, 0, 4],
       },
       {
-        id: "9g3",
+        id: "9g4",
         name: "Bass+Guitar",
         instrument: Instruments.Guitar,
         stringQty: 9,
@@ -449,6 +449,6 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
 };
 
 export const STRING_QTY_OPTIONS: Record<Instruments, StringQty[]> = {
-  [Instruments.Guitar]: [6, 7, 8],
-  [Instruments.Bass]: [4, 5, 6],
+  [Instruments.Guitar]: [6, 7, 8, 9],
+  [Instruments.Bass]: [4, 5, 6, 7],
 };
