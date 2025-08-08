@@ -14,6 +14,8 @@ export enum Scales {
   Mixolydian = "mixolydian",
   Aeolian = "aeolian",
   Locrian = "locrian",
+  Major = "major",
+  Minor = "minor",
   Algerian = "algerian",
   Augmented = "augmented",
   BebopMajor = "bebop-major",
@@ -222,6 +224,18 @@ export const SCALES: Record<Scales, Scale> = {
     id: "locrian",
     name: "Locrian",
     pattern: [0, 1, 3, 5, 6, 8, 10],
+    positions: generateScalePositions(7),
+  },
+  [Scales.Major]: {
+    id: "major",
+    name: "Major",
+    pattern: [0, 2, 4, 5, 7, 9, 11],
+    positions: generateScalePositions(7),
+  },
+  [Scales.Minor]: {
+    id: "minor",
+    name: "Minor",
+    pattern: [0, 2, 3, 5, 7, 8, 10],
     positions: generateScalePositions(7),
   },
   [Scales.Algerian]: {
