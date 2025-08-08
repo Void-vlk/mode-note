@@ -20,7 +20,12 @@ type Props = {
   instrument: Instruments;
 };
 
-const Strings: FC<Props> = ({ currentTuning, isNoteInScale, tonicNote, instrument }) => {
+const Strings: FC<Props> = ({
+  currentTuning,
+  isNoteInScale,
+  tonicNote,
+  instrument,
+}) => {
   const stringsRef = useRef<HTMLDivElement>(null);
   const scale = useInstrumentStore((s) => s.scale);
   const contentKey = `${scale.scalePattern}-${scale.tonicNote}`;

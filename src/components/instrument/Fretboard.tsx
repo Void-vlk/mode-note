@@ -7,19 +7,30 @@ import { Diamond, TriangleRight } from "lucide-react";
 
 const Fretboard: FC<{ className: string }> = ({ className }) => {
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   return (
     <section
       className={twJoin(
-        "size-full bg-(--fretboard-colour) px-1 flex border-b border-t border-white/10",
+        "relative size-full bg-(--fretboard-colour) px-1 flex border-b border-t border-white/10",
         className
       )}
     >
-      <div className="min-w-12 -ml-1 h-full border-r-8 bg-(--headstock-bg) border-(--nut-colour)" />
+      <div
+        className={twJoin(
+          "min-w-12 h-full bg-(--headstock-bg) border-(--nut-colour)",
+          isRightHanded ? "border-r-8 -ml-1" : "border-l-8 -mr-1"
+        )}
+      />
       {Array.from({ length: fretQuantity }).map((_, i) => (
         <div
           key={i}
-          className="min-w-11 w-11 md:min-w-12 xl:min-w-13 border-r-2 border-r-frets"
+          className={twJoin(
+            "min-w-11 w-11 md:min-w-12 xl:min-w-13 ",
+            isRightHanded
+              ? "border-r-2 border-r-frets"
+              : "border-l-2 border-l-frets"
+          )}
         />
       ))}
 
@@ -36,6 +47,7 @@ const FretMarkers: FC<{
 }> = ({ isTop = true }) => {
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
   const isDiamond = useInstrumentStore((s) => s.isDiamond);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   const showFretMarkers = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24];
 
@@ -46,8 +58,8 @@ const FretMarkers: FC<{
         fretQuantity === 24 ? "right-0" : "right-2",
         isTop ? "-top-5.5 md:-top-7.5" : "-bottom-4.5 md:-bottom-5.5",
         isDiamond
-          ? "pl-12 lg:pl-11.75 xl:pl-11.75 pr-1.5"
-          : "pl-12 lg:pl-12 lg:pr-1 xl:pl-11.75"
+          ? `${isRightHanded ? "pl-11.5 pr-2.75" : "pl-1 pr-11.75"}`
+          : `${isRightHanded ? "pl-11.5 pr-2.75" : "pr-11 lg:pl-1 xl:pr-11.75"}`
       )}
     >
       {Array.from({ length: fretQuantity }).map((_, i) =>
@@ -62,7 +74,12 @@ const FretMarkers: FC<{
             {isDiamond ? (
               <Diamond className="size-4 md:size-5" />
             ) : (
-              <TriangleRight className="scale-y-[-1] rotate-90 size-4 md:size-5" />
+              <TriangleRight
+                className={twJoin(
+                  "rotate-90 size-4 md:size-5",
+                  isRightHanded && "scale-y-[-1]"
+                )}
+              />
             )}
             <p
               className={twJoin(
@@ -75,7 +92,10 @@ const FretMarkers: FC<{
             </p>
           </div>
         ) : (
-          <div key={i} className="w-7 h-5 lg:h-6 xl:h-7 fret-spacing" />
+          <div
+            key={i}
+            className="w-7 h-5 lg:h-6 xl:h-7 fret-spacing "
+          />
         )
       )}
     </div>

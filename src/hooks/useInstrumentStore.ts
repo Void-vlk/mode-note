@@ -32,6 +32,7 @@ export type InstrumentState = {
   isDiamond: boolean;
   fretQuantity: FretQuantity;
   customTunings: CustomTunings;
+  isRightHanded: boolean;
 
   setInstrument: (instrument: Instruments) => void;
   setStringQty: (stringQty: StringQty) => void;
@@ -44,6 +45,7 @@ export type InstrumentState = {
   setFretQuantity: (quantity: FretQuantity) => void;
   setNewTuning: (semitones: -2 | -1 | 1 | 2) => void;
   setCustomTuning: (tuning?: NotePitch[]) => void;
+  setIsRightHanded: (isRightHanded: boolean) => void;
 };
 
 export const useInstrumentStore = create<InstrumentState>()(
@@ -62,6 +64,7 @@ export const useInstrumentStore = create<InstrumentState>()(
       isDiamond: false,
       fretQuantity: 24,
       customTunings: {},
+      isRightHanded: true,
 
       setInstrument: (instrument: Instruments) =>
         set(() => {
@@ -118,6 +121,8 @@ export const useInstrumentStore = create<InstrumentState>()(
           const existing = state.customTunings[instrument]?.[stringQty];
           return existing ? { currentTuning: existing } : state;
         }),
+
+      setIsRightHanded: (isRightHanded) => set({ isRightHanded }),
     }),
     {
       name: "instrument-store",
@@ -128,6 +133,7 @@ export const useInstrumentStore = create<InstrumentState>()(
         customTunings: state.customTunings,
         noteDisplay: state.noteDisplay,
         isSharp: state.isSharp,
+        isRightHanded: state.isRightHanded,
       }),
       // not scales
     }

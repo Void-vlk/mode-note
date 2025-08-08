@@ -39,6 +39,7 @@ const Note: FC<Props> = ({
   const noteDisplay = useInstrumentStore((s) => s.noteDisplay);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   const noteName = buildNoteDisplay(notePitchValue, noteDisplay, isSharp);
 
@@ -48,7 +49,7 @@ const Note: FC<Props> = ({
       className={twJoin(
         "transition-colors flex items-center justify-center relative",
         isOpenNote
-          ? "open-note xl:mr-2.25 md:mr-1.75 mr-1.5"
+          ? `open-note ${isRightHanded ? "xl:mr-2.25 md:mr-1.75 mr-1.5 ml-4.25 md:ml-4 xl:ml-3" : "mr-1 ml-2"} `
           : "rounded-full note-styles",
         isTonic ? "bg-(--tonic-colour)" : "bg-(--note-colour)",
         fretboardTheme === "pale" &&

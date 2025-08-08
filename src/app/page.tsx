@@ -7,6 +7,7 @@ import { useNavStore } from "@/hooks/useNavStore";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import SetupWizardStage from "@/components/settings/SetupStage";
 import Instrument from "@/components/instrument/Instrument";
+import { twJoin } from "tailwind-merge";
 
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
@@ -14,17 +15,20 @@ export default function Home() {
   const hasDoneSetup = useNavStore((s) => s.hasDoneSetup);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   useGSAP(
     () => {
       if (!container.current) return;
       const isXL = window.innerWidth >= 1280;
 
-      let sidebarWidth;
-      if (fretQuantity === 24) {
-        sidebarWidth = isXL ? 264 : 288;
-      } else {
-        sidebarWidth = isXL ? 184 : 280;
+      let sidebarWidth = 0;
+      if (isRightHanded) {
+        if (fretQuantity === 24) {
+          sidebarWidth = isXL ? 264 : 288;
+        } else {
+          sidebarWidth = isXL ? 184 : 280;
+        }
       }
 
       gsap.to(container.current, {
@@ -33,7 +37,7 @@ export default function Home() {
         ease: "none",
       });
     },
-    { dependencies: [isSidebarOpen, fretQuantity] }
+    { dependencies: [isSidebarOpen, fretQuantity, isRightHanded] }
   );
 
   const { contextSafe } = useGSAP({ scope: container });
@@ -66,7 +70,12 @@ export default function Home() {
       >
         {() => (
           <main
-            className="w-full items-center flex xl:justify-center h-svh max-h-svh md:h-lvh overflow-x-auto custom-scrollbar overflow-y-hidden"
+            className={twJoin(
+              "w-full items-center flex xl:justify-center h-svh max-h-svh md:h-lvh overflow-x-auto custom-scrollbar overflow-y-hidden",
+              isRightHanded
+                ? "flex-row direction-ltr"
+                : "flex-row-reverse direction-rtl mr-2"
+            )}
             ref={container}
           >
             {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}

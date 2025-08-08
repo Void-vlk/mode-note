@@ -214,7 +214,7 @@ body {
 
 @layer utilities {
   .sub-header {
-    @apply font-semibold pb-2 px-2 text-grey-light text-xs lg:text-sm underline underline-offset-6;
+    @apply font-semibold pb-2 px-2 text-grey-light text-xs lg:text-sm underline underline-offset-5;
   }
   .fret-spacing {
     @apply min-w-11 w-11 md:min-w-12 xl:min-w-13;
@@ -223,7 +223,7 @@ body {
     @apply size-7 md:size-8 xl:size-9 mx-2;
   }
   .open-note {
-    @apply rounded-xs rotate-45 size-5.5 xl:size-6 ml-4.25 md:ml-4 xl:ml-3;
+    @apply rounded-xs rotate-45 size-5.5 xl:size-6;
   }
   .custom-scrollbar {
     @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-md scrollbar-thumb-white/10;
@@ -231,4 +231,11 @@ body {
   .btn {
     @apply min-w-32 border hover:text-white text-white/80 py-1 px-3 md:px-6 rounded-md cursor-pointer text-sm;
   }
+}
+
+.direction-rtl {
+  direction: rtl;
+}
+.direction-ltr {
+  direction: ltr;
 }

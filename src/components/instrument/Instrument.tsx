@@ -103,7 +103,6 @@ const Instrument: FC<Props> = ({}) => {
   return (
     <SwitchTransition mode="out-in">
       <Transition
-        // key={transitionKey}
         key={instrumentKey}
         timeout={{ enter: 400, exit: 300 }}
         nodeRef={container}
@@ -119,7 +118,7 @@ const Instrument: FC<Props> = ({}) => {
             "relative grid w-full min-w-4xl md:w-5xl",
             fretQuantity === 24
               ? "lg:w-6xl xl:w-7xl xl:-ml-8"
-              : "lg:w-5xl xl:w-6xl2 xl:-ml-36"
+              : "lg:w-5xl xl:w-6xl2 xl:-ml-36",
           )}
         >
           <Fretboard className="row-start-1 col-start-1 w-full" />

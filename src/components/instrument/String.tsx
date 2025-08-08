@@ -35,10 +35,10 @@ const String: FC<Props> = ({
     <section
       ref={container}
       className={twJoin(
-        "relative w-full flex items-center ml-0.5 pr-3",
+        "relative w-full flex items-center  ml-0.5 pr-3",
         instrument === Instruments.Guitar
           ? "my-1 lg:my-1.25 lg:first:mt-1 lg:last:mb-1"
-          : "my-1.75 lg:my-3 lg:first:mt-1.5 lg:last:mb-1.5"
+          : "my-1.75 lg:my-3 lg:first:mt-1.5 lg:last:mb-1.5",
       )}
     >
       <StringLine stringIndex={stringIndex} />
@@ -78,6 +78,8 @@ export default String;
 const StringLine: FC<{ stringIndex: number }> = ({ stringIndex }) => {
   const stringQty = useInstrumentStore((s) => s.stringQty);
   const instrument = useInstrumentStore((s) => s.instrument);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
+
   const getStringThickness = (): string => {
     const thicknesses =
       STRING_THICKNESS[instrument][
@@ -91,6 +93,7 @@ const StringLine: FC<{ stringIndex: number }> = ({ stringIndex }) => {
     <div
       className={twJoin(
         `absolute w-full top-1/2 bg-(--string-colour) transform -translate-y-1/2`,
+        isRightHanded ? "left-0" : "right-0",
         getStringThickness()
       )}
     />

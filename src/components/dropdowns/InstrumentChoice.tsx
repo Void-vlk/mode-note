@@ -1,5 +1,5 @@
 "use client";
-import { Diamond, TriangleRight } from "lucide-react";
+import { Diamond, Hand, TriangleRight } from "lucide-react";
 import { type FC } from "react";
 import { twJoin, twMerge } from "tailwind-merge";
 
@@ -22,6 +22,8 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
   const setFretQuantity = useInstrumentStore((s) => s.setFretQuantity);
   const isDiamond = useInstrumentStore((s) => s.isDiamond);
   const setIsDiamond = useInstrumentStore((s) => s.setIsDiamond);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
+  const setIsRighteHanded = useInstrumentStore((s) => s.setIsRightHanded);
 
   const instrumentOptions = Object.entries(INSTRUMENTS);
 
@@ -44,12 +46,12 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           checked: stringQty === qty,
           onSelect: () => setStringQty(qty),
         }))}
-        className={twMerge(
-          isInSetup && "grid-cols-2 gap-3 mb-4 md:!px-8"
-        )}
+        className={twMerge(isInSetup && "grid-cols-2 gap-3 mb-4 md:!px-8")}
         contentHeader="String Quantity"
       />
-      <section className={twJoin("flex", isInSetup && "justify-center")}>
+      <section
+        className={twJoin("flex flex-wrap gap-1", isInSetup && "justify-center")}
+      >
         <ContentToggle
           isChecked={fretQuantity === 24}
           onChange={() => setFretQuantity(fretQuantity === 24 ? 21 : 24)}
@@ -65,10 +67,26 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           isInSetup={isInSetup}
           optionHeader="Fret Markers"
           leftOption={
-            <TriangleRight className="scale-y-[-1] rotate-90 size-4 lg:size-5 mt-px lg:mt-0" />
+            <TriangleRight className="scale-y-[-1] rotate-90 size-4 lg:size-5 mt-px lg:mt-0 -ml-1" />
           }
           rightOption={<Diamond className="size-4 lg:size-5 mt-px lg:mt-0" />}
           aria-label="Toggle fret markers"
+        />
+        <ContentToggle
+          isChecked={isRightHanded}
+          onChange={() => setIsRighteHanded(!isRightHanded)}
+          isInSetup={isInSetup}
+          optionHeader="Handedness"
+          leftOption={
+            <Hand
+              className="scale-x-[-1] size-4.5 lg:size-5 -mr-1"
+              strokeWidth={1.5}
+            />
+          }
+          rightOption={
+            <Hand className="size-4.5 lg:size-5 -ml-1" strokeWidth={1.5} />
+          }
+          aria-label="Toggle handedness"
         />
       </section>
     </>
