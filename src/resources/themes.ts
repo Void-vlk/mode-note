@@ -62,9 +62,6 @@ export const NOTE_TO_TONIC: Record<NoteTheme, TonicTheme> = {
   white: "grey-mid",
 } as const;
 
-export type AppTheme = (typeof APP_THEMES)[number];
-export const APP_THEMES = ["default", "simple"] as const;
-
 export const STRING_THICKNESS = {
   [Instruments.Guitar]: {
     6: ["h-1.25", "h-1", "h-0.75", "h-0.75", "h-0.5", "h-0.5"],

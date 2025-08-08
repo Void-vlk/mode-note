@@ -3,7 +3,6 @@ import { type FC } from "react";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
 import {
-  // APP_THEMES,
   FRETBOARD_THEMES,
   NOTE_THEMES,
 } from "@/resources/themes";
@@ -11,8 +10,6 @@ import {
 import { useThemeStore } from "@/hooks/useThemeStore";
 
 const ThemeChoice: FC = () => {
-  // const appTheme = useThemeStore((s) => s.appTheme);
-  // const setAppTheme = useThemeStore((s) => s.setAppTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
   const setFretboardTheme = useThemeStore((s) => s.setFretboardTheme);
   const stringTheme = useThemeStore((s) => s.stringTheme);
@@ -22,14 +19,6 @@ const ThemeChoice: FC = () => {
 
   return (
     <>
-      {/* <MenuSelectionList
-        options={APP_THEMES.map((theme) => ({
-          value: theme,
-          label: theme,
-          checked: appTheme === theme,
-          onSelect: () => setAppTheme(theme),
-        }))}
-      /> */}
       <MenuSelectionList
         options={FRETBOARD_THEMES.map((theme) => ({
           value: theme,
