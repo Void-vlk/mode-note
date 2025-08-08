@@ -29,15 +29,13 @@ export default function Home() {
         } else {
           sidebarWidth = isXL ? 184 : 280;
         }
-        gsap.to(container.current, {
-          x: isSidebarOpen ? sidebarWidth : 0,
-          duration: 0.3,
-          ease: "none",
-        });
-      } else {
-        // Remove transform completely for left-handed mode
-        gsap.set(container.current, { clearProps: "transform" });
       }
+
+      gsap.to(container.current, {
+        x: isSidebarOpen ? sidebarWidth : 0,
+        duration: 0.3,
+        ease: "none",
+      });
     },
     { dependencies: [isSidebarOpen, fretQuantity, isRightHanded] }
   );
