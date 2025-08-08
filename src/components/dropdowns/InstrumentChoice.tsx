@@ -45,7 +45,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           onSelect: () => setStringQty(qty),
         }))}
         className={twMerge(
-          isInSetup && "grid-cols-3 gap-3 mb-4 md:!px-8"
+          isInSetup && "grid-cols-2 gap-3 mb-4 md:!px-8"
         )}
         contentHeader="String Quantity"
       />
