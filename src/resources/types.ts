@@ -24,10 +24,21 @@ export const DEFAULT_STRINGS: Record<Instruments, StringQty> = {
 } as const;
 
 export enum NoteDisplay {
-  Blank = "blank",
   Note = "note",
   Interval = "interval",
+  Blank = "blank",
 }
+
+export type NoteDisplayOption = {
+  value: NoteDisplay;
+  label: string;
+};
+
+export const NOTE_DISPLAY: Record<NoteDisplay, NoteDisplayOption> = {
+  [NoteDisplay.Note]: { value: NoteDisplay.Note, label: "Pitch" },
+  [NoteDisplay.Interval]: { value: NoteDisplay.Interval, label: "Intervals" },
+  [NoteDisplay.Blank]: { value: NoteDisplay.Blank, label: "Blank" },
+};
 
 export type NoteVariant = {
   natural?: string;
@@ -48,6 +59,7 @@ export type Scale = {
   name: string;
   pattern: NotePitch[];
   positions?: ScalePositions;
+  intervals: string[];
 };
 
 export enum ScalePosition {
@@ -87,4 +99,4 @@ export type ScalePositionContent = ScalePositionData & {
 };
 
 // collection type
-export type ScalePositions = Record<ScalePosition, ScalePositionContent>
+export type ScalePositions = Record<ScalePosition, ScalePositionContent>;

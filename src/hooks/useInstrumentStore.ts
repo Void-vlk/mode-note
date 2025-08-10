@@ -1,18 +1,20 @@
 "use client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
+import { defaultTuning } from "@/hooks/getInstrumentValues";
+import { Scales } from "@/resources/scales";
+import type { FretQuantity, NotePitch, StringQty } from "@/resources/themes";
 import {
   NoteDisplay,
   DEFAULT_STRINGS,
   Instruments,
   ScalePosition,
 } from "@/resources/types";
-import type { FretQuantity, NotePitch, StringQty } from "@/resources/themes";
-import { defaultTuning } from "@/hooks/getInstrumentValues";
 
 export type Scale = {
   tonicNote: NotePitch | null;
-  scalePattern: string;
+  scalePattern: Scales;
 };
 
 type CustomTunings = {
@@ -56,7 +58,7 @@ export const useInstrumentStore = create<InstrumentState>()(
       currentTuning: [4, 9, 2, 7, 11, 4],
       scale: {
         tonicNote: null,
-        scalePattern: "chromatic",
+        scalePattern: Scales.Chromatic,
       },
       scalePosition: ScalePosition.All,
       noteDisplay: NoteDisplay.Note,
@@ -129,9 +131,9 @@ export const useInstrumentStore = create<InstrumentState>()(
       partialize: (state) => ({
         instrument: state.instrument,
         stringQty: state.stringQty,
+        noteDisplay: state.noteDisplay,
         currentTuning: state.currentTuning,
         customTunings: state.customTunings,
-        noteDisplay: state.noteDisplay,
         isSharp: state.isSharp,
         isRightHanded: state.isRightHanded,
       }),

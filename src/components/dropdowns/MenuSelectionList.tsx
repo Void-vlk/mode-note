@@ -45,7 +45,7 @@ const MenuSelectionList: FC<Props> = ({
                 onChange={option.onSelect}
                 className="peer absolute opacity-0 size-0"
               />
-              <span className="will-change-transform items-center text-center justify-center px-1 flex select-none peer-checked:bg-(--note-colour) border peer-checked:border-(--note-colour) peer-checked:text-(--note-text) py-0.75 min-w-full cursor-pointer rounded-md text-grey-light hover:text-white peer-checked:hover:text-(--hover-text) peer-checked:font-semibold">
+              <span className="will-change-transform items-center text-center justify-center px-1 flex select-none peer-checked:bg-(--note-colour) border peer-checked:border-(--note-colour) peer-checked:text-(--note-text) py-0.75 min-w-full cursor-pointer rounded-md text-grey-light hover:text-white peer-checked:hover:text-(--hover-text) peer-checked:font-semibold leading-4">
                 {option.label}
               </span>
             </label>

@@ -1,11 +1,11 @@
 "use client";
-import type { FC } from "react";
-import type { NoteDisplay } from "@/resources/types";
+import { type FC } from "react";
 import { twJoin } from "tailwind-merge";
-import { getIntervalName, getNoteName } from "@/hooks/getNoteValues";
+
+import { buildNoteDisplay } from "@/hooks/getNoteValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { useThemeStore } from "@/hooks/useThemeStore";
-import { NotePitch } from "@/resources/themes";
+import { type NotePitch } from "@/resources/themes";
 
 type Props = {
   notePitchValue: NotePitch;
@@ -13,19 +13,6 @@ type Props = {
   isTonic: boolean;
   isOpenNote: boolean;
   isPosition: boolean;
-};
-
-const buildNoteDisplay = (
-  notePitchValue: NotePitch,
-  noteDisplay: NoteDisplay,
-  isSharp: boolean
-) => {
-  if (noteDisplay === "blank") return "";
-  if (noteDisplay === "note") return getNoteName(notePitchValue, isSharp);
-  if (noteDisplay === "interval")
-    return getIntervalName(notePitchValue, isSharp);
-  // note name values of note-pitches sharp or flat and naturals, intervals etc
-  return getNoteName(notePitchValue, isSharp);
 };
 
 const Note: FC<Props> = ({
@@ -37,11 +24,18 @@ const Note: FC<Props> = ({
 }) => {
   const isSharp = useInstrumentStore((s) => s.isSharp);
   const noteDisplay = useInstrumentStore((s) => s.noteDisplay);
+  const scale = useInstrumentStore((s) => s.scale);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
   const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
-  const noteName = buildNoteDisplay(notePitchValue, noteDisplay, isSharp);
+  const noteName = buildNoteDisplay(
+    notePitchValue,
+    noteDisplay,
+    isSharp,
+    scale.scalePattern,
+    scale.tonicNote!
+  );
 
   return (
     <div
@@ -49,7 +43,7 @@ const Note: FC<Props> = ({
       className={twJoin(
         "transition-colors flex items-center justify-center relative",
         isOpenNote
-          ? `open-note ${isRightHanded ? "xl:mr-2.25 md:mr-1.75 mr-1.5 ml-4.25 md:ml-4 xl:ml-3" : "mr-1 ml-2"} `
+          ? `open-note ${isRightHanded ? "xl:mr-2.25 md:mr-1.75 mr-1.5 ml-4.25 md:ml-4 xl:ml-2.5" : "mr-1 ml-2"} `
           : "rounded-full note-styles",
         isTonic ? "bg-(--tonic-colour)" : "bg-(--note-colour)",
         fretboardTheme === "pale" &&
@@ -66,8 +60,8 @@ const Note: FC<Props> = ({
       {noteName && (
         <p
           className={twJoin(
-            "select-none leading-none font-semibold",
-            isOpenNote && "-rotate-45 text-sm lg:text-base xl:text-lg",
+            "select-none font-semibold text-center",
+            isOpenNote && "-rotate-45",
             noteTheme === "yellow" || noteTheme === "white"
               ? "text-black"
               : "text-white",
