@@ -100,3 +100,5 @@ export type ScalePositionContent = ScalePositionData & {
 
 // collection type
 export type ScalePositions = Record<ScalePosition, ScalePositionContent>;
+
+export type PositionOption = 'Shape' | '3NPS'

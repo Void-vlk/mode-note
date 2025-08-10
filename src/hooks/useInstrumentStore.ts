@@ -10,6 +10,7 @@ import {
   DEFAULT_STRINGS,
   Instruments,
   ScalePosition,
+  PositionOption,
 } from "@/resources/types";
 
 export type Scale = {
@@ -29,6 +30,7 @@ export type InstrumentState = {
   currentTuning: NotePitch[];
   scale: Scale;
   scalePosition: ScalePosition;
+  scalePositionMode: PositionOption;
   noteDisplay: NoteDisplay;
   isSharp: boolean;
   isDiamond: boolean;
@@ -41,6 +43,7 @@ export type InstrumentState = {
   setTuning: (tuning: NotePitch[]) => void;
   setScale: (scale: Scale) => void;
   setScalePosition: (position: ScalePosition) => void;
+  setScalePositionMode: (mode: PositionOption) => void;
   setNoteDisplay: (noteDisplay: NoteDisplay) => void;
   setIsSharp: (isSharp: boolean) => void;
   setIsDiamond: (isDiamond: boolean) => void;
@@ -61,6 +64,7 @@ export const useInstrumentStore = create<InstrumentState>()(
         scalePattern: Scales.Chromatic,
       },
       scalePosition: ScalePosition.All,
+      scalePositionMode: "Shape",
       noteDisplay: NoteDisplay.Note,
       isSharp: true,
       isDiamond: false,
@@ -87,9 +91,8 @@ export const useInstrumentStore = create<InstrumentState>()(
       setTuning: (currentTuning) => set({ currentTuning }),
       setScale: (scale) => set({ scale, scalePosition: ScalePosition.All }),
 
-      setScalePosition: (scalePosition) => {
-        set({ scalePosition });
-      },
+      setScalePosition: (scalePosition) => set({ scalePosition }),
+      setScalePositionMode: (scalePositionMode) => set({ scalePositionMode }),
 
       setNoteDisplay: (noteDisplay) => set({ noteDisplay }),
       setIsSharp: (isSharp) => set({ isSharp }),

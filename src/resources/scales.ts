@@ -1,6 +1,6 @@
+import { generateScalePositions } from "@/hooks/getScalePositions";
 import {
   type Scale,
-  type ScalePositions,
   ScalePosition,
   type ScalePositionData,
 } from "@/resources/types";
@@ -38,32 +38,6 @@ export enum Scales {
   Tritone = "tritone",
   WholeTone = "whole-tone",
 }
-
-// modulo operator for circular indexing
-// if position 3 and pattern is Ionian: [0, 2, 4, 5, 7, 9, 11] (7 notes),
-// 3: { startingNoteIndex: 2 % 7 = 2 } Start from 3rd note - (4)
-const generateScalePositions = (patternLength: number): ScalePositions => {
-  const positions: ScalePositions = {} as ScalePositions;
-
-  Object.entries(SCALE_POSITIONS).forEach(([key, staticData]) => {
-    const scalePos = key as ScalePosition;
-
-    // Get position index directly from the enum values
-    const allPositions = Object.values(ScalePosition);
-    const positionIndex = allPositions.indexOf(scalePos);
-
-    // Calculate starting note index: All/Open=0, First=1, others use (index-1) % pattern
-    const startingNoteIndex =
-      positionIndex <= 1 ? 0 : (positionIndex - 1) % patternLength;
-
-    positions[scalePos] = {
-      ...staticData,
-      startingNoteIndex,
-    };
-  });
-
-  return positions;
-};
 
 /* POSITIONS */
 export const SCALE_POSITIONS: Record<ScalePosition, ScalePositionData> = {

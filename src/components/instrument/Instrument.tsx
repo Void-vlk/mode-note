@@ -6,6 +6,7 @@ import { SwitchTransition, Transition } from "react-transition-group";
 import { twJoin } from "tailwind-merge";
 
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { getScalePositionFretRange } from "@/hooks/getScalePositions";
 import Fretboard from "@/components/instrument/Fretboard";
 import Strings from "@/components/instrument/Strings";
 import { Scales, SCALES, SCALE_POSITIONS } from "@/resources/scales";
@@ -21,6 +22,7 @@ const Instrument: FC<Props> = ({}) => {
   const currentTuning = useInstrumentStore((s) => s.currentTuning);
   const scale = useInstrumentStore((s) => s.scale);
   const scalePosition = useInstrumentStore((s) => s.scalePosition);
+  const scalePositionMode = useInstrumentStore((s) => s.scalePositionMode);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
   const stringQty = useInstrumentStore((s) => s.stringQty);
   const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
@@ -53,6 +55,7 @@ const Instrument: FC<Props> = ({}) => {
     });
   });
 
+  // check if note is in scale
   const isNoteInScale = useMemo(() => {
     // get scale pattern intervals
     const scalePattern = SCALES[scale.scalePattern as Scales];
@@ -76,19 +79,70 @@ const Instrument: FC<Props> = ({}) => {
     return SCALE_POSITIONS[scalePosition]?.fretRange || [];
   }, [scalePosition]);
 
+  //
+  const isNoteInPositionFretRange = useMemo(() => {
+    if (scalePosition === ScalePosition.All) return null;
+
+    const scalePattern = SCALES[scale.scalePattern as Scales];
+    if (!scalePattern) return null;
+
+    const positionData = SCALE_POSITIONS[scalePosition];
+    if (!positionData) return null;
+
+    console.log("Calculating position frets with mode:", scalePositionMode);
+
+    // Use your function with the toggle state!
+    const stringFrets = getScalePositionFretRange(
+      scalePattern.pattern,
+      currentTuning,
+      positionData.fretRange,
+      scale.tonicNote!,
+      scalePositionMode
+    );
+
+    console.log("Calculated string frets:", stringFrets);
+
+    // Convert to lookup structure for easy checking
+    const fretLookup = new Map<number, Set<number>>();
+    stringFrets.forEach((frets, stringIndex) => {
+      fretLookup.set(stringIndex, new Set(frets));
+    });
+
+    return fretLookup;
+  }, [scale, scalePosition, scalePositionMode, currentTuning]);
+
+  // check if note is in scale position
   const isNoteInScalePosition = useMemo(() => {
     return (
       notePitch: NotePitch,
-      _stringIndex?: number,
+      stringIndex?: number,
       fretNumber?: number
     ): { show: boolean; isPosition: boolean } => {
       if (!isNoteInScale(notePitch)) {
         return { show: false, isPosition: false };
       }
+
       // if showing all positions, always show
       if (scalePosition === ScalePosition.All) {
         return { show: true, isPosition: true };
       }
+
+      if (
+        isNoteInPositionFretRange &&
+        stringIndex !== undefined &&
+        fretNumber !== undefined
+      ) {
+        const stringFrets = isNoteInPositionFretRange.get(stringIndex);
+        const isInPositionRange = stringFrets
+          ? stringFrets.has(fretNumber)
+          : false;
+
+        return {
+          show: true,
+          isPosition: isInPositionRange,
+        };
+      }
+
       // if specific position, check if fret is in range
       if (fretNumber !== undefined && getPositionFretRange) {
         const isInPositionRange = getPositionFretRange.includes(fretNumber);
@@ -97,9 +151,15 @@ const Instrument: FC<Props> = ({}) => {
           isPosition: isInPositionRange,
         };
       }
+
       return { show: true, isPosition: false };
     };
-  }, [isNoteInScale, scalePosition, getPositionFretRange]);
+  }, [
+    isNoteInScale,
+    scalePosition,
+    getPositionFretRange,
+    isNoteInPositionFretRange,
+  ]);
 
   return (
     <SwitchTransition mode="out-in">
