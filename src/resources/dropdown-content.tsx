@@ -38,14 +38,14 @@ export const MENU_CONTENT: MenuContent[] = [
     content: <ScalesChoice />,
   },
   {
-    id: "note-display",
-    heading: "Note Display",
-    content: <NoteDisplayChoice />,
-  },
-  {
     id: "positions",
     heading: "Scale Position",
     content: <ScalePositionChoice />,
+  },
+  {
+    id: "note-display",
+    heading: "Note Display",
+    content: <NoteDisplayChoice />,
   },
   {
     id: "theme",

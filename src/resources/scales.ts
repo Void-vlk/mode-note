@@ -49,7 +49,7 @@ export const SCALE_POSITIONS: Record<ScalePosition, ScalePositionData> = {
   [ScalePosition.Open]: {
     label: "Open",
     value: ScalePosition.Open,
-    fretRange: [0, 1, 2, 3],
+    fretRange: [0, 1, 2, 3, 4],
   },
   [ScalePosition.First]: {
     label: "First",
