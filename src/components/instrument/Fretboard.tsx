@@ -83,19 +83,17 @@ const FretMarkers: FC<{
             )}
             <p
               className={twJoin(
-                "absolute xl:text-sm text-xs",
+                "absolute xl:text-sm text-xs select-none",
                 isTop ? "-top-2.25" : "xl:top-6.5 md:top-6 top-5",
                 isDiamond ? "" : "mr-0.75"
               )}
             >
+              {/* fret marker numbers */}
               {i + 1}
             </p>
           </div>
         ) : (
-          <div
-            key={i}
-            className="w-7 h-5 lg:h-6 xl:h-7 fret-spacing "
-          />
+          <div key={i} className="w-7 h-5 lg:h-6 xl:h-7 fret-spacing" />
         )
       )}
     </div>

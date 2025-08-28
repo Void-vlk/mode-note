@@ -6,6 +6,7 @@ import { SwitchTransition, Transition } from "react-transition-group";
 
 import String from "@/components/instrument/String";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useThemeStore } from "@/hooks/useThemeStore";
 import { NotePitch } from "@/resources/themes";
 import { Instruments } from "@/resources/types";
 
@@ -28,7 +29,9 @@ const Strings: FC<Props> = ({
 }) => {
   const stringsRef = useRef<HTMLDivElement>(null);
   const scale = useInstrumentStore((s) => s.scale);
-  const contentKey = `${scale.scalePattern}-${scale.tonicNote}`;
+  const customSelectionMode = useThemeStore((s) => s.customSelectionMode);
+  const contentKey = `${scale.scalePattern}-${scale.tonicNote}-${customSelectionMode}`;
+
   const { contextSafe } = useGSAP({ scope: stringsRef });
 
   const onEnter = contextSafe(() => {

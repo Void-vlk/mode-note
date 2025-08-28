@@ -38,7 +38,7 @@ const String: FC<Props> = ({
         "relative w-full flex items-center  ml-0.5 pr-3",
         instrument === Instruments.Guitar
           ? "my-1 lg:my-1.25 lg:first:mt-1 lg:last:mb-1"
-          : "my-1.75 lg:my-3 lg:first:mt-1.5 lg:last:mb-1.5",
+          : "my-1.75 lg:my-3 lg:first:mt-1.5 lg:last:mb-1.5"
       )}
     >
       <StringLine stringIndex={stringIndex} />
@@ -50,6 +50,8 @@ const String: FC<Props> = ({
         isTonic={tonicNote !== null && openString === tonicNote}
         isOpenNote={true}
         isPosition={openNoteResult.isPosition}
+        stringIndex={stringIndex}
+        fretNumber={0}
       />
 
       {Array.from({ length: fretQuantity }).map((_, noteNumber) => {
@@ -66,6 +68,8 @@ const String: FC<Props> = ({
             isTonic={tonicNote !== null && notePitch === tonicNote}
             isOpenNote={false}
             isPosition={noteResult.isPosition}
+            stringIndex={stringIndex}
+            fretNumber={fretNumber}
           />
         );
       })}

@@ -24,6 +24,8 @@ type CustomTunings = {
   };
 };
 
+type CustomNoteSelection = { stringIndex: number; fretNumber: number };
+
 export type InstrumentState = {
   instrument: Instruments;
   stringQty: StringQty;
@@ -37,6 +39,8 @@ export type InstrumentState = {
   fretQuantity: FretQuantity;
   customTunings: CustomTunings;
   isRightHanded: boolean;
+  customScaleAll: NotePitch[];
+  customScaleIndividual: CustomNoteSelection[];
 
   setInstrument: (instrument: Instruments) => void;
   setStringQty: (stringQty: StringQty) => void;
@@ -51,6 +55,11 @@ export type InstrumentState = {
   setNewTuning: (semitones: -2 | -1 | 1 | 2) => void;
   setCustomTuning: (tuning?: NotePitch[]) => void;
   setIsRightHanded: (isRightHanded: boolean) => void;
+
+  setCustomScaleAll: (notes: NotePitch[]) => void;
+  setCustomScaleIndividual: (notes: CustomNoteSelection[]) => void;
+  resetCustomScaleAll: () => void;
+  resetCustomScaleIndividual: () => void;
 };
 
 export const useInstrumentStore = create<InstrumentState>()(
@@ -71,6 +80,8 @@ export const useInstrumentStore = create<InstrumentState>()(
       fretQuantity: 24,
       customTunings: {},
       isRightHanded: true,
+      customScaleAll: [],
+      customScaleIndividual: [],
 
       setInstrument: (instrument: Instruments) =>
         set(() => {
@@ -128,6 +139,12 @@ export const useInstrumentStore = create<InstrumentState>()(
         }),
 
       setIsRightHanded: (isRightHanded) => set({ isRightHanded }),
+
+      setCustomScaleAll: (notes) => set({ customScaleAll: notes }),
+      setCustomScaleIndividual: (notes) =>
+        set({ customScaleIndividual: notes }),
+      resetCustomScaleAll: () => set({ customScaleAll: [] }),
+      resetCustomScaleIndividual: () => set({ customScaleIndividual: [] }),
     }),
     {
       name: "instrument-store",
@@ -139,6 +156,8 @@ export const useInstrumentStore = create<InstrumentState>()(
         customTunings: state.customTunings,
         isSharp: state.isSharp,
         isRightHanded: state.isRightHanded,
+        customScaleIndividual: state.customScaleIndividual,
+        customScaleAll: state.customScaleAll,
       }),
       // not scales
     }

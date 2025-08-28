@@ -37,6 +37,7 @@ export enum Scales {
   SuperLocrian = "super-locrian",
   Tritone = "tritone",
   WholeTone = "whole-tone",
+  Custom = "custom",
 }
 
 /* POSITIONS */
@@ -384,5 +385,13 @@ export const SCALES: Record<Scales, Scale> = {
     pattern: [0, 2, 4, 6, 8, 10],
     positions: generateScalePositions(6),
     intervals: ["I", "II", "III", "♯IV", "♭VI", "♭VII"],
+  },
+
+  [Scales.Custom]: {
+    id: "custom",
+    name: "Custom",
+    pattern: [],
+    positions: generateScalePositions(0),
+    intervals: [],
   },
 };

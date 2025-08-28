@@ -12,6 +12,7 @@ import Strings from "@/components/instrument/Strings";
 import { Scales, SCALES, SCALE_POSITIONS } from "@/resources/scales";
 import { NotePitch } from "@/resources/themes";
 import { ScalePosition } from "@/resources/types";
+import { useThemeStore } from "@/hooks/useThemeStore";
 
 type Props = { show?: boolean };
 
@@ -26,8 +27,9 @@ const Instrument: FC<Props> = ({}) => {
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
   const stringQty = useInstrumentStore((s) => s.stringQty);
   const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
+  const customSelectionMode = useThemeStore((s) => s.customSelectionMode);
 
-  const instrumentKey = `${instrument}-${stringQty}-${fretQuantity}-${isRightHanded}`;
+  const instrumentKey = `${instrument}-${stringQty}-${fretQuantity}-${isRightHanded}-${customSelectionMode}`;
 
   const { contextSafe } = useGSAP({ scope: container });
 
@@ -54,6 +56,11 @@ const Instrument: FC<Props> = ({}) => {
       ease: "none",
     });
   });
+
+  const isCustomSelectionMode = () => {
+    // Always show all notes in custom mode, not just selected ones
+    return { show: true, isPosition: false };
+  };
 
   // check if note is in scale
   const isNoteInScale = useMemo(() => {
@@ -89,8 +96,6 @@ const Instrument: FC<Props> = ({}) => {
     const positionData = SCALE_POSITIONS[scalePosition];
     if (!positionData) return null;
 
-    console.log("Calculating position frets with mode:", scalePositionMode);
-
     // Use your function with the toggle state!
     const stringFrets = getScalePositionFretRange(
       scalePattern.pattern,
@@ -99,8 +104,6 @@ const Instrument: FC<Props> = ({}) => {
       scale.tonicNote!,
       scalePositionMode
     );
-
-    console.log("Calculated string frets:", stringFrets);
 
     // Convert to lookup structure for easy checking
     const fretLookup = new Map<number, Set<number>>();
@@ -118,6 +121,10 @@ const Instrument: FC<Props> = ({}) => {
       stringIndex?: number,
       fretNumber?: number
     ): { show: boolean; isPosition: boolean } => {
+      if (customSelectionMode) {
+        return isCustomSelectionMode();
+      }
+
       if (!isNoteInScale(notePitch)) {
         return { show: false, isPosition: false };
       }
@@ -159,6 +166,7 @@ const Instrument: FC<Props> = ({}) => {
     scalePosition,
     getPositionFretRange,
     isNoteInPositionFretRange,
+    customSelectionMode,
   ]);
 
   return (
