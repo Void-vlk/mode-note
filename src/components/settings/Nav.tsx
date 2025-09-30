@@ -20,7 +20,7 @@ const Nav: FC = () => {
   const setIsMetronomeOpen = useNavStore((s) => s.setIsMetronomeOpen);
 
   return (
-    <nav className="w-full fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-2 max-w-screen">
+    <nav className="w-full fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-2 max-w-screen select-none">
       <button
         onClick={() => setIsSidebarOpen(true)}
         className="cursor-pointer p-3 xl:p-4 bg-black rounded-full text-grey-light hover:text-white"

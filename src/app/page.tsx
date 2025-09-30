@@ -16,19 +16,22 @@ export default function Home() {
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
   const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
+  const { contextSafe } = useGSAP({ scope: container });
+
+  const readPxVar = (name: string) =>
+    parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue(name)
+    ) || 0;
 
   useGSAP(
     () => {
       if (!container.current) return;
-      const isXL = window.innerWidth >= 1280;
-
-      let sidebarWidth = 0;
+      // calc using CSS var so it works with zoom / different screen sizes
       if (isRightHanded) {
-        if (fretQuantity === 24) {
-          sidebarWidth = isXL ? 264 : 288;
-        } else {
-          sidebarWidth = isXL ? 184 : 280;
-        }
+        const varName =
+          fretQuantity === 24 ? "--sidebar-w-24" : "--sidebar-w-oth";
+        const sidebarWidth = readPxVar(varName);
+
         gsap.to(container.current, {
           x: isSidebarOpen ? sidebarWidth : 0,
           duration: 0.3,
@@ -42,7 +45,25 @@ export default function Home() {
     { dependencies: [isSidebarOpen, fretQuantity, isRightHanded] }
   );
 
-  const { contextSafe } = useGSAP({ scope: container });
+  // keep it in sync if window size / zoom changes
+  useGSAP(() => {
+    if (!container.current) return;
+
+    const onResize = () => {
+      if (!isRightHanded) return;
+      const varName =
+        fretQuantity === 24 ? "--sidebar-w-24" : "--sidebar-w-oth";
+      const sidebarWidth = readPxVar(varName);
+      gsap.to(container.current, {
+        x: isSidebarOpen ? sidebarWidth : 0,
+        duration: 0.2,
+        ease: "none",
+      });
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [isSidebarOpen, fretQuantity, isRightHanded]);
 
   const onEnter = contextSafe(() => {
     if (!container.current) return;

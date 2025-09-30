@@ -34,9 +34,13 @@
   --color-yellow: #facc15;
 
   /* Breakpoints */
-  --breakpoint-xs-h: 600px;
-  --breakpoint-se-h: 667px;
-  --breakpoint-pro-h: 800px;
+  --breakpoint-xs-h: 37.5rem; /* 600px */
+  --breakpoint-se-h: 41.688rem; /* 667px */
+  --breakpoint-pro-h: 50rem; /* 800px */
+
+  --breakpoint-3xl: 119rem; /* 1904px  */
+  --breakpoint-4xl: 157rem; /* 2512px */
+  --breakpoint-5xl: 178rem; /* 2848px */
 }
 
 @layer utilities {
@@ -54,6 +58,8 @@
   --nut-colour: var(--color-black);
   --background: #2f2f2f;
   --foreground: #efefef;
+  --sidebar-w-24: 288px; /* < 1440 */
+  --sidebar-w-oth: 280px;
 }
 
 /* fretboard colour */
@@ -217,13 +223,10 @@ body {
     @apply font-semibold pb-2 px-2 text-grey-light text-xs lg:text-sm underline underline-offset-5;
   }
   .fret-spacing {
-    @apply min-w-11 w-11 md:min-w-12 xl:min-w-13;
+    @apply w-11 md:w-12 xl:w-13 2xl:w-14.5 3xl:w-16 4xl:w-22 5xl:w-25;
   }
-  .note-styles {
-    @apply size-7 md:size-8 xl:size-9 mx-2;
-  }
-  .open-note {
-    @apply rounded-xs rotate-45 size-5.5 xl:size-6;
+  .nut-spacing {
+    @apply w-12 2xl:w-14 3xl:w-18;
   }
   .custom-scrollbar {
     @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-rounded-md scrollbar-thumb-white/10;
@@ -238,4 +241,40 @@ body {
 }
 .direction-ltr {
   direction: ltr;
+}
+
+/* 3K @ 200% (>=1440)  xl size */
+@media (min-width: 1440px) {
+  :root {
+    --sidebar-w-24: 244px;
+    --sidebar-w-oth: 180px; /* TODO */
+  }
+}
+/* 2.5K @ 150% (>=1700) 2xl size */
+@media (min-width: 1700px) {
+  :root {
+    --sidebar-w-24: 192px;
+    --sidebar-w-oth: 104px; /* TODO */
+  }
+}
+/* FHD or 4K @ 200% (>=1920) 3xl size */
+@media (min-width: 1904px) {
+  :root {
+    --sidebar-w-24: 164px;
+    --sidebar-w-oth: 0px; /* TODO */
+  }
+}
+/* 2.5K @ 100% (>=2560) 4xl size*/
+@media (min-width: 2512px) {
+  :root {
+    --sidebar-w-24: 140px;
+    --sidebar-w-oth: 176px; /* TODO */
+  }
+}
+/* 3K @ 100% (>=2880) 5xl size */
+@media (min-width: 2848px) {
+  :root {
+    --sidebar-w-24: 124px;
+    --sidebar-w-oth: 176px; /* TODO */
+  }
 }

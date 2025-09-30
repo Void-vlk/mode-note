@@ -57,7 +57,7 @@ const Sidebar: FC = () => {
       {() => (
         <section
           ref={container}
-          className="fixed inset-0 bg-black/20 z-20 overflow-hidden overscroll-none"
+          className="fixed inset-0 bg-black/20 z-20 overflow-hidden overscroll-none select-none"
           onClick={() => setIsSidebarOpen(false)}
         >
           <div

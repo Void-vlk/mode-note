@@ -31,7 +31,7 @@ const Note: FC<Props> = ({
   const scale = useInstrumentStore((s) => s.scale);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
-  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
+  // const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   const customSelectionMode = useThemeStore((s) => s.customSelectionMode);
   const singleNoteSelectionMode = useThemeStore(
@@ -101,8 +101,8 @@ const Note: FC<Props> = ({
       className={twJoin(
         "transition-colors flex items-center justify-center relative duration-200",
         isOpenNote
-          ? `open-note ${isRightHanded ? "xl:mr-2.5 md:mr-1.75 mr-1.5 ml-4.5 md:ml-4 xl:ml-2.5" : "mr-1 ml-2"} `
-          : "rounded-full note-styles",
+          ? "rounded-xs rotate-45 size-5.5 xl:size-6 2xl:size-7 3xl:size-8 4xl:size-10 5xl:size-11.5"
+          : "rounded-full size-7 md:size-8 xl:size-9 2xl:size-10 3xl:size-12 4xl:size-15 5xl:size-18",
         // Custom selection mode: use normal color if selected, if unselected use grey
         customSelectionMode
           ? [
@@ -132,7 +132,7 @@ const Note: FC<Props> = ({
       {noteName && (
         <p
           className={twJoin(
-            "select-none font-semibold text-center",
+            "select-none font-semibold text-center text-base xl:text-lg 2xl:text-xl 4xl:text-3xl 5xl:text-4xl",
             isOpenNote && "-rotate-45",
             noteTheme === "yellow" || noteTheme === "white"
               ? "text-black"

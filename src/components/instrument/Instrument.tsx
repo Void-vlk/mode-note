@@ -3,7 +3,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { type FC, useMemo, useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
-import { twJoin } from "tailwind-merge";
 
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { getScalePositionFretRange } from "@/hooks/getScalePositions";
@@ -170,7 +169,7 @@ const Instrument: FC<Props> = ({}) => {
   ]);
 
   return (
-    <SwitchTransition mode="out-in">
+    <SwitchTransition>
       <Transition
         key={instrumentKey}
         timeout={{ enter: 400, exit: 300 }}
@@ -183,12 +182,7 @@ const Instrument: FC<Props> = ({}) => {
       >
         <div
           ref={container}
-          className={twJoin(
-            "relative grid w-full min-w-4xl md:w-5xl",
-            fretQuantity === 24
-              ? `lg:w-6xl xl:w-7xl ${isRightHanded && "xl:-ml-8"}`
-              : `lg:w-5xl xl:w-6xl ${isRightHanded && "xl:-ml-36"}`
-          )}
+          className="relative grid w-max lg:max-w-none lg:mx-auto ml-1"
         >
           <Fretboard className="row-start-1 col-start-1 w-full" />
           <Strings
