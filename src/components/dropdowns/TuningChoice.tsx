@@ -3,12 +3,15 @@ import { type FC } from "react";
 
 import CurrentTuningDisplay from "@/components/settings/CurrentTuningDisplay";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
-import TuningControls from "@/components/dropdowns/TuningControls";
+import TuningControls, {
+  IndividualStringTuningControls,
+} from "@/components/dropdowns/TuningControls";
 import {
   getInstrumentTunings,
   isTuningMatching,
 } from "@/hooks/getInstrumentValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import InnerDropdown from "@/components/dropdowns/InnerDropdown";
 
 type Props = { isInSetup?: boolean };
 
@@ -21,7 +24,7 @@ const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
   const setCustomTuning = useInstrumentStore((s) => s.setCustomTuning);
 
   const tuningPresets = getInstrumentTunings(instrument, stringQty);
-  
+
   const tuningIsMatching = tuningPresets.some((tuningOption) =>
     isTuningMatching(currentTuning, tuningOption)
   );
@@ -46,13 +49,14 @@ const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
 
   return (
     <>
-      <div className="flex flex-col justify-between mb-2 pb-2 border-b">
+      <div className="flex flex-col justify-between">
         {isInSetup ? (
           <>
             <p className="mb-3 text-sm text-white/90 text-balance">
               Now choose a tuning! Select a preset, or create your own. Adjust
-              the full fretboard up or down, in either a semi-tone or whole-tone
-              & then save your custom tuning for next time!
+              each individual string - or the full fretboard up or down, in
+              either a semi-tone or whole-tone, & then save your custom tuning
+              for next time!
             </p>
             <div className="flex items-center mx-auto">
               <p className="text-xs pb-0.5">Current tuning:</p>
@@ -64,7 +68,11 @@ const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
           <CurrentTuningDisplay />
         )}
         <TuningControls />
+        <InnerDropdown heading="Individual String Tuning">
+          <IndividualStringTuningControls />
+        </InnerDropdown>
       </div>
+
       <MenuSelectionList options={tuningOptions} />
     </>
   );

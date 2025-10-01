@@ -55,7 +55,7 @@ export type InstrumentState = {
   setNewTuning: (semitones: -2 | -1 | 1 | 2) => void;
   setCustomTuning: (tuning?: NotePitch[]) => void;
   setIsRightHanded: (isRightHanded: boolean) => void;
-
+  setStringTuning: (stringIndex: number, semitones: -2 | -1 | 1 | 2) => void;
   setCustomScaleAll: (notes: NotePitch[]) => void;
   setCustomScaleIndividual: (notes: CustomNoteSelection[]) => void;
   resetCustomScaleAll: () => void;
@@ -100,6 +100,14 @@ export const useInstrumentStore = create<InstrumentState>()(
         })),
 
       setTuning: (currentTuning) => set({ currentTuning }),
+      
+      setStringTuning: (stringIndex, semitones) =>
+        set((state) => ({
+          currentTuning: state.currentTuning.map((note, idx) =>
+            idx === stringIndex ? (note + semitones + 12) % 12 : note
+          ) as NotePitch[],
+        })),
+      
       setScale: (scale) => set({ scale, scalePosition: ScalePosition.All }),
 
       setScalePosition: (scalePosition) => set({ scalePosition }),

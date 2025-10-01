@@ -215,13 +215,6 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
       },
       {
         id: "8g8",
-        name: "Bass+Guitar",
-        instrument: Instruments.Guitar,
-        stringQty: 8,
-        stringTunings: [4, 9, 2, 7, 0, 5, 9, 2],
-      },
-      {
-        id: "8g9",
         name: "Double Drop Fourths",
         instrument: Instruments.Guitar,
         stringQty: 8,

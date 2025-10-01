@@ -9,20 +9,33 @@ import {
 import { type FC, ReactNode } from "react";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import Switch from "@/components/settings/Switch";
+import { twJoin } from "tailwind-merge";
+import { getNoteName } from "@/hooks/getNoteValues";
+import type { NotePitch } from "@/resources/themes";
 
 type Props = {
   icon: ReactNode;
   semitone: -2 | -1 | 1 | 2;
+  onClick?: () => void;
+  isSmall?: boolean;
 };
 
-const TuningButton: FC<Props> = ({ icon, semitone }) => {
+const TuningButton: FC<Props> = ({
+  icon,
+  semitone,
+  onClick,
+  isSmall = false,
+}) => {
   const setNewTuning = useInstrumentStore((s) => s.setNewTuning);
-  const handleClick = () => setNewTuning(semitone);
+  const handleClick = () => (onClick ? onClick() : setNewTuning(semitone));
 
   return (
     <button
       onClick={handleClick}
-      className="bg-grey-light size-6 flex justify-center items-center cursor-pointer hover:bg-white/80 rounded-sm text-black/80"
+      className={twJoin(
+        "bg-grey-light flex justify-center items-center cursor-pointer hover:bg-white/80 rounded-sm text-black/80",
+        isSmall ? "w-6 h-5" : "size-6"
+      )}
     >
       {icon}
     </button>
@@ -40,7 +53,7 @@ const TuningControls: FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-between px-3">
+    <div className="flex items-center justify-between px-3 pb-2">
       <Switch
         isChecked={isSharp}
         onChange={toggleSharpFlat}
@@ -49,7 +62,7 @@ const TuningControls: FC = () => {
         aria-label="Toggle sharp/flat"
       />
       <div className="flex gap-1 items-center">
-        <p className="text-xs pr-1">Tune all: </p>
+        <p className="text-sm pr-1 text-grey-light">Tune all: </p>
         <TuningButton
           icon={<ChevronsDown className="size-6" />}
           semitone={-2}
@@ -68,3 +81,52 @@ const TuningControls: FC = () => {
   );
 };
 export default TuningControls;
+
+export const IndividualStringTuningControls: FC = () => {
+  const currentTuning = useInstrumentStore((s) => s.currentTuning);
+  const stringQty = useInstrumentStore((s) => s.stringQty);
+  const isSharp = useInstrumentStore((s) => s.isSharp);
+  const setStringTuning = useInstrumentStore((s) => s.setStringTuning);
+
+  const gridStyle = { gridTemplateColumns: `repeat(${stringQty}, 1fr)` };
+
+  return (
+    <section style={gridStyle} className={twJoin("grid px-1")}>
+      {currentTuning.map((pitch: NotePitch, index) => {
+        const note = getNoteName(pitch, isSharp);
+        return (
+          <div
+            key={index}
+            className="flex flex-col justify-center items-center gap-0.5"
+          >
+            <TuningButton
+              icon={<ChevronsUp className="size-5" />}
+              semitone={2}
+              onClick={() => setStringTuning(index, 2)}
+              isSmall={true}
+            />
+            <TuningButton
+              icon={<ChevronUp className="size-5" />}
+              semitone={1}
+              onClick={() => setStringTuning(index, 1)}
+              isSmall={true}
+            />
+            <p className="text-xl text-white/90">{note}</p>
+            <TuningButton
+              icon={<ChevronDown className="size-5" />}
+              semitone={-1}
+              onClick={() => setStringTuning(index, -1)}
+              isSmall={true}
+            />
+            <TuningButton
+              icon={<ChevronsDown className="size-5" />}
+              semitone={-2}
+              onClick={() => setStringTuning(index, -2)}
+              isSmall={true}
+            />
+          </div>
+        );
+      })}
+    </section>
+  );
+};
