@@ -8,6 +8,7 @@ import ContentToggle from "@/components/settings/ContentToggle";
 import { getStringQuantities } from "@/hooks/getInstrumentValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { Instruments, INSTRUMENTS } from "@/resources/types";
+import { FRET_QUANTITY } from "@/resources/themes";
 
 type Props = {
   isInSetup?: boolean;
@@ -49,18 +50,17 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
         className={twMerge(isInSetup && "grid-cols-2 gap-3 mb-4 md:!px-8")}
         contentHeader="String Quantity"
       />
-      <section
-        className={twJoin("flex flex-wrap gap-1", isInSetup && "justify-center")}
-      >
-        <ContentToggle
-          isChecked={fretQuantity === 24}
-          onChange={() => setFretQuantity(fretQuantity === 24 ? 21 : 24)}
-          isInSetup={isInSetup}
-          optionHeader="Fret Quantity"
-          leftOption="21"
-          rightOption="24"
-          aria-label="Toggle fret quantity"
-        />
+      <MenuSelectionList
+        options={FRET_QUANTITY.map((qty) => ({
+          value: qty,
+          label: `${qty}`,
+          checked: fretQuantity === qty,
+          onSelect: () => setFretQuantity(qty),
+        }))}
+        className={twMerge(isInSetup && "gap-3 mb-4 md:!px-8", "grid-cols-3")}
+        contentHeader="Fret Quantity"
+      />
+      <section className={twJoin("flex gap-1", isInSetup && "justify-center")}>
         <ContentToggle
           isChecked={isDiamond}
           onChange={() => setIsDiamond(!isDiamond)}

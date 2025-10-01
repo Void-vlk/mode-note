@@ -7,6 +7,7 @@ export type OptionValue =
   | NotePitch
   | TimeSignature
   | Sound
+  | FretQuantity
   | string;
 
 export const NOTE_PITCHES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
@@ -21,7 +22,8 @@ export const FRETBOARD_THEMES = ["rosewood", "maple", "ebony", "pale"] as const;
 export type StringTheme = (typeof STRING_THEMES)[number];
 export const STRING_THEMES = ["gold", "silver"] as const;
 
-export type FretQuantity = 21 | 24;
+export type FretQuantity = (typeof FRET_QUANTITY)[number];
+export const FRET_QUANTITY = [24, 22, 21] as const;
 
 export type NoteTheme = (typeof NOTE_THEMES)[number];
 export const NOTE_THEMES = [
