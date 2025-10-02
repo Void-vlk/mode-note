@@ -82,7 +82,7 @@ const ScaleInfoPopup: FC = () => {
     >
       <section
         ref={container}
-        className="border px-2 pt-2 fixed top-16 left-1 md:left-34 max-w-sm md:max-w-xl w-full rounded-2xl bg-black/95 z-20"
+        className="border px-2 pt-2 fixed top-16 left-0 md:left-34 max-w-sm md:max-w-xl w-full rounded-2xl bg-black/95 z-20"
       >
         {directory && directory.baseScaleId !== Scales.Chromatic ? (
           <div className="grid grid-cols-2 md:gap-2 relative">
@@ -146,7 +146,7 @@ const ScaleInfoPopup: FC = () => {
               </ul>
 
               {/* MODES */}
-              <ul className="space-y-1 text-sm pt-2 px-1">
+              <ul className="space-y-1 text-sm pt-2 px-1 text-nowrap">
                 {directory.modes.map((mode) => (
                   <li key={mode.rotationIndex}>
                     {getNoteName(mode.modalTonicPitch, isSharp)}
