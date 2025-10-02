@@ -33,7 +33,7 @@ const AccordionItem: FC<Props> = ({ heading, content, isOpen, onClick }) => {
         className={twJoin(
           "transition-all duration-250 ease-in-out",
           isOpen
-            ? "max-h-96 xl:max-h-[26rem] py-1.5 opacity-100 pointer-events-auto overflow-y-auto custom-scrollbar pb-4"
+            ? "py-1.5 opacity-100 pointer-events-auto overflow-y-auto no-scrollbar pb-4"
             : "h-0 max-h-0 opacity-0 overflow-hidden pointer-events-none"
         )}
       >

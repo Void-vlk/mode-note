@@ -191,6 +191,23 @@ html[data-tonic="grey-mid"] {
 @custom-variant se-h (@media (max-height: 667px));
 @custom-variant pro-h (@media (min-height: 800px));
 
+html,
+body {
+  position: fixed; /* pins the page */
+  inset: 0; /* top/right/bottom/left: 0 */
+  width: 100%;
+  overflow: hidden; /* no vertical scroll on the page */
+  overscroll-behavior: none; /* stop scroll chaining/rubber-band */
+  touch-action: none; /* prevent vertical panning on the page */
+  height: 100dvh; /* stable viewport height unit */
+}
+@supports (height: 100svh) {
+  html,
+  body {
+    height: 100svh;
+  } /* use svh on browsers that support it */
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -199,13 +216,8 @@ body {
 }
 
 /* Hide scrollbar */
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
 @plugin 'tailwind-scrollbar' {

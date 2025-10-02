@@ -55,14 +55,14 @@ const Sidebar: FC = () => {
       onExit={onExit}
     >
       {() => (
-        <section
+        <section // overlay background
           ref={container}
-          className="fixed inset-0 bg-black/20 z-20 overflow-hidden overscroll-none select-none"
+          className="fixed inset-0 bg-black/20 z-20 overflow-hidden select-none touch-none"
           onClick={() => setIsSidebarOpen(false)}
         >
           <div
             ref={sidebar}
-            className="z-30 fixed h-dvh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain overflow-y-auto custom-scrollbar"
+            className="z-30 fixed h-svh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain touch-pan-y overflow-y-auto no-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             <button

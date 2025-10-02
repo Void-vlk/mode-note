@@ -63,6 +63,7 @@ const MetronomeMenu: FC = () => {
       timeout={400}
       unmountOnExit
       mountOnEnter
+      appear
       nodeRef={container}
       onEnter={onEnter}
       onExit={onExit}
@@ -71,7 +72,7 @@ const MetronomeMenu: FC = () => {
         <>
           <section
             ref={container}
-            className="wrapper fixed right-2 top-16 xl:top-18 z-30 w-64 xl:w-72 h-fit flex flex-col bg-black rounded-xl xl:rounded-3xl items-left p-4"
+            className="wrapper fixed right-2 top-16 xl:top-20 z-30 w-64 xl:w-68 h-fit flex flex-col bg-black rounded-xl xl:rounded-3xl items-left p-4"
           >
             <div className="w-full justify-between items-center flex mb-2 xl:mb-4 border-b pb-1 xl:pb-2 border-grey-dark">
               <Timer
@@ -82,11 +83,11 @@ const MetronomeMenu: FC = () => {
                 metronome
               </h2>
               <button
-                className="p-1 xl:p-2 cursor-pointer"
+                className="p-1 cursor-pointer"
                 onClick={() => setIsMetronomeOpen(false)}
               >
                 <X
-                  className="rotate-180 text-white/80 size-6 xl:size-8"
+                  className="text-white/80 size-6 xl:size-8"
                   strokeWidth={1.5}
                 />
               </button>
