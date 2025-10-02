@@ -26,7 +26,7 @@ const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
 
   return (
     <>
-      <ScaleInfoButton />
+      {!isInSetup && <ScaleInfoButton />}
       <MenuSelectionList
         options={scaleOptions.map(([key, option]) => ({
           value: key,

@@ -86,15 +86,7 @@ const ScaleInfoPopup: FC = () => {
       >
         {directory && directory.baseScaleId !== Scales.Chromatic ? (
           <div className="grid grid-cols-2 md:gap-2 relative">
-            <button
-              className="absolute right-0 -top-1 md:top-0 p-1 cursor-pointer group"
-              onClick={() => setIsScaleInfoOpen(false)}
-            >
-              <X
-                className="text-white/80 size-6 xl:size-7 hover:text-white"
-                strokeWidth={1.5}
-              />
-            </button>
+            <CloseButton className="-top-1 md:top-0" />
 
             <section className="text-sm md:p-2 p-1 w-full flex flex-col py-6 md:py-1 md:pr-6">
               <h2 className="text-xl text-white/90 border-b border-grey-light pb-0.5">
@@ -160,6 +152,7 @@ const ScaleInfoPopup: FC = () => {
         ) : (
           <p className="text-base text-white/90 px-2 pb-2">
             Select a Tonic note & Mode for info.
+            <CloseButton className="top-1 right-2" />
           </p>
         )}
       </section>
@@ -195,5 +188,23 @@ const TextUnit: FC<Props> = ({ children, pitch }) => {
     >
       {children}
     </p>
+  );
+};
+
+const CloseButton: FC<{ className: string }> = ({ className }) => {
+  const setIsScaleInfoOpen = useNavStore((s) => s.setIsScaleInfoOpen);
+  return (
+    <button
+      className={twJoin(
+        "absolute right-0.5 p-1 cursor-pointer group",
+        className
+      )}
+      onClick={() => setIsScaleInfoOpen(false)}
+    >
+      <X
+        className="text-white/80 size-6 xl:size-7 hover:text-white"
+        strokeWidth={1.5}
+      />
+    </button>
   );
 };

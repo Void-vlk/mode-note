@@ -37,7 +37,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
           iconRight="♯"
           className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3")}
         />
-        <ScaleInfoButton />
+        {!isInSetup && <ScaleInfoButton />}
       </div>
       <MenuSelectionList
         canDeselect={true}
