@@ -54,15 +54,15 @@ const ScaleInfoPopup: FC = () => {
   const onEnter = contextSafe(() => {
     gsap.fromTo(
       container.current!,
-      { opacity: 0, yPercent: -100 },
-      { opacity: 1, yPercent: 0, duration: 0.3, ease: "none" }
+      { opacity: 0, xPercent: -120 },
+      { opacity: 1, xPercent: 0, duration: 0.4, ease: "none" }
     );
   });
 
   const onExit = contextSafe(() => {
     gsap.to(container.current!, {
-      yPercent: -100,
-      duration: 0.3,
+      xPercent: -120,
+      duration: 0.4,
       opacity: 0,
       ease: "none",
       onComplete: () => setIsScaleInfoOpen(false),
@@ -72,7 +72,7 @@ const ScaleInfoPopup: FC = () => {
   return (
     <Transition
       in={isScaleInfoOpen}
-      timeout={300}
+      timeout={400}
       nodeRef={container}
       onEnter={onEnter}
       onExit={onExit}
@@ -159,7 +159,7 @@ const ScaleInfoPopup: FC = () => {
             </div>
           </div>
         ) : (
-          <p className="text-base text-white/90">
+          <p className="text-base text-white/90 px-2">
             Select a Tonic note & Mode for info.
           </p>
         )}
