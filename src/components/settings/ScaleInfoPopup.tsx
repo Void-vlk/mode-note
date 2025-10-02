@@ -82,12 +82,12 @@ const ScaleInfoPopup: FC = () => {
     >
       <section
         ref={container}
-        className="border px-2 py-2 fixed top-16 left-4 md:left-34 max-w-sm md:max-w-xl w-full rounded-2xl bg-black/95 z-20"
+        className="border px-2 pt-2 fixed top-16 left-1 md:left-34 max-w-sm md:max-w-xl w-full rounded-2xl bg-black/95 z-20"
       >
         {directory && directory.baseScaleId !== Scales.Chromatic ? (
-          <div className="grid grid-cols-2 gap-2 relative pr-8">
+          <div className="grid grid-cols-2 md:gap-2 relative">
             <button
-              className="absolute right-0 top-0 p-1 cursor-pointer group"
+              className="absolute right-0 -top-1 md:top-0 p-1 cursor-pointer group"
               onClick={() => setIsScaleInfoOpen(false)}
             >
               <X
@@ -96,7 +96,7 @@ const ScaleInfoPopup: FC = () => {
               />
             </button>
 
-            <section className="text-sm p-2 w-full flex flex-col">
+            <section className="text-sm md:p-2 p-1 w-full flex flex-col py-6 md:py-1 md:pr-6">
               <h2 className="text-xl text-white/90 border-b border-grey-light pb-0.5">
                 {getNoteName(tonicNote, isSharp)} {scaleName}
               </h2>
@@ -125,8 +125,8 @@ const ScaleInfoPopup: FC = () => {
             </section>
 
             {/* SCALES */}
-            <div className="text-sm grid grid-cols-2 p-2">
-              <h3 className="font-semibold col-span-full border-b border-grey-light w-full pt-1.5 pb-0.75 px-1">
+            <div className="text-sm grid grid-cols-2 py-6 md:py-1">
+              <h3 className="font-semibold col-span-full border-b border-grey-light w-full pt-1.5 pb-1 px-1 mb-0.5">
                 Relative Scales / Modes
               </h3>
 
@@ -140,8 +140,7 @@ const ScaleInfoPopup: FC = () => {
                 {/* Show relative minor if major key */}
                 {showRelativeMinor && (
                   <li>
-                    {getNoteName(directory.relativeMinorPitch, isSharp)} Natural
-                    Minor
+                    {getNoteName(directory.relativeMinorPitch, isSharp)} Minor
                   </li>
                 )}
               </ul>
