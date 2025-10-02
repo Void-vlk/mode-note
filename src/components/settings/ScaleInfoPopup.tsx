@@ -130,7 +130,7 @@ const ScaleInfoPopup: FC = () => {
                 Relative Scales / Modes
               </h3>
 
-              <ul className="space-y-1 text-sm pt-2 px-1">
+              <ul className="space-y-1 text-sm pt-2 px-2">
                 {/* Show relative major if minor key */}
                 {showRelativeMajor && (
                   <li>
@@ -158,7 +158,7 @@ const ScaleInfoPopup: FC = () => {
             </div>
           </div>
         ) : (
-          <p className="text-base text-white/90 px-2">
+          <p className="text-base text-white/90 px-2 pb-2">
             Select a Tonic note & Mode for info.
           </p>
         )}
