@@ -3,6 +3,7 @@ import { type FC } from "react";
 import { twJoin, twMerge } from "tailwind-merge";
 
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
+import { ScaleInfoButton } from "@/components/dropdowns/ScalesChoice";
 import Switch from "@/components/settings/Switch";
 import { getTonicNotes } from "@/hooks/getNoteValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
@@ -28,13 +29,16 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
 
   return (
     <>
-      <Switch
-        isChecked={isSharp}
-        onChange={toggleSharpFlat}
-        iconLeft="♭"
-        iconRight="♯"
-        className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3 mt-px")}
-      />
+      <div className="flex items-center -mb-1">
+        <Switch
+          isChecked={isSharp}
+          onChange={toggleSharpFlat}
+          iconLeft="♭"
+          iconRight="♯"
+          className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3")}
+        />
+        <ScaleInfoButton />
+      </div>
       <MenuSelectionList
         canDeselect={true}
         options={getTonicNotes(isSharp).map(({ pitch, name }) => ({

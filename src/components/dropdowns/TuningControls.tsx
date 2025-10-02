@@ -48,15 +48,13 @@ const TuningControls: FC = () => {
   const currentTuning = useInstrumentStore((s) => s.currentTuning);
   const setCustomTuning = useInstrumentStore((s) => s.setCustomTuning);
 
-  const toggleSharpFlat = () => {
-    setIsSharp(!isSharp);
-  };
-
   return (
     <div className="flex items-center justify-between px-3 pb-2">
       <Switch
         isChecked={isSharp}
-        onChange={toggleSharpFlat}
+        onChange={() => {
+          setIsSharp(!isSharp);
+        }}
         iconLeft="♭"
         iconRight={<span className="-mt-px">♯</span>}
         aria-label="Toggle sharp/flat"

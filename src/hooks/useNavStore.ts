@@ -15,6 +15,8 @@ type navState = {
   setHasHydrated: (hasHydrated: boolean) => void;
   isMetronomeOpen: boolean;
   setIsMetronomeOpen: (isMetronomeOpen: boolean) => void;
+  isScaleInfoOpen: boolean;
+  setIsScaleInfoOpen: (isScaleInfoOpen: boolean) => void;
 };
 
 export const useNavStore = create<navState>()(
@@ -30,6 +32,8 @@ export const useNavStore = create<navState>()(
       setHasHydrated: (hasHydrated) => set({ hasHydrated }),
       isMetronomeOpen: false,
       setIsMetronomeOpen: (isMetronomeOpen) => set({ isMetronomeOpen }),
+      isScaleInfoOpen: false,
+      setIsScaleInfoOpen: (isScaleInfoOpen) => set({ isScaleInfoOpen }),
     }),
 
     {

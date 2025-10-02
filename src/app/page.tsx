@@ -7,6 +7,7 @@ import { useNavStore } from "@/hooks/useNavStore";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import SetupWizardStage from "@/components/settings/SetupStage";
 import Instrument from "@/components/instrument/Instrument";
+import ScaleInfoPopup from "@/components/settings/ScaleInfoPopup";
 import { twJoin } from "tailwind-merge";
 
 export default function Home() {
@@ -102,6 +103,7 @@ export default function Home() {
             ref={container}
           >
             {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}
+            <ScaleInfoPopup />
           </main>
         )}
       </Transition>

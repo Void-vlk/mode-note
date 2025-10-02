@@ -6,6 +6,7 @@ import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { Scales, SCALES } from "@/resources/scales";
 import { Info } from "lucide-react";
 import { useThemeStore } from "@/hooks/useThemeStore";
+import { useNavStore } from "@/hooks/useNavStore";
 
 type Props = {
   isInSetup?: boolean;
@@ -14,7 +15,6 @@ type Props = {
 const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
   const scale = useInstrumentStore((s) => s.scale);
   const setScale = useInstrumentStore((s) => s.setScale);
-
   const customSelectionMode = useThemeStore((s) => s.customSelectionMode);
   const setCustomSelectionMode = useThemeStore((s) => s.setCustomSelectionMode);
 
@@ -26,13 +26,7 @@ const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
 
   return (
     <>
-      <section className="flex justify-between items-center px-2 pb-2">
-        <button className="cursor-pointer flex text-xs gap-1 hover:text-white text-grey-light items-center justify-center">
-          <Info className="size-5" strokeWidth={1.5} />
-          click for info
-        </button>
-      </section>
-
+      <ScaleInfoButton />
       <MenuSelectionList
         options={scaleOptions.map(([key, option]) => ({
           value: key,
@@ -54,10 +48,17 @@ const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
 
 export default ScalesChoice;
 
-export const ScaleInfoMenu: FC = () => {
+export const ScaleInfoButton: FC = () => {
+  const isScaleInfoOpen = useNavStore((s) => s.isScaleInfoOpen);
+  const setIsScaleInfoOpen = useNavStore((s) => s.setIsScaleInfoOpen);
+
   return (
-    <section className="">
-      <h2 className=""></h2>
-    </section>
+    <button
+      className="cursor-pointer flex text-xs gap-1 hover:text-white text-grey-light items-center justify-center px-2 py-1"
+      onClick={() => setIsScaleInfoOpen(!isScaleInfoOpen)}
+    >
+      <Info className="size-5" strokeWidth={1.5} />
+      click for info
+    </button>
   );
 };

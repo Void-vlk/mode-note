@@ -26,7 +26,7 @@ const ContentToggle: FC<ToggleProps> = ({
       <section
         className={twJoin(
           isInSetup ? "justify-center" : "justify-start ml-3",
-          "flex gap-2 pb-2 text-[13px] lg:text-sm"
+          "flex gap-2 pb-2 text-[13px] md:text-sm"
         )}
       >
         <div className="text-grey-light">{leftOption}</div>
