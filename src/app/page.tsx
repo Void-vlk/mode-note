@@ -1,70 +1,80 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 import { useNavStore } from "@/hooks/useNavStore";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import SetupWizardStage from "@/components/settings/SetupStage";
 import Instrument from "@/components/instrument/Instrument";
-import ScaleInfoPopup from "@/components/learning/ScaleInfoPopup";
 import { twJoin } from "tailwind-merge";
+import { applySidebarOffset } from "@/resources/movement";
+
+gsap.registerPlugin(useGSAP);
 
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
   const hasHydrated = useNavStore((s) => s.hasHydrated);
   const hasDoneSetup = useNavStore((s) => s.hasDoneSetup);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
+  const isMobile = useNavStore((s) => s.isMobile);
+  const setIsMobile = useNavStore((s) => s.setIsMobile);
+  const hasScaleInfoContent = useNavStore((s) => s.hasScaleInfoContent);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
   const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
   const { contextSafe } = useGSAP({ scope: container });
 
-  const readPxVar = (name: string) =>
-    parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue(name)
-    ) || 0;
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
+  // calc using CSS var so it works with zoom / different screen sizes
+  // Remove transform completely for left-handed mode
+  // keep it in sync if window size / zoom changes
   useGSAP(
     () => {
       if (!container.current) return;
-      // calc using CSS var so it works with zoom / different screen sizes
-      if (isRightHanded) {
-        const varName =
-          fretQuantity === 24 ? "--sidebar-w-24" : "--sidebar-w-oth";
-        const sidebarWidth = readPxVar(varName);
-
-        gsap.to(container.current, {
-          x: isSidebarOpen ? sidebarWidth : 0,
-          duration: 0.3,
-          ease: "none",
-        });
-      } else {
-        // Remove transform completely for left-handed mode
-        gsap.set(container.current, { clearProps: "transform" });
-      }
+      applySidebarOffset(
+        container.current,
+        isSidebarOpen,
+        fretQuantity,
+        isRightHanded
+      );
     },
     { dependencies: [isSidebarOpen, fretQuantity, isRightHanded] }
   );
 
-  // keep it in sync if window size / zoom changes
   useGSAP(() => {
     if (!container.current) return;
-
     const onResize = () => {
-      if (!isRightHanded) return;
-      const varName =
-        fretQuantity === 24 ? "--sidebar-w-24" : "--sidebar-w-oth";
-      const sidebarWidth = readPxVar(varName);
-      gsap.to(container.current, {
-        x: isSidebarOpen ? sidebarWidth : 0,
-        duration: 0.2,
-        ease: "none",
-      });
+      applySidebarOffset(
+        container.current!,
+        isSidebarOpen,
+        fretQuantity,
+        isRightHanded
+      );
     };
-
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [isSidebarOpen, fretQuantity, isRightHanded]);
+
+  // Move Instrument if ScaleInfoPopup is open
+  useGSAP(
+    () => {
+      if (!container.current) return;
+      gsap.to(container.current!, {
+        marginTop: hasScaleInfoContent ? (isMobile ? 112 : 80) : 0,
+        duration: hasScaleInfoContent ? 0.3 : 0.2,
+        ease: "none",
+      });
+    },
+    { dependencies: [hasScaleInfoContent, isMobile] }
+  );
 
   const onEnter = contextSafe(() => {
     if (!container.current) return;
@@ -103,7 +113,6 @@ export default function Home() {
             ref={container}
           >
             {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}
-            <ScaleInfoPopup />
           </main>
         )}
       </Transition>

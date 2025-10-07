@@ -17,6 +17,10 @@ type navState = {
   setIsMetronomeOpen: (isMetronomeOpen: boolean) => void;
   isScaleInfoOpen: boolean;
   setIsScaleInfoOpen: (isScaleInfoOpen: boolean) => void;
+  hasScaleInfoContent: boolean;
+  setHasScaleInfoContent: (hasContent: boolean) => void;
+  isMobile: boolean;
+  setIsMobile: (isMobile: boolean) => void;
 };
 
 export const useNavStore = create<navState>()(
@@ -34,6 +38,11 @@ export const useNavStore = create<navState>()(
       setIsMetronomeOpen: (isMetronomeOpen) => set({ isMetronomeOpen }),
       isScaleInfoOpen: false,
       setIsScaleInfoOpen: (isScaleInfoOpen) => set({ isScaleInfoOpen }),
+      hasScaleInfoContent: false,
+      setHasScaleInfoContent: (hasScaleInfoContent) =>
+        set({ hasScaleInfoContent }),
+      isMobile: false,
+      setIsMobile: (isMobile) => set({ isMobile }),
     }),
 
     {

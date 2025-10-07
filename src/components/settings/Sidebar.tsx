@@ -1,5 +1,5 @@
 "use client";
-import { ArrowLeft } from "lucide-react";
+import { PanelLeftClose } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { type FC, useRef } from "react";
@@ -11,7 +11,6 @@ import { MENU_CONTENT } from "@/resources/dropdown-content";
 
 const Sidebar: FC = () => {
   const container = useRef<HTMLDivElement>(null);
-  const sidebar = useRef<HTMLDivElement>(null);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
   const setIsSidebarOpen = useNavStore((s) => s.setIsSidebarOpen);
 
@@ -19,35 +18,28 @@ const Sidebar: FC = () => {
 
   const onEnter = contextSafe(() => {
     if (container.current) {
-      gsap
-        .timeline()
-        .fromTo(
-          container.current,
-          { autoAlpha: 0 },
-          { autoAlpha: 100, duration: 0.3, ease: "none" }
-        )
-        .fromTo(
-          sidebar.current,
-          { xPercent: -100 },
-          { xPercent: 0, duration: 0.3, ease: "none" },
-          "<"
-        );
+      gsap.fromTo(
+        container.current,
+        { xPercent: -100 },
+        { xPercent: 0, duration: 0.3, ease: "none" }
+      );
     }
   });
 
   const onExit = contextSafe(() => {
     if (container.current) {
-      gsap
-        .timeline()
-        .to(container.current, { autoAlpha: 0, duration: 0.3 })
-        .to(sidebar.current, { xPercent: -100, duration: 0.3 }, "<");
+      gsap.to(container.current, {
+        autoAlpha: 0,
+        xPercent: -100,
+        duration: 0.3,
+      });
     }
   });
 
   return (
     <Transition
       in={isSidebarOpen}
-      timeout={500}
+      timeout={300}
       unmountOnExit
       mountOnEnter
       nodeRef={container}
@@ -55,34 +47,35 @@ const Sidebar: FC = () => {
       onExit={onExit}
     >
       {() => (
-        <section // overlay background
+        // <section // overlay background
+        //   ref={container}
+        //   className="fixed inset-0 bg-black/20 z-20 overflow-hidden select-none touch-none"
+        //   onClick={() => setIsSidebarOpen(false)}
+        // >
+        <div
           ref={container}
-          className="fixed inset-0 bg-black/20 z-20 overflow-hidden select-none touch-none"
-          onClick={() => setIsSidebarOpen(false)}
+          className="z-30 fixed h-svh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain touch-pan-y overflow-y-auto no-scrollbar"
+          onClick={(e) => e.stopPropagation()}
         >
-          <div
-            ref={sidebar}
-            className="z-30 fixed h-svh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain touch-pan-y overflow-y-auto no-scrollbar"
-            onClick={(e) => e.stopPropagation()}
+          <button
+            className="absolute top-3 xl:top-4 right-1 p-2 cursor-pointer"
+            onClick={() => setIsSidebarOpen(false)}
           >
-            <button
-              className="absolute top-3 xl:top-4 right-1 p-2 cursor-pointer"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              <ArrowLeft
-                className="text-white/80 size-6 xl:size-8"
-                strokeWidth={1.5}
-              />
-            </button>
+            <PanelLeftClose
+              className="text-white/80 size-6 xl:size-8"
+              strokeWidth={1.5}
+            />
+          </button>
 
-            <section className="py-5 xl:py-6 px-4 flex flex-col justify-center items-left">
-              <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 uppercase border-b border-grey-dark">
-                settings
-              </h2>
-              <Dropdown content={MENU_CONTENT} />
-            </section>
-          </div>
-        </section>
+          <section className="py-5 xl:py-6 px-4 flex flex-col justify-center items-left">
+            <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 uppercase border-b border-grey-dark">
+              settings
+            </h2>
+            <Dropdown content={MENU_CONTENT} />
+          </section>
+        </div>
+        
+        // </section>
       )}
     </Transition>
   );

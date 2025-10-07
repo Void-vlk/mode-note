@@ -7,6 +7,7 @@ import { Scales, SCALES } from "@/resources/scales";
 import { Info } from "lucide-react";
 import { useThemeStore } from "@/hooks/useThemeStore";
 import { useNavStore } from "@/hooks/useNavStore";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 type Props = {
   isInSetup?: boolean;
@@ -38,6 +39,7 @@ const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
             if ((key as Scales) === Scales.Custom) {
               setCustomSelectionMode(true);
             }
+            trackEvent(EventName.ClickedScale, { scale_name: option.name });
           },
         }))}
         className={twMerge(isInSetup && "grid-cols-3", "-mt-2")}
@@ -55,7 +57,10 @@ export const ScaleInfoButton: FC = () => {
   return (
     <button
       className="cursor-pointer flex text-xs gap-1 hover:text-white text-grey-light items-center justify-center px-2 py-1"
-      onClick={() => setIsScaleInfoOpen(!isScaleInfoOpen)}
+      onClick={() => {
+        setIsScaleInfoOpen(!isScaleInfoOpen);
+        trackEvent(EventName.ClickedScaleInfo);
+      }}
     >
       <Info className="size-5" strokeWidth={1.5} />
       click for info

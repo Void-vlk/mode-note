@@ -79,7 +79,7 @@ const MetronomeMenu: FC = () => {
                 className="size-6 xl:size-8 text-grey-light"
                 strokeWidth={1.5}
               />
-              <h2 className="text-base xl:text-lg font-bold text-grey-light uppercase mt-0.5">
+              <h2 className="text-base xl:text-lg font-bold text-grey-light capitalize mt-0.5">
                 metronome
               </h2>
               <button
