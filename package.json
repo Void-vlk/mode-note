@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.16",
     "@gsap/react": "^2.1.2",
+    "@microsoft/clarity": "^1.0.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "gsap": "^3.13.0",
