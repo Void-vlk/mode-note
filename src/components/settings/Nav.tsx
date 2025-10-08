@@ -23,7 +23,7 @@ const Nav: FC = () => {
     <nav className="w-full fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-2 max-w-screen select-none">
       <button
         onClick={() => setIsSidebarOpen(true)}
-        className="cursor-pointer p-3 xl:p-4 bg-black rounded-full text-grey-light hover:text-white"
+        className="cursor-pointer p-3 xl:p-4 bg-black rounded-full text-grey-light hover:text-white shadow shadow-grey-light/10"
         aria-label="settings"
       >
         <SlidersHorizontal className="size-5 xl:size-6" strokeWidth={2} />
@@ -36,7 +36,7 @@ const Nav: FC = () => {
         priority
         quality={80}
       />
-      <section className="rounded-full flex bg-black items-center justify-center">
+      <section className="rounded-full flex bg-black items-center justify-center shadow shadow-grey-light/10">
         <div className="w-12 md:w-40 xl:w-48 ml-3 xl:ml-4">
           <MetronomeController />
         </div>

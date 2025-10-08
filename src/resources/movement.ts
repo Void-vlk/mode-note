@@ -13,11 +13,13 @@ export const applySidebarOffset = (
   duration = 0.3,
   leftOffset = 0
 ) => {
+  // Remove transform completely for left-handed mode
   if (!isRightHanded) {
     gsap.set(element, { clearProps: "transform" });
     return;
   }
-
+  // calc using CSS var so it works with zoom / different screen sizes
+  // keep it in sync if window size / zoom changes
   const varName = fretQuantity === 24 ? "--sidebar-w-24" : "--sidebar-w-oth";
   const sidebarWidth = readPxVar(varName);
 

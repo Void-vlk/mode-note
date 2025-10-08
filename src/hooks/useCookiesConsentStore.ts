@@ -5,9 +5,6 @@ type Store = {
   hasSetPreference: boolean;
   allowNonFunctionalCookies: boolean;
   setCookiesPref: (allowNonFunctionalCookies: boolean) => void;
-  // Internal state to track if the store has hydrated from storage
-  hasHydrated: boolean;
-  setHasHydrated: (state: boolean) => void;
 };
 
 const useCookiesConsentStore = create(
@@ -21,18 +18,9 @@ const useCookiesConsentStore = create(
           allowNonFunctionalCookies,
         });
       },
-      hasHydrated: false,
-      setHasHydrated: (state: boolean) => {
-        set({
-          hasHydrated: state,
-        });
-      },
     }),
     {
       name: "cookies-consent",
-      onRehydrateStorage: (s) => {
-        return () => s.setHasHydrated(true);
-      },
     }
   )
 );

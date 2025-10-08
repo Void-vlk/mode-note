@@ -5,10 +5,12 @@ import React, { type FC, useRef } from "react";
 import { Transition } from "react-transition-group";
 
 import useCookiesConsentStore from "@/hooks/useCookiesConsentStore";
+import { useNavStore } from "@/hooks/useNavStore";
 
 const CookiesBanner: FC = () => {
-  const { hasHydrated, hasSetPreference, setCookiesPref } =
+  const { hasSetPreference, setCookiesPref } =
     useCookiesConsentStore();
+  const hasHydrated = useNavStore((s) => s.hasHydrated);
 
   const container = useRef<HTMLDivElement>(null);
 
@@ -41,10 +43,10 @@ const CookiesBanner: FC = () => {
     >
       <section
         ref={container}
-        className="fixed right-2 bottom-2 z-200 flex items-center gap-2 bg-black/80 pl-4 pr-3 py-3 rounded-full"
+        className="fixed ml-2 right-2 bottom-2 z-200 flex items-center gap-2 bg-black/80 pl-4 pr-3 py-3 rounded-full"
       >
-        <p className="text-sm text-grey-mid">
-          We use cookies to personalise your browsing and improve our site.
+        <p className="text-xs md:text-sm text-grey-mid">
+          We use cookies to improve your experience on this site.
         </p>
         <div className="flex items-center gap-2">
           <button

@@ -4,6 +4,7 @@ import Clarity from "@microsoft/clarity";
 import { type FC, useEffect } from "react";
 
 import useCookiesConsentStore from "@/hooks/useCookiesConsentStore";
+import { useNavStore } from "@/hooks/useNavStore";
 
 type ClarityProps = {
   projectId: string;
@@ -13,7 +14,7 @@ const MicrosoftClarity: FC<ClarityProps> = ({ projectId }) => {
   const allowNonFunctionalCookies = useCookiesConsentStore(
     (s) => s.allowNonFunctionalCookies
   );
-  const hasHydrated = useCookiesConsentStore((s) => s.hasHydrated);
+  const hasHydrated = useNavStore((s) => s.hasHydrated);
 
   useEffect(() => {
     // if (process.env.NODE_ENV !== "production") return;

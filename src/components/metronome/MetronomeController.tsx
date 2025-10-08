@@ -82,8 +82,8 @@ const MetronomeController: FC = () => {
           isAccent ? "bg-(--tonic-colour)" : "bg-(--note-colour)"
         )}
       />
-      <h3 className="text-xs xl:text-sm font-bold hidden md:block text-grey-mid">
-        METRONOME
+      <h3 className="text-sm xl:text-base hidden md:block text-grey-mid">
+        Metronome
       </h3>
       <button
         onClick={() => setIsPlaying(!isPlaying)}

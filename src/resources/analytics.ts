@@ -7,6 +7,9 @@ declare global {
 export {};
 
 export enum EventName {
+  SetupSkipped = "skipped_setup",
+  SetupCompleted = "completed_setup",
+
   OpenedSidebar = "opened_sidebar",
 
   ClickedInstrument = "clicked_instrument",
@@ -50,6 +53,8 @@ export enum EventName {
 }
 
 export type CustomEventProperties = {
+  setup_page?: string;
+  
   instrument_type?: string;
   string_qty?: string;
   fret_qty?: string;

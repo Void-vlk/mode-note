@@ -8,6 +8,7 @@ import { Transition } from "react-transition-group";
 import Dropdown from "@/components/dropdowns/DropdownAccordion";
 import { useNavStore } from "@/hooks/useNavStore";
 import { MENU_CONTENT } from "@/resources/dropdown-content";
+import BuyMeACoffee from "../cookies/BuyMeACoffee";
 
 const Sidebar: FC = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -68,10 +69,13 @@ const Sidebar: FC = () => {
           </button>
 
           <section className="py-5 xl:py-6 px-4 flex flex-col justify-center items-left">
-            <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 uppercase border-b border-grey-dark">
+            <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 capitalize tracking-wide border-b border-grey-dark">
               settings
             </h2>
             <Dropdown content={MENU_CONTENT} />
+          </section>
+          <section className="flex justify-items-end justify-end mx-4 mb-6 mt-auto">
+            <BuyMeACoffee/>
           </section>
         </div>
         

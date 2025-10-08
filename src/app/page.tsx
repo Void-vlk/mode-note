@@ -31,12 +31,9 @@ export default function Home() {
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // calc using CSS var so it works with zoom / different screen sizes
-  // Remove transform completely for left-handed mode
-  // keep it in sync if window size / zoom changes
   useGSAP(
     () => {
       if (!container.current) return;
@@ -69,7 +66,7 @@ export default function Home() {
     () => {
       if (!container.current) return;
       gsap.to(container.current!, {
-        marginTop: hasScaleInfoContent ? (isMobile ? 112 : 80) : 0,
+        marginTop: hasScaleInfoContent ? (isMobile ? 90 : 80) : 0,
         duration: hasScaleInfoContent ? 0.3 : 0.2,
         ease: "none",
       });
