@@ -8,7 +8,8 @@ import { Transition } from "react-transition-group";
 import Dropdown from "@/components/dropdowns/DropdownAccordion";
 import { useNavStore } from "@/hooks/useNavStore";
 import { MENU_CONTENT } from "@/resources/dropdown-content";
-import BuyMeACoffee from "../cookies/BuyMeACoffee";
+import BuyMeACoffee from "@/components/cookies/BuyMeACoffee";
+import ContactForFeedback from "@/components/cookies/ContactForFeedback";
 
 const Sidebar: FC = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -48,11 +49,6 @@ const Sidebar: FC = () => {
       onExit={onExit}
     >
       {() => (
-        // <section // overlay background
-        //   ref={container}
-        //   className="fixed inset-0 bg-black/20 z-20 overflow-hidden select-none touch-none"
-        //   onClick={() => setIsSidebarOpen(false)}
-        // >
         <div
           ref={container}
           className="z-30 fixed h-svh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain touch-pan-y overflow-y-auto no-scrollbar"
@@ -74,12 +70,11 @@ const Sidebar: FC = () => {
             </h2>
             <Dropdown content={MENU_CONTENT} />
           </section>
-          <section className="flex justify-items-end justify-end mx-4 mb-6 mt-auto">
-            <BuyMeACoffee/>
+          <section className="flex justify-between mx-4 mb-6 mt-auto">
+            <BuyMeACoffee />
+            <ContactForFeedback />
           </section>
         </div>
-        
-        // </section>
       )}
     </Transition>
   );

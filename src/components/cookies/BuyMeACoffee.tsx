@@ -9,16 +9,16 @@ const BuyMeACoffee: FC = () => {
   return (
     <Link
       href={`https://buymeacoffee.com/${slug}`}
-      className="group bg-[#ffdd00] hover:scale-102 ease-in-out rounded-xl flex items-center gap-1 px-3 py-1.5"
+      className="group bg-[#ffdd00] hover:scale-102 ease-in-out rounded-lg flex items-center gap-1.5 px-2.5 py-1"
       onClick={() => trackEvent(EventName.BuyMeACoffee)}
     >
       <svg
-        width="15px"
-        height="21px"
+        width="14px"
+        height="20px"
         viewBox="0 0 884 1279"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="group-hover:rotate-[10deg] ease-in-out"
+        className="group-hover:rotate-[6deg] ease-in-out"
       >
         <path
           d="M791.109 297.518L790.231 297.002L788.201 296.383C789.018 297.072 790.04 297.472 791.109 297.518Z"
@@ -73,7 +73,9 @@ const BuyMeACoffee: FC = () => {
           fill="#0D0C22"
         ></path>
       </svg>
-      <p className="text-black font-cookie text-lg">Buy Me A Coffee</p>
+      <p className="text-black font-cookie text-base 2xl:text-lg">
+        Buy Me A Coffee
+      </p>
     </Link>
   );
 };
