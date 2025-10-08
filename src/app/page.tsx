@@ -31,6 +31,7 @@ export default function Home() {
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // calc using CSS var so it works with zoom / different screen sizes
