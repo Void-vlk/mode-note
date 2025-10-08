@@ -13,6 +13,9 @@ import {
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import InnerDropdown from "@/components/dropdowns/InnerDropdown";
 
+import { EventName, trackEvent } from "@/resources/analytics";
+import { getNoteName } from "@/hooks/getNoteValues";
+
 type Props = { isInSetup?: boolean };
 
 const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
@@ -22,6 +25,7 @@ const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
   const setTuning = useInstrumentStore((s) => s.setTuning);
   const customTunings = useInstrumentStore((s) => s.customTunings);
   const setCustomTuning = useInstrumentStore((s) => s.setCustomTuning);
+  const isSharp = useInstrumentStore((s) => s.isSharp);
 
   const tuningPresets = getInstrumentTunings(instrument, stringQty);
 
@@ -34,16 +38,30 @@ const TuningChoice: FC<Props> = ({ isInSetup = false }) => {
       value: tuningOption.id,
       label: tuningOption.name,
       checked: isTuningMatching(currentTuning, tuningOption),
-      onSelect: () => setTuning(tuningOption.stringTunings),
+      onSelect: () => {
+        setTuning(tuningOption.stringTunings);
+        trackEvent(EventName.ClickedPresetTuning, {
+          preset_selected: tuningOption.name,
+        });
+      },
     })),
     {
       value: `custom-${instrument}-${stringQty}`,
       label: "Custom",
       checked: !tuningIsMatching,
-      onSelect: () =>
-        customTunings[instrument]?.[stringQty]
-          ? setCustomTuning()
-          : setCustomTuning(currentTuning),
+      onSelect: () => {
+        if (customTunings[instrument]?.[stringQty]) {
+          setCustomTuning();
+        } else {
+          setCustomTuning(currentTuning);
+        }
+        trackEvent(EventName.ClickedPresetTuning, {
+          preset_selected: "Custom",
+          custom_tuning: customTunings[instrument]?.[stringQty]
+            ?.map((notePitch) => getNoteName(notePitch, isSharp))
+            .join("-"),
+        });
+      },
     },
   ];
 

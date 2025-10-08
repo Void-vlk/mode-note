@@ -8,6 +8,7 @@ import Switch from "@/components/settings/Switch";
 import { getTonicNotes } from "@/hooks/getNoteValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { NotePitch } from "@/resources/themes";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 type Props = { isInSetup?: boolean };
 
@@ -45,7 +46,13 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
           value: pitch,
           label: name,
           checked: scale.tonicNote === pitch,
-          onSelect: () => handleTonicSelect(pitch),
+          onSelect: () => {
+            handleTonicSelect(pitch);
+            trackEvent(EventName.ClickedScale, {
+              tonic_note: name,
+              setup_page: isInSetup ? "true" : "false",
+            });
+          },
         }))}
         className={twJoin(isInSetup && "grid-cols-6 -mt-3")}
       />

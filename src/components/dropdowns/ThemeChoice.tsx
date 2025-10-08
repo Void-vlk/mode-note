@@ -2,10 +2,7 @@
 import { type FC } from "react";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
-import {
-  FRETBOARD_THEMES,
-  NOTE_THEMES,
-} from "@/resources/themes";
+import { FRETBOARD_THEMES, NOTE_THEMES } from "@/resources/themes";
 
 import { useThemeStore } from "@/hooks/useThemeStore";
 

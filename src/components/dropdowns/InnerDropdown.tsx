@@ -2,22 +2,25 @@
 import { type FC, ReactNode, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { twJoin } from "tailwind-merge";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 type Props = {
   heading: string;
   children: ReactNode;
 };
 
-const InnerDropdown: FC<Props> = ({
-  heading,
-  children,
-}) => {
+const InnerDropdown: FC<Props> = ({ heading, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="w-full border-b border-grey-dark">
       <button
-        onClick={() => setIsOpen((isOpen) => !isOpen)}
+        onClick={() => {
+          setIsOpen((isOpen) => !isOpen);
+          if (!isOpen) {
+            trackEvent(EventName.OpenedTuningIndividual);
+          }
+        }}
         className="cursor-pointer flex w-full items-center justify-between px-3 py-1 text-sm text-grey-light border-b border-grey-dark"
         aria-expanded={isOpen}
       >

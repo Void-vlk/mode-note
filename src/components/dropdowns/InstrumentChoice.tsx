@@ -9,6 +9,7 @@ import { getStringQuantities } from "@/hooks/getInstrumentValues";
 import { useInstrumentStore } from "@/hooks/useInstrumentStore";
 import { Instruments, INSTRUMENTS } from "@/resources/types";
 import { FRET_QUANTITY } from "@/resources/themes";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 type Props = {
   isInSetup?: boolean;
@@ -35,7 +36,13 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           value: key,
           label: instrument.label,
           checked: currentInstrument === key,
-          onSelect: () => setInstrument(key as Instruments),
+          onSelect: () => {
+            setInstrument(key as Instruments);
+            trackEvent(EventName.ClickedInstrument, {
+              instrument: instrument.label,
+              setup_page: isInSetup ? "true" : "false",
+            });
+          },
         }))}
         className={twMerge(isInSetup && "gap-3 mb-4 w-full md:!px-8")}
         contentHeader="Instrument Type"
@@ -45,7 +52,13 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           value: qty,
           label: `${qty} strings`,
           checked: stringQty === qty,
-          onSelect: () => setStringQty(qty),
+          onSelect: () => {
+            setStringQty(qty);
+            trackEvent(EventName.ClickedStringQty, {
+              string_qty: stringQty,
+              setup_page: isInSetup ? "true" : "false",
+            });
+          },
         }))}
         className={twMerge(isInSetup && "grid-cols-2 gap-3 mb-4 md:!px-8")}
         contentHeader="String Quantity"
@@ -55,7 +68,12 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
           value: qty,
           label: `${qty}`,
           checked: fretQuantity === qty,
-          onSelect: () => setFretQuantity(qty),
+          onSelect: () => {
+            setFretQuantity(qty);
+            trackEvent(EventName.ClickedFretQty, {
+              fret_qty: qty,
+            });
+          },
         }))}
         className={twMerge(isInSetup && "gap-3 mb-4 md:!px-8", "grid-cols-3")}
         contentHeader="Fret Quantity"

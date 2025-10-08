@@ -39,7 +39,10 @@ const ScalesChoice: FC<Props> = ({ isInSetup = false }) => {
             if ((key as Scales) === Scales.Custom) {
               setCustomSelectionMode(true);
             }
-            trackEvent(EventName.ClickedScale, { scale_name: option.name });
+            trackEvent(EventName.ClickedScale, {
+              scale_name: option.name,
+              setup_page: isInSetup ? "true" : "false",
+            });
           },
         }))}
         className={twMerge(isInSetup && "grid-cols-3", "-mt-2")}

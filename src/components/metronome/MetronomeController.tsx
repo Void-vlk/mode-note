@@ -5,6 +5,7 @@ import { METRONOME_SOUNDS } from "@/resources/metronome";
 import { useMetronomeStore } from "@/hooks/useMetronomeStore";
 import { twJoin } from "tailwind-merge";
 import { PlayCircle, StopCircle } from "lucide-react";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 const MetronomeController: FC = () => {
   const [isAccent, setIsAccent] = useState<boolean>(false);
@@ -86,7 +87,12 @@ const MetronomeController: FC = () => {
         Metronome
       </h3>
       <button
-        onClick={() => setIsPlaying(!isPlaying)}
+        onClick={() => {
+          setIsPlaying(!isPlaying);
+          if (!isPlaying) {
+            trackEvent(EventName.PlayMetronome);
+          }
+        }}
         className="cursor-pointer hover:text-white text-white/80 md:p-2"
         aria-label={isPlaying ? "Stop metronome" : "Start metronome"}
       >

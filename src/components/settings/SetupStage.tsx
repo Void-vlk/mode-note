@@ -9,6 +9,7 @@ import TuningChoice from "@/components/dropdowns/TuningChoice";
 import ScalesChoice from "@/components/dropdowns/ScalesChoice";
 import { useNavStore } from "@/hooks/useNavStore";
 import { WIZARD_STAGES } from "@/resources/types";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 const WizardSetupStage: FC = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -23,6 +24,7 @@ const WizardSetupStage: FC = () => {
       setWizardStage(WIZARD_STAGES[nextIndex]);
     } else {
       setHasDoneSetup(true);
+      trackEvent(EventName.SetupCompleted);
     }
   };
 
@@ -35,6 +37,7 @@ const WizardSetupStage: FC = () => {
 
   const handleSkip = () => {
     setHasDoneSetup(true);
+    trackEvent(EventName.SetupSkipped, { setup_page: wizardStage });
   };
 
   return (

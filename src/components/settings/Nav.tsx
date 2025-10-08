@@ -1,12 +1,12 @@
 "use client";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { type FC } from "react";
-
-import { useNavStore } from "@/hooks/useNavStore";
-import modeNoteLogo from "@/assets/mode-note-logo.svg";
-import React from "react";
 import { Cog, SlidersHorizontal } from "lucide-react";
-import dynamic from "next/dynamic";
+
+import modeNoteLogo from "@/assets/mode-note-logo.svg";
+import { useNavStore } from "@/hooks/useNavStore";
+import { EventName, trackEvent } from "@/resources/analytics";
 
 const MetronomeController = dynamic(
   () => import("@/components/metronome/MetronomeController"),
@@ -22,7 +22,10 @@ const Nav: FC = () => {
   return (
     <nav className="w-full fixed top-0 left-0 right-0 z-10 flex items-center justify-between p-2 max-w-screen select-none">
       <button
-        onClick={() => setIsSidebarOpen(true)}
+        onClick={() => {
+          setIsSidebarOpen(true);
+          trackEvent(EventName.OpenedSidebar);
+        }}
         className="cursor-pointer p-3 xl:p-4 bg-black rounded-full text-grey-light hover:text-white shadow shadow-grey-light/10"
         aria-label="settings"
       >
@@ -42,7 +45,10 @@ const Nav: FC = () => {
         </div>
 
         <button
-          onClick={() => setIsMetronomeOpen(true)}
+          onClick={() => {
+            setIsMetronomeOpen(true);
+            trackEvent(EventName.OpenedMetronomeSettings);
+          }}
           className="cursor-pointer rounded-full p-3 xl:p-4"
           aria-label="metronome"
         >

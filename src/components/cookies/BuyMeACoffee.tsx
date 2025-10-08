@@ -2,12 +2,15 @@
 import Link from "next/link";
 import { type FC } from "react";
 
+import { EventName, trackEvent } from "@/resources/analytics";
+
 const BuyMeACoffee: FC = () => {
   const slug = "modenote";
   return (
     <Link
       href={`https://buymeacoffee.com/${slug}`}
       className="group bg-[#ffdd00] hover:scale-102 ease-in-out rounded-xl flex items-center gap-1 px-3 py-1.5"
+      onClick={() => trackEvent(EventName.BuyMeACoffee)}
     >
       <svg
         width="15px"

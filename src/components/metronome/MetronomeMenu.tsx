@@ -99,11 +99,6 @@ const MetronomeMenu: FC = () => {
               <BPMControls />
             </section>
           </section>
-          <div
-            ref={background}
-            className="absolute inset-0 bg-black/20 z-20"
-            onClick={() => setIsMetronomeOpen(false)}
-          />
         </>
       )}
     </Transition>
