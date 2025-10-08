@@ -9,7 +9,7 @@ const BuyMeACoffee: FC = () => {
   return (
     <Link
       href={`https://buymeacoffee.com/${slug}`}
-      className="group bg-[#ffdd00] hover:scale-102 ease-in-out rounded-lg flex items-center gap-1.5 px-2.5 py-1"
+      className="group bg-[#ffdd00] hover:scale-102 ease-in-out rounded-lg flex items-center gap-1.5 px-2 py-1.5"
       onClick={() => trackEvent(EventName.BuyMeACoffee)}
     >
       <svg
@@ -73,7 +73,7 @@ const BuyMeACoffee: FC = () => {
           fill="#0D0C22"
         ></path>
       </svg>
-      <p className="text-black font-cookie text-base 2xl:text-lg">
+      <p className="text-black font-cookie text-lg text-nowrap 2xl:text-lg leading-tight">
         Buy Me A Coffee
       </p>
     </Link>

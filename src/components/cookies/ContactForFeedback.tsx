@@ -22,9 +22,9 @@ Thanks,
   return (
     <Link
       href={`mailto:${email}?subject=${subject}&body=${body}`}
-      className="bg-black text-xs border border-grey-mid text-grey-light hover:text-white hover:scale-102 ease-in-out rounded-lg flex items-center gap-1.5 px-2.5 py-1"
+      className="group bg-black text-xs text-nowrap border border-grey-mid text-grey-light hover:text-white hover:scale-102 ease-in-out rounded-lg flex items-center gap-1 px-2 py-1.5"
     >
-      <Mail className="size-5" />
+      <Mail className="size-4 group-hover:rotate-[-6deg] ease-in-out" />
       Suggest a feature
     </Link>
   );
