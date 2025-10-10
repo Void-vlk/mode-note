@@ -31,7 +31,7 @@ const cookie = Cookie({
 export const metadata: Metadata = {
   title: "Mode Note",
   description:
-    "Your resource for Scales & Notes on extended range and alternate tunings",
+    "Your resource for learning Scales & Notes on extended range instruments, in alternate tunings",
 };
 
 export default function RootLayout({
