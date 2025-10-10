@@ -1,5 +1,3 @@
-"use client";
-import Link from "next/link";
 import { type FC } from "react";
 
 import { EventName, trackEvent } from "@/resources/analytics";
@@ -7,8 +5,10 @@ import { EventName, trackEvent } from "@/resources/analytics";
 const BuyMeACoffee: FC = () => {
   const slug = "modenote";
   return (
-    <Link
+    <a
       href={`https://buymeacoffee.com/${slug}`}
+      rel="noopener noreferrer"
+      target="_blank"
       className="group bg-[#ffdd00] hover:scale-102 ease-in-out rounded-lg flex items-center gap-1.5 px-2 py-1.5"
       onClick={() => trackEvent(EventName.BuyMeACoffee)}
     >
@@ -76,7 +76,7 @@ const BuyMeACoffee: FC = () => {
       <p className="text-black font-cookie text-lg text-nowrap 2xl:text-lg leading-tight">
         Buy Me A Coffee
       </p>
-    </Link>
+    </a>
   );
 };
 
