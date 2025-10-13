@@ -23,7 +23,7 @@ const BPMControls: FC = () => {
             <span>5</span>
           </>
         }
-        value={-10}
+        value={-5}
       />
       <BPMButton icon={<Minus />} value={-1} />
       <BPMButton icon={<Plus />} value={1} />
@@ -34,7 +34,7 @@ const BPMControls: FC = () => {
             <span>5</span>
           </>
         }
-        value={10}
+        value={5}
       />
       <BPMButton
         icon={
