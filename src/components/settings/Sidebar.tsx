@@ -73,7 +73,7 @@ const Sidebar: FC = () => {
               </h2>
               <Dropdown content={MENU_CONTENT} />
             </section>
-            <section className="flex justify-between mx-3 mb-6 mt-auto gap-1">
+            <section className="flex mx-4 mb-6 mt-auto gap-2 xl:gap-3">
               <BuyMeACoffee />
               <ContactForFeedback />
             </section>

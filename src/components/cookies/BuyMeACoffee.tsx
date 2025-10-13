@@ -73,7 +73,7 @@ const BuyMeACoffee: FC = () => {
           fill="#0D0C22"
         ></path>
       </svg>
-      <p className="text-black font-cookie text-lg text-nowrap 2xl:text-lg leading-tight">
+      <p className="text-black font-cookie text-base text-nowrap xl:text-lg leading-tight">
         Buy Me A Coffee
       </p>
     </a>
