@@ -18,7 +18,7 @@ const AccordionItem: FC<Props> = ({ heading, content, isOpen, onClick }) => {
       className={twJoin("rounded-lg w-full", isOpen && "bg-white/10 max-h-fit")}
     >
       <button
-        className="flex w-full items-center border-b border-grey-dark text-white/90 px-3 cursor-pointer justify-between py-2 text-left font-bold focus:outline-none md:py-3 tracking-wide"
+        className="flex w-full items-center border-b border-grey-dark hover:border-grey-light hover:text-white text-grey-light px-3 cursor-pointer justify-between py-2 text-left font-bold focus:outline-none md:py-3 tracking-wide"
         onClick={onClick}
       >
         {heading}

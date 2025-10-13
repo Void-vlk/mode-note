@@ -13,8 +13,10 @@ import ContactForFeedback from "@/components/cookies/ContactForFeedback";
 
 const Sidebar: FC = () => {
   const container = useRef<HTMLDivElement>(null);
+  const background = useRef<HTMLDivElement>(null);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
   const setIsSidebarOpen = useNavStore((s) => s.setIsSidebarOpen);
+  const isMobile = useNavStore((s) => s.isMobile);
 
   const { contextSafe } = useGSAP({ scope: container });
 
@@ -49,32 +51,41 @@ const Sidebar: FC = () => {
       onExit={onExit}
     >
       {() => (
-        <div
-          ref={container}
-          className="z-30 fixed h-svh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain touch-pan-y overflow-y-auto no-scrollbar"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            className="absolute top-3 xl:top-4 right-1 p-2 cursor-pointer"
-            onClick={() => setIsSidebarOpen(false)}
+        <>
+          <div
+            ref={container}
+            className="z-30 fixed h-svh top-0 left-0 flex flex-col xl:w-80 w-72 bg-black border-r-2 border-grey-dark overscroll-contain touch-pan-y overflow-y-auto no-scrollbar"
+            onClick={(e) => e.stopPropagation()}
           >
-            <PanelLeftClose
-              className="text-white/80 size-6 xl:size-8"
-              strokeWidth={1.5}
-            />
-          </button>
+            <button
+              className="absolute top-3 xl:top-4 right-1 p-2 cursor-pointer"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <PanelLeftClose
+                className="hover:text-white text-grey-light size-6 xl:size-8"
+                strokeWidth={1.5}
+              />
+            </button>
 
-          <section className="py-5 xl:py-6 px-4 flex flex-col justify-center items-left">
-            <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 capitalize tracking-wide border-b border-grey-dark">
-              settings
-            </h2>
-            <Dropdown content={MENU_CONTENT} />
-          </section>
-          <section className="flex justify-between mx-3 mb-6 mt-auto gap-1">
-            <BuyMeACoffee />
-            <ContactForFeedback />
-          </section>
-        </div>
+            <section className="py-5 xl:py-6 px-4 flex flex-col justify-center items-left">
+              <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 capitalize tracking-wide border-b border-grey-dark">
+                settings
+              </h2>
+              <Dropdown content={MENU_CONTENT} />
+            </section>
+            <section className="flex justify-between mx-3 mb-6 mt-auto gap-1">
+              <BuyMeACoffee />
+              <ContactForFeedback />
+            </section>
+          </div>
+          {isMobile && (
+            <div
+              ref={background}
+              className="absolute inset-0 z-20"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
+        </>
       )}
     </Transition>
   );

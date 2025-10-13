@@ -8,8 +8,7 @@ import useCookiesConsentStore from "@/hooks/useCookiesConsentStore";
 import { useNavStore } from "@/hooks/useNavStore";
 
 const CookiesBanner: FC = () => {
-  const { hasSetPreference, setCookiesPref } =
-    useCookiesConsentStore();
+  const { hasSetPreference, setCookiesPref } = useCookiesConsentStore();
   const hasHydrated = useNavStore((s) => s.hasHydrated);
 
   const container = useRef<HTMLDivElement>(null);
@@ -51,7 +50,7 @@ const CookiesBanner: FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setCookiesPref(true)}
-            className="cursor-pointer flex text-sm gap-1 px-2 py-1 rounded-full bg-(--note-colour) text-white/80 hover:text-white hover:border-white/80"
+            className="cursor-pointer flex text-sm gap-1 px-2 py-1 rounded-full bg-(--note-colour) text-white/80 hover:text-white hover:outline-white hover:outline outline-inset-1 transition-transform duration-200"
           >
             Accept <Check className="size-5" />
           </button>

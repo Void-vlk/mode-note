@@ -6,7 +6,7 @@ import { twJoin } from "tailwind-merge";
 
 const BPMControls: FC = () => {
   return (
-    <section className="flex gap-2">
+    <section className="flex flex-wrap gap-2 justify-center">
       <BPMButton
         icon={
           <>
@@ -16,8 +16,26 @@ const BPMControls: FC = () => {
         }
         value={-10}
       />
+      <BPMButton
+        icon={
+          <>
+            <Minus strokeWidth={3} className="w-3 -ml-0.5" />
+            <span>5</span>
+          </>
+        }
+        value={-10}
+      />
       <BPMButton icon={<Minus />} value={-1} />
       <BPMButton icon={<Plus />} value={1} />
+      <BPMButton
+        icon={
+          <>
+            <Plus strokeWidth={3} className="w-3 -ml-0.5" />
+            <span>5</span>
+          </>
+        }
+        value={10}
+      />
       <BPMButton
         icon={
           <>
@@ -36,7 +54,7 @@ export default BPMControls;
 
 type Props = {
   icon?: ReactNode | string;
-  value?: -10 | -1 | 1 | 10;
+  value?: -10 | -5 | -1 | 1 | 5 | 10;
   reset?: boolean;
 };
 

@@ -194,19 +194,20 @@ html[data-tonic="grey-mid"] {
 
 html,
 body {
-  position: fixed; /* pins the page */
-  inset: 0; /* top/right/bottom/left: 0 */
+  position: fixed;
+  inset: 0;
   width: 100%;
-  overflow: hidden; /* no vertical scroll on the page */
-  overscroll-behavior: none; /* stop scroll chaining/rubber-band */
-  touch-action: none; /* prevent vertical panning on the page */
-  height: 100dvh; /* stable viewport height unit */
+  overflow: hidden;
+  overscroll-behavior: none; 
+  touch-action: none;
+  height: 100dvh;
 }
+/* use svh on browsers that support it */
 @supports (height: 100svh) {
   html,
   body {
     height: 100svh;
-  } /* use svh on browsers that support it */
+  } 
 }
 
 body {
