@@ -60,7 +60,7 @@ const TuningControls: FC = () => {
         aria-label="Toggle sharp/flat"
       />
       <div className="flex gap-1 items-center">
-        <p className="text-sm pr-1 text-grey-light">Tune all: </p>
+        <p className="text-xs lg:text-sm pr-0.5 text-grey-light">Tune all: </p>
         <TuningButton
           icon={<ChevronsDown className="size-6" />}
           semitone={-2}

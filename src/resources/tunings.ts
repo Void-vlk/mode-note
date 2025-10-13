@@ -95,7 +95,7 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
         name: "Humanity's Last Breath",
         instrument: Instruments.Guitar,
         stringQty: 6,
-        stringTunings: [5, 0, 5, 10, 9, 10],
+        stringTunings: [4, 11, 4, 9, 8, 9],
       },
     ],
     7: [
@@ -125,21 +125,21 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
         name: "P4 - Drop A & D",
         instrument: Instruments.Guitar,
         stringQty: 7,
-        stringTunings: [9, 2, 9, 7, 2, 0, 5],
+        stringTunings: [9, 2, 9, 2, 7, 0, 5],
       },
       {
         id: "7g4",
         name: "Open D Major",
         instrument: Instruments.Guitar,
         stringQty: 7,
-        stringTunings: [9, 2, 9, 6, 2, 9, 2],
+        stringTunings: [9, 2, 9, 2, 6, 9, 2],
       },
       {
         id: "7g5",
         name: "Drop G, Drop C",
         instrument: Instruments.Guitar,
         stringQty: 7,
-        stringTunings: [7, 0, 7, 5, 0, 9, 2],
+        stringTunings: [7, 0, 7, 0, 5, 9, 2],
       },
       {
         id: "7g6",
@@ -204,7 +204,7 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
         name: "IÄ IÄ Cthulhu Fhtagn",
         instrument: Instruments.Guitar,
         stringQty: 8,
-        stringTunings: [4, 9, 4, 9, 2, 7, 9, 4],
+        stringTunings: [4, 9, 4, 9, 2, 4, 9, 2],
       },
       {
         id: "8g7",
