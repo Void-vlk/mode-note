@@ -14,7 +14,7 @@ const CircleOfFifthsSVG: FC = () => {
         height="820"
         viewBox="0 0 820 820"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-[32rem] h-[32rem]"
+        className="min-w-[22rem] size-[22rem] md:size-[25rem] lg:size-[28rem] xl:size-[32rem] 2xl:size-[35rem]"
       >
         {/* outer */}
         <path

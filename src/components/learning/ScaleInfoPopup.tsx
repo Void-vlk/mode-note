@@ -33,21 +33,26 @@ const ScaleInfoPopup: FC = () => {
   const tonicNote = useInstrumentStore((s) => s.scale.tonicNote);
   const isSharp = useInstrumentStore((s) => s.isSharp);
 
+  // caches related modes directory for current selection
   const directory = useMemo<RelativeModesDirectory | null>(() => {
     if (tonicNote === null) return null;
     return buildModesDirectoryForSelection(scalePattern, tonicNote);
   }, [scalePattern, tonicNote]);
 
+  // is scale valid & not chromatic
   const hasScaleContent =
     directory && directory.baseScaleId !== Scales.Chromatic;
 
+  // show content if open & has valid scale
   useEffect(() => {
     setHasScaleInfoContent(isScaleInfoOpen && !!hasScaleContent);
   }, [isScaleInfoOpen, hasScaleContent, setHasScaleInfoContent]);
 
+  // only show relative major/minor if not already selected
   const showRelativeMajor = scalePattern !== Scales.Major;
   const showRelativeMinor = scalePattern !== Scales.Minor;
 
+  // get name, rotation index for selected mode
   const scaleName = SCALES[scalePattern].name;
   const selectedMode = MODE_ROTATION_INDEX[scalePattern]!;
   const majorScalePattern = SCALES[Scales.Major].pattern; // 0,2,4,5,7,9,11
@@ -55,6 +60,8 @@ const ScaleInfoPopup: FC = () => {
     majorScalePattern,
     selectedMode
   );
+  
+  // get W/H step intervals, note pitches for selected scale
   const scaleSteps = getStepsFromPattern(selectedPattern);
   const scaleIntervals = SCALES[scalePattern].intervals;
   const scaleNotePitches = selectedPattern.map(

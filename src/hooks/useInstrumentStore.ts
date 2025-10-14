@@ -13,7 +13,7 @@ import {
   PositionOption,
 } from "@/resources/types";
 
-export type Scale = {
+export type ScalePattern = {
   tonicNote: NotePitch | null;
   scalePattern: Scales;
 };
@@ -30,7 +30,7 @@ export type InstrumentState = {
   instrument: Instruments;
   stringQty: StringQty;
   currentTuning: NotePitch[];
-  scale: Scale;
+  scale: ScalePattern;
   scalePosition: ScalePosition;
   scalePositionMode: PositionOption;
   noteDisplay: NoteDisplay;
@@ -45,7 +45,7 @@ export type InstrumentState = {
   setInstrument: (instrument: Instruments) => void;
   setStringQty: (stringQty: StringQty) => void;
   setTuning: (tuning: NotePitch[]) => void;
-  setScale: (scale: Scale) => void;
+  setScale: (scale: ScalePattern) => void;
   setScalePosition: (position: ScalePosition) => void;
   setScalePositionMode: (mode: PositionOption) => void;
   setNoteDisplay: (noteDisplay: NoteDisplay) => void;

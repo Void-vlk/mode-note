@@ -18,10 +18,6 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
   const isSharp = useInstrumentStore((s) => s.isSharp);
   const setIsSharp = useInstrumentStore((s) => s.setIsSharp);
 
-  const toggleSharpFlat = () => {
-    setIsSharp(!isSharp);
-  };
-
   const handleTonicSelect = (pitch: number) => {
     const newTonicNote =
       scale.tonicNote === pitch ? null : (pitch as NotePitch);
@@ -33,7 +29,9 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
       <div className="flex items-center -mb-1">
         <Switch
           isChecked={isSharp}
-          onChange={toggleSharpFlat}
+          onChange={() => {
+            setIsSharp(!isSharp)
+          }}
           iconLeft="♭"
           iconRight="♯"
           className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3")}
