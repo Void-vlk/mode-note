@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mode Note
 
-## Getting Started
+Mode Note was created for guitar & bass players to learn & practice notes & scales on the fretboard, with extended range instruments & in alternate tunings.
+Created in Nextjs using React, Typescript, Tailwind, Zustand & AudioContext api
 
-First, run the development server:
+## Features include:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Extended Range Instrument support
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Guitar**: 6, 7, 8, and 9 strings
+- **Bass**: 4, 5, 6, and 7 strings
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Each instrument has adjustable fret quantities (21, 22, or 24 frets), fret marker styles (diamond or triangle), and orientation settings for left or right-handed players.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tuning System
 
-## Learn More
+- Preset tunings for each instrument and string configuration
+- Individual string tuning in semitones & whole notes
+- Full fretboard tuning adjustments
+- Custom tuning storage for future sessions per instrument type
+- Sharp and flat notation preferences
 
-To learn more about Next.js, take a look at the following resources:
+### Scale Visualisation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Select a tonic note and view the scale pattern, in note name, interval or blank, either across the full fretboard, or at different neck positions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Modes (Ionian, Dorian, Phrygian, Lydian, Mixolydian, Aeolian, Locrian)
+- Selection of other scales - Harmonic Minor, Blues, Bebop, Pentatonic, etc
 
-## Deploy on Vercel
+### Music Theory Tools
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Added educational features for understanding music theory:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Circle of Fifths**: Interactive visualization showing note relationships, intervals, and relative scales - **coming soon**
+- **Scale Information Panel**: Detailed breakdown of selected scales including modal relationships and relative major/minor connections
+- **Interval Display**: Roman numeral analysis and interval patterns for selected scales
+
+### Metronome
+
+- BPM range from 30 to 300 with fine adjustment controls
+- Multiple time signatures including common (4/4, 3/4) and complex (7/8, 13/8) meters
+- Eight sounds
+- Visual beat indicator
+- Audio controls for muting or adjusting metronome volume
+
+### Visual Customisation
+
+- Four fretboard wood types (rosewood, maple, ebony, pale)
+- Ten note color schemes
+- Gold or silver string colours
+- Responsive design scaling from mobile to desktop
+- Custom note selection modes for creating personal practice patterns
+
+### Setup and Configuration
+
+New users are guided through a three-stage setup process:
+
+1. **Instrument Selection**: Choose instrument type, string quantity, and fret configuration
+2. **Tuning Configuration**: Select preset or create custom tuning
+3. **Scale Setup**: Choose initial scale and tonic note preferences
+
+The setup can be skipped for immediate access or revisited through the settings menu.
+
+### Advanced Features
+
+- **Custom Note Selection**: Manual selection of individual notes or fret positions for personalised pattern practice
+- **Persistent Settings**: All preferences saved between sessions
