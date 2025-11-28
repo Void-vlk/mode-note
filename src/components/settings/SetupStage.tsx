@@ -64,7 +64,6 @@ const WizardSetupStage: FC = () => {
             appear={true}
           >
             {() => {
-              //status - prop transitionStatus: TransitionStatus for isExiting
               return (
                 <div ref={container} className="w-full p-2 md:p-4">
                   {wizardStage === "instrument" && (

@@ -3,13 +3,11 @@ import { NotePitch } from "@/resources/themes";
 import {
   type ScalePositions,
   PositionOption,
-  // type PositionOption,
   ScalePosition,
 } from "@/resources/types";
 import { getNoteName } from "@/hooks/getNoteValues";
 
-// modulo operator for circular indexing
-// if position 3 and pattern is Ionian: [0, 2, 4, 5, 7, 9, 11] (7 notes),
+// modulo operator for circular indexing, if position 3 and pattern is Ionian: [0, 2, 4, 5, 7, 9, 11] (7 notes),
 // 3: { startingNoteIndex: 2 % 7 = 2 } Start from 3rd note - (4)
 export const generateScalePositions = (
   patternLength: number
@@ -43,28 +41,18 @@ export const getScalePositionFretRange = (
   tonicNote: NotePitch,
   positionMode: PositionOption
 ): number[][] => {
-  console.log("getScalePositionFretRange called with:", {
-    scalePattern,
-    tuning,
-    fretRange,
-    tonicNote,
-    positionMode,
-  });
-
   if (positionMode === "Shape") {
-    console.log("Using Shape mode");
     return getShapeModePositions(scalePattern, tuning, fretRange, tonicNote);
   } else {
-    console.log("Using 3NPS mode");
     return get3NPSModePositions(scalePattern, tuning, fretRange, tonicNote);
   }
 };
 
-// Build a small extended range outside the base position
-const buildExtendedRange = (start: number, end: number) =>
+// Build a small extended fret range outside the base position
+const getExtendedFretRange = (start: number, end: number) =>
   Array.from(
     { length: Math.max(0, Math.min(end + 5, 24) - start + 1) },
-    (_, i) => start + i
+    (_, index) => start + index
   );
 
 // Find all scale notes on a string in ascending fret order
@@ -75,10 +63,10 @@ const getNotesOnString = (
   frets: number[]
 ) =>
   frets
-    .map((f) => {
-      const pitch = ((open + f) % 12) as NotePitch;
+    .map((fret) => {
+      const pitch = ((open + fret) % 12) as NotePitch;
       return pattern.includes(((pitch - tonic + 12) % 12) as NotePitch)
-        ? { fret: f, pitch, name: getNoteName(pitch, true) }
+        ? { fret, pitch, name: getNoteName(pitch, true) }
         : null;
     })
     .filter(Boolean) as { fret: number; pitch: NotePitch; name: string }[];
@@ -91,14 +79,14 @@ export const getShapeModePositions = (
   tonicNote: NotePitch
 ): number[][] => {
   const minFret = Math.min(...fretRange);
-  const maxDist = Math.max(...fretRange) - minFret;
+  const maxDistance = Math.max(...fretRange) - minFret;
   const used: { string: number; fret: number; pitch: NotePitch }[] = [];
 
   // Explicitly declare result as number[][] and initialise each entry with an empty array
   const result: number[][] = Array.from({ length: tuning.length }, () => []);
 
-  for (let i = tuning.length - 1; i >= 0; i--) {
-    const openNote = tuning[i];
+  for (let index = tuning.length - 1; index >= 0; index--) {
+    const openNote = tuning[index];
     const notes = getNotesOnString(
       openNote,
       scalePattern,
@@ -107,20 +95,20 @@ export const getShapeModePositions = (
     );
 
     const frets: number[] = [];
-    for (const n of notes) {
-      const dup = used.some(
-        (u) =>
-          u.pitch === n.pitch &&
-          Math.abs(i - u.string) <= 1 &&
-          Math.abs(n.fret - u.fret) <= maxDist
+    for (const note of notes) {
+      const duplicated = used.some(
+        (used) =>
+          used.pitch === note.pitch &&
+          Math.abs(index - used.string) <= 1 &&
+          Math.abs(note.fret - used.fret) <= maxDistance
       );
-      if (!dup) {
-        frets.push(n.fret);
-        used.push({ string: i, fret: n.fret, pitch: n.pitch });
+      if (!duplicated) {
+        frets.push(note.fret);
+        used.push({ string: index, fret: note.fret, pitch: note.pitch });
         if (frets.length >= 3) break;
       }
     }
-    result[i] = frets;
+    result[index] = frets;
   }
 
   return result;
@@ -134,11 +122,11 @@ export const get3NPSModePositions = (
 ): number[][] => {
   const baseStart = Math.min(...fretRange);
   const baseEnd = Math.max(...fretRange);
-  const extended = buildExtendedRange(baseStart, baseEnd);
+  const extended = getExtendedFretRange(baseStart, baseEnd);
   const result: number[][] = [];
   let prevPitches = new Set<number>();
 
-  tuning.forEach((openNote, idx) => {
+  tuning.forEach((openNote, index) => {
     const baseNotes = getNotesOnString(
       openNote,
       scalePattern,
@@ -148,8 +136,8 @@ export const get3NPSModePositions = (
 
     // For the top two strings, drop any note that duplicates a pitch on the previous string
     let candidates = baseNotes;
-    if (idx >= tuning.length - 2) {
-      candidates = candidates.filter((n) => !prevPitches.has(n.pitch));
+    if (index >= tuning.length - 2) {
+      candidates = candidates.filter((note) => !prevPitches.has(note.pitch));
       // If we now have fewer than 3 notes, grab extras from just beyond the box
       if (candidates.length < 3) {
         const extra = getNotesOnString(
@@ -158,7 +146,7 @@ export const get3NPSModePositions = (
           tonicNote,
           extended
         )
-          .filter((n) => n.fret > baseEnd && !prevPitches.has(n.pitch))
+          .filter((note) => note.fret > baseEnd && !prevPitches.has(note.pitch))
           .slice(0, 3 - candidates.length);
         candidates = candidates.concat(extra);
       }
@@ -166,10 +154,10 @@ export const get3NPSModePositions = (
 
     const frets = candidates
       .slice(0, 3)
-      .map((n) => n.fret)
+      .map((note) => note.fret)
       .sort((a, b) => a - b);
     result.push(frets);
-    prevPitches = new Set(frets.map((f) => (openNote + f) % 12));
+    prevPitches = new Set(frets.map((fret) => (openNote + fret) % 12));
   });
 
   return result;

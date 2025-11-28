@@ -100,14 +100,14 @@ export const useInstrumentStore = create<InstrumentState>()(
         })),
 
       setTuning: (currentTuning) => set({ currentTuning }),
-      
+
       setStringTuning: (stringIndex, semitones) =>
         set((state) => ({
-          currentTuning: state.currentTuning.map((note, idx) =>
-            idx === stringIndex ? (note + semitones + 12) % 12 : note
+          currentTuning: state.currentTuning.map((note, index) =>
+            index === stringIndex ? (note + semitones + 12) % 12 : note
           ) as NotePitch[],
         })),
-      
+
       setScale: (scale) => set({ scale, scalePosition: ScalePosition.All }),
 
       setScalePosition: (scalePosition) => set({ scalePosition }),

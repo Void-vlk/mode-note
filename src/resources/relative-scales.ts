@@ -44,8 +44,8 @@ export const getStepsFromPattern = (
 ): StepSymbol[] => {
   const patternWithOctave = [...pitchClassPattern, 12];
 
-  return patternWithOctave.slice(1).map((v, i) => {
-    const gap = v - patternWithOctave[i];
+  return patternWithOctave.slice(1).map((value, index) => {
+    const gap = value - patternWithOctave[index];
     return gap >= 5 ? "WWH" : GAP_STEP[gap as 1 | 2 | 3 | 4];
   });
 };

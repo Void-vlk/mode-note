@@ -17,7 +17,7 @@ const MicrosoftClarity: FC<ClarityProps> = ({ projectId }) => {
   const hasHydrated = useNavStore((s) => s.hasHydrated);
 
   useEffect(() => {
-    // if (process.env.NODE_ENV !== "production") return;
+    // if (process.env.NODE_ENV !== "development") return;
     if (!projectId) {
       console.error("Missing Microsoft Clarity ID");
       return;

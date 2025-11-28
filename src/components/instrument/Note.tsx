@@ -31,7 +31,6 @@ const Note: FC<Props> = ({
   const scale = useInstrumentStore((s) => s.scale);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
-  // const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   const customSelectionMode = useThemeStore((s) => s.customSelectionMode);
   const singleNoteSelectionMode = useThemeStore(
@@ -53,8 +52,6 @@ const Note: FC<Props> = ({
     scale.scalePattern,
     scale.tonicNote!
   );
-
-  /* Custom Note/Scale selection */
 
   // check if note is in custom scale, either by individual position or by pitch value
   const isInCustomScale = singleNoteSelectionMode

@@ -22,11 +22,14 @@ const Fretboard: FC<{ className: string }> = ({ className }) => {
           isRightHanded ? "border-r-8 -ml-1" : "border-l-8 -mr-1"
         )}
       />
-      {Array.from({ length: fretQuantity }).map((_, i) => {
-        const isFirstFret = i === 0;
-        const isLastFret = i === fretQuantity - 1;
+      {Array.from({ length: fretQuantity }).map((_, index) => {
+        const isFirstFret = index === 0;
+        const isLastFret = index === fretQuantity - 1;
         return (
-          <div key={i} className="relative flex-shrink-0 h-full fret-spacing">
+          <div
+            key={index}
+            className="relative flex-shrink-0 h-full fret-spacing"
+          >
             <div
               className={twJoin(
                 "absolute inset-0 pointer-events-none border-l border-r xl:border-l-[1.5px] xl:border-r-[1.5px] 3xl:border-r-2 3xl:border-l-2",
@@ -69,10 +72,10 @@ const FretMarkers: FC<{
           : "pr-12 pl-2 2xl:pr-14 3xl:pr-18"
       )}
     >
-      {Array.from({ length: fretQuantity }).map((_, i) =>
-        showFretMarkers.includes(i + 1) ? (
+      {Array.from({ length: fretQuantity }).map((_, index) =>
+        showFretMarkers.includes(index + 1) ? (
           <div
-            key={i}
+            key={index}
             className={twJoin(
               "h-5 md:h-6.5 xl:h-7 fret-spacing flex items-end text-frets/60",
               isDiamond ? "justify-center" : "justify-end"
@@ -99,11 +102,14 @@ const FretMarkers: FC<{
               )}
             >
               {/* fret marker numbers */}
-              {i + 1}
+              {index + 1}
             </p>
           </div>
         ) : (
-          <div key={i} className="w-7 h-5 lg:h-6 xl:h-7 3xl:h-9 fret-spacing" />
+          <div
+            key={index}
+            className="w-7 h-5 lg:h-6 xl:h-7 3xl:h-9 fret-spacing"
+          />
         )
       )}
     </div>

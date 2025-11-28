@@ -10,7 +10,7 @@ import { Instruments } from "@/resources/types";
 type Props = {
   openString: NotePitch;
   isNoteInScale: (
-    p: NotePitch,
+    pitch: NotePitch,
     stringIndex?: number,
     fretNumber?: number
   ) => { show: boolean; isPosition: boolean };

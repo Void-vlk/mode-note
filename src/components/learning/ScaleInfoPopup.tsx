@@ -48,7 +48,6 @@ const ScaleInfoPopup: FC = () => {
     setHasScaleInfoContent(isScaleInfoOpen && !!hasScaleContent);
   }, [isScaleInfoOpen, hasScaleContent, setHasScaleInfoContent]);
 
-  // only show relative major/minor if not already selected
   const showRelativeMajor = scalePattern !== Scales.Major;
   const showRelativeMinor = scalePattern !== Scales.Minor;
 
@@ -71,7 +70,6 @@ const ScaleInfoPopup: FC = () => {
   const { contextSafe } = useGSAP({ scope: container });
   const LEFT_OFFSET = isMobile ? 0 : 8;
 
-  // Add sidebar offset logic
   useGSAP(
     () => {
       if (!container.current) return;

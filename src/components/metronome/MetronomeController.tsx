@@ -42,7 +42,7 @@ const MetronomeController: FC = () => {
     })();
   }, [sound]);
 
-  // Memoize the callback to prevent constant useEffect re-runs
+  // Memoise the callback to prevent constant useEffect re-runs
   const handleBeat = useCallback(
     (beatIndex: number, when: number) => {
       // Handle visual
@@ -73,7 +73,6 @@ const MetronomeController: FC = () => {
     [audioOn]
   ); // Only depend on audioOn, not the audio buffers
 
-  // Single useMetronome call with memoized callback
   useMetronome(handleBeat);
 
   useEffect(() => () => clearTimeout(timeout.current), []);

@@ -61,16 +61,14 @@ const Instrument: FC<Props> = ({}) => {
     return { show: true, isPosition: false };
   };
 
-  // check if note is in scale
+
   const isNoteInScale = useMemo(() => {
-    // get scale pattern intervals
     const scalePattern = SCALES[scale.scalePattern as Scales];
     if (!scalePattern) return () => false;
 
-    // transpose pattern to chosen tonic note
     const tonicNote = scale.tonicNote ?? 0;
 
-    // create Set for fast lookup of scale notes
+    // used Set for faster lookup of scale notes
     const scaleNotes = new Set(
       scalePattern.pattern.map((interval) => (interval + tonicNote) % 12)
     );
@@ -78,14 +76,13 @@ const Instrument: FC<Props> = ({}) => {
     return (notePitch: NotePitch) => scaleNotes.has(notePitch);
   }, [scale.scalePattern, scale.tonicNote]);
 
-  // get fret range for the position
   const getPositionFretRange = useMemo(() => {
     if (scalePosition === ScalePosition.All) return [];
 
     return SCALE_POSITIONS[scalePosition]?.fretRange || [];
   }, [scalePosition]);
 
-  //
+
   const isNoteInPositionFretRange = useMemo(() => {
     if (scalePosition === ScalePosition.All) return null;
 
@@ -95,7 +92,6 @@ const Instrument: FC<Props> = ({}) => {
     const positionData = SCALE_POSITIONS[scalePosition];
     if (!positionData) return null;
 
-    // Use your function with the toggle state!
     const stringFrets = getScalePositionFretRange(
       scalePattern.pattern,
       currentTuning,
@@ -104,7 +100,6 @@ const Instrument: FC<Props> = ({}) => {
       scalePositionMode
     );
 
-    // Convert to lookup structure for easy checking
     const fretLookup = new Map<number, Set<number>>();
     stringFrets.forEach((frets, stringIndex) => {
       fretLookup.set(stringIndex, new Set(frets));
@@ -113,7 +108,7 @@ const Instrument: FC<Props> = ({}) => {
     return fretLookup;
   }, [scale, scalePosition, scalePositionMode, currentTuning]);
 
-  // check if note is in scale position
+
   const isNoteInScalePosition = useMemo(() => {
     return (
       notePitch: NotePitch,
