@@ -6,8 +6,8 @@ import { type FC, ReactNode, useEffect, useMemo, useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 import { twJoin } from "tailwind-merge";
 
-import { useNavStore } from "@/hooks/useNavStore";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useNavStore } from "@/stores/useNavStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { Scales, SCALES } from "@/resources/scales";
 import type { NotePitch } from "@/resources/themes";
 import { getNoteName } from "@/hooks/getNoteValues";
@@ -59,7 +59,7 @@ const ScaleInfoPopup: FC = () => {
     majorScalePattern,
     selectedMode
   );
-  
+
   // get W/H step intervals, note pitches for selected scale
   const scaleSteps = getStepsFromPattern(selectedPattern);
   const scaleIntervals = SCALES[scalePattern].intervals;

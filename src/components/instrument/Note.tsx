@@ -3,8 +3,8 @@ import { type FC } from "react";
 import { twJoin } from "tailwind-merge";
 
 import { buildNoteDisplay } from "@/hooks/getNoteValues";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { useThemeStore } from "@/hooks/useThemeStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
+import { useThemeStore } from "@/stores/useThemeStore";
 import { type NotePitch } from "@/resources/themes";
 
 type Props = {
@@ -31,6 +31,7 @@ const Note: FC<Props> = ({
   const scale = useInstrumentStore((s) => s.scale);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
+  const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
 
   const customSelectionMode = useThemeStore((s) => s.customSelectionMode);
   const singleNoteSelectionMode = useThemeStore(
@@ -134,7 +135,8 @@ const Note: FC<Props> = ({
             noteTheme === "yellow" || noteTheme === "white"
               ? "text-black"
               : "text-white",
-            noteTheme === "yellow" && isTonic && "text-white"
+            noteTheme === "yellow" && isTonic && "text-white",
+            !isRightHanded && "[direction:ltr]"
           )}
         >
           {noteName}

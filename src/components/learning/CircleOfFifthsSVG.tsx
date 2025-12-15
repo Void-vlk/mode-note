@@ -1,7 +1,7 @@
 "use client";
 import { type FC } from "react";
 
-import { useCircleColours, type Token } from "@/hooks/useCircleOfFifths";
+import { useCircleColours, type Token } from "@/stores/useCircleOfFifths";
 
 const CircleOfFifthsSVG: FC = () => {
   const getColour = useCircleColours((s) => s.getColour);

@@ -1,6 +1,6 @@
 "use client";
 import { type FC, useMemo } from "react";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { getNoteName } from "@/hooks/getNoteValues";
 import type { NotePitch } from "@/resources/themes";
 

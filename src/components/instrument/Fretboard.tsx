@@ -1,7 +1,7 @@
 "use client";
 import { type FC } from "react";
 
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { twJoin } from "tailwind-merge";
 import { Diamond, TriangleRight } from "lucide-react";
 

@@ -6,7 +6,7 @@ import { type FC, useRef } from "react";
 import { Transition } from "react-transition-group";
 
 import Dropdown from "@/components/dropdowns/DropdownAccordion";
-import { useNavStore } from "@/hooks/useNavStore";
+import { useNavStore } from "@/stores/useNavStore";
 import { MENU_CONTENT } from "@/resources/dropdown-content";
 import BuyMeACoffee from "@/components/cookies/BuyMeACoffee";
 import ContactForFeedback from "@/components/cookies/ContactForFeedback";

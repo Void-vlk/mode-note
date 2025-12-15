@@ -1,5 +1,5 @@
 import { type Tuning, Instruments } from "@/resources/types";
-import { StringQty } from "@/resources/themes";
+import { type StringQty } from "@/resources/themes";
 
 export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
   [Instruments.Guitar]: {
@@ -258,6 +258,15 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
         stringTunings: [11, 4, 9, 2, 7, 0, 5, 9, 2],
       },
     ],
+    10: [
+      {
+        id: "10g0",
+        name: "Standard",
+        instrument: Instruments.Guitar,
+        stringQty: 10,
+        stringTunings: [8, 1, 6, 11, 4, 9, 2, 7, 11, 4],
+      },
+    ],
   },
   [Instruments.Bass]: {
     4: [
@@ -438,10 +447,11 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
     ],
     8: [],
     9: [],
+    10: [],
   },
 };
 
 export const STRING_QTY_OPTIONS: Record<Instruments, StringQty[]> = {
-  [Instruments.Guitar]: [6, 7, 8, 9],
+  [Instruments.Guitar]: [6, 7, 8, 9, 10],
   [Instruments.Bass]: [4, 5, 6, 7],
 };

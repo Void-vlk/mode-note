@@ -1,6 +1,6 @@
 "use client";
 import { type FC, ReactNode } from "react";
-import { useMetronomeStore } from "@/hooks/useMetronomeStore";
+import { useMetronomeStore } from "@/stores/useMetronomeStore";
 import { Plus, Minus } from "lucide-react";
 import { twJoin } from "tailwind-merge";
 

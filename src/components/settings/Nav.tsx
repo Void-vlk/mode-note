@@ -5,7 +5,7 @@ import { type FC } from "react";
 import { Cog, SlidersHorizontal } from "lucide-react";
 
 import modeNoteLogo from "@/assets/mode-note-logo.svg";
-import { useNavStore } from "@/hooks/useNavStore";
+import { useNavStore } from "@/stores/useNavStore";
 import { EventName, trackEvent } from "@/resources/analytics";
 
 const MetronomeController = dynamic(

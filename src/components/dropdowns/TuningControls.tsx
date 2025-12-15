@@ -7,7 +7,7 @@ import {
   Save,
 } from "lucide-react";
 import { type FC, ReactNode } from "react";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import Switch from "@/components/settings/Switch";
 import { twJoin } from "tailwind-merge";
 import { getNoteName } from "@/hooks/getNoteValues";

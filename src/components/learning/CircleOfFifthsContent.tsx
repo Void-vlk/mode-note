@@ -1,7 +1,7 @@
 "use client";
 import { type ReactNode, type FC, CSSProperties } from "react";
 import { getNoteName } from "@/hooks/getNoteValues";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { Scales, SCALES } from "@/resources/scales";
 import { NotePitch } from "@/resources/themes";
 

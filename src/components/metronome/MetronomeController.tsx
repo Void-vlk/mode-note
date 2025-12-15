@@ -2,7 +2,7 @@
 import { type FC, useEffect, useRef, useState, useCallback } from "react";
 import { useMetronome, getAudioContext } from "@/hooks/useMetronome";
 import { METRONOME_SOUNDS } from "@/resources/metronome";
-import { useMetronomeStore } from "@/hooks/useMetronomeStore";
+import { useMetronomeStore } from "@/stores/useMetronomeStore";
 import { twJoin } from "tailwind-merge";
 import { PlayCircle, StopCircle } from "lucide-react";
 import { EventName, trackEvent } from "@/resources/analytics";

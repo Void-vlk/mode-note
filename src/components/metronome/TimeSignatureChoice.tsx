@@ -1,6 +1,6 @@
 "use client";
 import { type FC } from "react";
-import { useMetronomeStore } from "@/hooks/useMetronomeStore";
+import { useMetronomeStore } from "@/stores/useMetronomeStore";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import { TIME_SIGNATURES } from "@/resources/metronome";
 

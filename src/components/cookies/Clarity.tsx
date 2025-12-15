@@ -3,8 +3,8 @@
 import Clarity from "@microsoft/clarity";
 import { type FC, useEffect } from "react";
 
-import useCookiesConsentStore from "@/hooks/useCookiesConsentStore";
-import { useNavStore } from "@/hooks/useNavStore";
+import useCookiesConsentStore from "@/stores/useCookiesConsentStore";
+import { useNavStore } from "@/stores/useNavStore";
 
 type ClarityProps = {
   projectId: string;

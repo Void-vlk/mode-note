@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useMetronomeStore } from "@/hooks/useMetronomeStore";
+import { useMetronomeStore } from "@/stores/useMetronomeStore";
 import { TIME_SIGNATURES } from "@/resources/metronome";
 
 export const lookAhead = 25; // 25 ms

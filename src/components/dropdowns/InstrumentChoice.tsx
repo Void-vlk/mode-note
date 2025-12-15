@@ -6,7 +6,7 @@ import { twJoin, twMerge } from "tailwind-merge";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
 import { getStringQuantities } from "@/hooks/getInstrumentValues";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { Instruments, INSTRUMENTS } from "@/resources/types";
 import { FRET_QUANTITY } from "@/resources/themes";
 import { EventName, trackEvent } from "@/resources/analytics";

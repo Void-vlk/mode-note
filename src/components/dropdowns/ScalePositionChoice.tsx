@@ -2,7 +2,7 @@ import { type FC } from "react";
 import { twMerge } from "tailwind-merge";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { SCALE_POSITIONS } from "@/resources/scales";
 
 type Props = {

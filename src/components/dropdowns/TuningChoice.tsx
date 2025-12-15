@@ -10,7 +10,7 @@ import {
   getInstrumentTunings,
   isTuningMatching,
 } from "@/hooks/getInstrumentValues";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import InnerDropdown from "@/components/dropdowns/InnerDropdown";
 
 import { EventName, trackEvent } from "@/resources/analytics";

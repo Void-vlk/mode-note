@@ -4,7 +4,7 @@ import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
 import { FRETBOARD_THEMES, NOTE_THEMES } from "@/resources/themes";
 
-import { useThemeStore } from "@/hooks/useThemeStore";
+import { useThemeStore } from "@/stores/useThemeStore";
 
 const ThemeChoice: FC = () => {
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);

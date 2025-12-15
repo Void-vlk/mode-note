@@ -2,8 +2,8 @@
 import { type FC } from "react";
 
 import ContentToggle from "@/components/settings/ContentToggle";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { useThemeStore } from "@/hooks/useThemeStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
+import { useThemeStore } from "@/stores/useThemeStore";
 import { Scales } from "@/resources/scales";
 import { EventName, trackEvent } from "@/resources/analytics";
 
@@ -24,7 +24,7 @@ const AdvancedChoices: FC = () => {
 
   const handleCustomSelectionToggle = () => {
     setCustomSelectionMode(!customSelectionMode);
-    trackEvent(EventName.ToggledCustomNoteSelection)
+    trackEvent(EventName.ToggledCustomNoteSelection);
     if (!customSelectionMode)
       setScale({ scalePattern: Scales.Chromatic, tonicNote: null });
   };

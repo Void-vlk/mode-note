@@ -4,8 +4,8 @@ import { Check } from "lucide-react";
 import React, { type FC, useRef } from "react";
 import { Transition } from "react-transition-group";
 
-import useCookiesConsentStore from "@/hooks/useCookiesConsentStore";
-import { useNavStore } from "@/hooks/useNavStore";
+import useCookiesConsentStore from "@/stores/useCookiesConsentStore";
+import { useNavStore } from "@/stores/useNavStore";
 
 const CookiesBanner: FC = () => {
   const { hasSetPreference, setCookiesPref } = useCookiesConsentStore();

@@ -3,7 +3,7 @@ import { type FC, useRef } from "react";
 import { twJoin } from "tailwind-merge";
 
 import Note from "@/components/instrument/Note";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { STRING_THICKNESS, type NotePitch } from "@/resources/themes";
 import { Instruments } from "@/resources/types";
 

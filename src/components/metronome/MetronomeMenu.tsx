@@ -7,9 +7,9 @@ import { Transition } from "react-transition-group";
 
 import Dropdown from "@/components/dropdowns/DropdownAccordion";
 import BPMControls from "@/components/metronome/BPMControls";
-import { useNavStore } from "@/hooks/useNavStore";
+import { useNavStore } from "@/stores/useNavStore";
 import { METRONOME_CONTENT } from "@/resources/dropdown-content";
-import { useMetronomeStore } from "@/hooks/useMetronomeStore";
+import { useMetronomeStore } from "@/stores/useMetronomeStore";
 
 const MetronomeMenu: FC = () => {
   const background = useRef<HTMLDivElement>(null);

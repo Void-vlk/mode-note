@@ -5,8 +5,8 @@ import { type FC, useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 
 import String from "@/components/instrument/String";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
-import { useThemeStore } from "@/hooks/useThemeStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
+import { useThemeStore } from "@/stores/useThemeStore";
 import { NotePitch } from "@/resources/themes";
 import { Instruments } from "@/resources/types";
 

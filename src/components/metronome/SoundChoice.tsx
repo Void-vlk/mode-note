@@ -1,11 +1,11 @@
-'use client'
-import { type FC } from 'react'
+"use client";
+import { type FC } from "react";
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
 
-import { useMetronomeStore } from "@/hooks/useMetronomeStore";
-import { METRONOME_SOUNDS } from '@/resources/metronome';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useMetronomeStore } from "@/stores/useMetronomeStore";
+import { METRONOME_SOUNDS } from "@/resources/metronome";
+import { Volume2, VolumeX } from "lucide-react";
 
 const SoundChoice: FC = () => {
   const sound = useMetronomeStore((s) => s.sound);
@@ -13,7 +13,7 @@ const SoundChoice: FC = () => {
   const audioOn = useMetronomeStore((s) => s.audioOn);
   const setAudioOn = useMetronomeStore((s) => s.setAudioOn);
 
-  const soundOptions = Object.entries(METRONOME_SOUNDS)
+  const soundOptions = Object.entries(METRONOME_SOUNDS);
 
   return (
     <>
@@ -36,6 +36,6 @@ const SoundChoice: FC = () => {
       />
     </>
   );
-}
+};
 
-export default SoundChoice
+export default SoundChoice;

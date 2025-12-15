@@ -3,7 +3,7 @@ import { type FC } from "react";
 import { twMerge } from "tailwind-merge";
 
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { NOTE_DISPLAY } from "@/resources/types";
 
 type Props = {
@@ -15,7 +15,7 @@ const NoteDisplayChoice: FC<Props> = ({ isInSetup }) => {
   const setNoteDisplay = useInstrumentStore((s) => s.setNoteDisplay);
 
   const noteDisplayOptions = Object.entries(NOTE_DISPLAY);
-  
+
   return (
     <MenuSelectionList
       options={noteDisplayOptions.map(([key, option]) => ({

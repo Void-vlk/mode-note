@@ -6,7 +6,7 @@ import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import { ScaleInfoButton } from "@/components/dropdowns/ScalesChoice";
 import Switch from "@/components/settings/Switch";
 import { getTonicNotes } from "@/hooks/getNoteValues";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { NotePitch } from "@/resources/themes";
 import { EventName, trackEvent } from "@/resources/analytics";
 
@@ -30,7 +30,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
         <Switch
           isChecked={isSharp}
           onChange={() => {
-            setIsSharp(!isSharp)
+            setIsSharp(!isSharp);
           }}
           iconLeft="♭"
           iconRight="♯"

@@ -4,14 +4,14 @@ import gsap from "gsap";
 import { type FC, useMemo, useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { getScalePositionFretRange } from "@/hooks/getScalePositions";
 import Fretboard from "@/components/instrument/Fretboard";
 import Strings from "@/components/instrument/Strings";
 import { Scales, SCALES, SCALE_POSITIONS } from "@/resources/scales";
-import { NotePitch } from "@/resources/themes";
+import type { NotePitch } from "@/resources/themes";
 import { ScalePosition } from "@/resources/types";
-import { useThemeStore } from "@/hooks/useThemeStore";
+import { useThemeStore } from "@/stores/useThemeStore";
 
 type Props = { show?: boolean };
 
@@ -61,7 +61,6 @@ const Instrument: FC<Props> = ({}) => {
     return { show: true, isPosition: false };
   };
 
-
   const isNoteInScale = useMemo(() => {
     const scalePattern = SCALES[scale.scalePattern as Scales];
     if (!scalePattern) return () => false;
@@ -81,7 +80,6 @@ const Instrument: FC<Props> = ({}) => {
 
     return SCALE_POSITIONS[scalePosition]?.fretRange || [];
   }, [scalePosition]);
-
 
   const isNoteInPositionFretRange = useMemo(() => {
     if (scalePosition === ScalePosition.All) return null;
@@ -107,7 +105,6 @@ const Instrument: FC<Props> = ({}) => {
 
     return fretLookup;
   }, [scale, scalePosition, scalePositionMode, currentTuning]);
-
 
   const isNoteInScalePosition = useMemo(() => {
     return (

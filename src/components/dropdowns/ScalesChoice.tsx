@@ -2,11 +2,11 @@ import { type FC } from "react";
 import { twMerge } from "tailwind-merge";
 
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
-import { useInstrumentStore } from "@/hooks/useInstrumentStore";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { Scales, SCALES } from "@/resources/scales";
 import { Info } from "lucide-react";
-import { useThemeStore } from "@/hooks/useThemeStore";
-import { useNavStore } from "@/hooks/useNavStore";
+import { useThemeStore } from "@/stores/useThemeStore";
+import { useNavStore } from "@/stores/useNavStore";
 import { EventName, trackEvent } from "@/resources/analytics";
 
 type Props = {

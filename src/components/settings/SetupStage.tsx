@@ -7,7 +7,7 @@ import InstrumentChoice from "@/components/dropdowns/InstrumentChoice";
 import TonicChoice from "@/components/dropdowns/TonicChoice";
 import TuningChoice from "@/components/dropdowns/TuningChoice";
 import ScalesChoice from "@/components/dropdowns/ScalesChoice";
-import { useNavStore } from "@/hooks/useNavStore";
+import { useNavStore } from "@/stores/useNavStore";
 import { WIZARD_STAGES } from "@/resources/types";
 import { EventName, trackEvent } from "@/resources/analytics";
 
