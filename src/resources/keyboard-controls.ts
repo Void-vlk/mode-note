@@ -97,7 +97,7 @@ const KEYBOARD_CODES_BY_ROW = [
     "Minus",
     "Equal",
   ],
-  // Row 5 - Additional C note at the top
+  // Row 5 - Additional High C note
   ["Backspace"],
 ];
 

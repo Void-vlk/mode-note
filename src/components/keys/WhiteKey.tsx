@@ -31,8 +31,9 @@ const WhiteKey: FC<Props> = ({
   return (
     <button
       aria-label={ariaLabel}
+      data-key
       className={twJoin(
-        "h-64 cursor-pointer rounded-b-md bg-white hover:bg-neutral-200 text-neutral-900 pointer-events-auto col-span-2 outline-none focus-visible:outline-none transition-all duration-100 ease-out origin-top",
+        "h-64 cursor-pointer rounded-b-md bg-white hover:bg-neutral-200 text-neutral-900 pointer-events-auto col-span-2 outline-none focus-visible:outline-none transition-all duration-100 ease-out origin-top opacity-0",
         isPressed && "scale-y-101"
       )}
       style={{ gridColumnStart }}

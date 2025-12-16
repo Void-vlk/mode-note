@@ -112,18 +112,13 @@ const Instrument: FC<Props> = ({}) => {
       stringIndex?: number,
       fretNumber?: number
     ): { show: boolean; isPosition: boolean } => {
-      if (customSelectionMode) {
-        return isCustomSelectionMode();
-      }
+      if (customSelectionMode) return isCustomSelectionMode();
 
-      if (!isNoteInScale(notePitch)) {
-        return { show: false, isPosition: false };
-      }
+      if (!isNoteInScale(notePitch)) return { show: false, isPosition: false };
 
       // if showing all positions, always show
-      if (scalePosition === ScalePosition.All) {
+      if (scalePosition === ScalePosition.All)
         return { show: true, isPosition: true };
-      }
 
       if (
         isNoteInPositionFretRange &&

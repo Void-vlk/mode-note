@@ -29,9 +29,10 @@ const BlackKey: FC<Props> = ({
   return (
     <button
       aria-label={`Key ${label}`}
+      data-key
       className={twJoin(
-        "h-42 cursor-pointer bg-neutral-900 hover:bg-black rounded-b-md text-white pointer-events-auto col-span-2 outline-none focus-visible:outline-none transition-all duration-100 ease-out origin-top",
-        isPressed && "scale-y-102"
+        "h-42 cursor-pointer bg-neutral-900 hover:bg-black rounded-b-md text-white pointer-events-auto col-span-2 outline-none focus-visible:outline-none transition-all duration-100 ease-out origin-top opacity-0",
+        isPressed && "scale-y-101"
       )}
       style={{ gridColumnStart }}
       onPointerDown={(event) => {
