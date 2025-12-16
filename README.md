@@ -3,11 +3,19 @@
 Mode Note was created for guitar & bass players to learn & practice notes & scales on the fretboard, with extended range instruments & in alternate tunings.
 Created in Nextjs using React, Typescript, Tailwind, Zustand & AudioContext api
 
+# UPDATE DEC 25 #
+## Now added a playable 49 key Synth Keyboard! ##
+
+- User Input either touch/keyboard/mouse.
+- Adjustable soundwave, envelope & lfo filters.
+- Synth Pads with set long attack/decay for atmosphere.
+- Octave range selector using arrow keys/buttons.
+
 ## Features include:
 
 ### Extended Range Instrument support
 
-- **Guitar**: 6, 7, 8, and 9 strings
+- **Guitar**: 6, 7, 8, 9 and 10 strings
 - **Bass**: 4, 5, 6, and 7 strings
 
 Each instrument has adjustable fret quantities (21, 22, or 24 frets), fret marker styles (diamond or triangle), and orientation settings for left or right-handed players.
