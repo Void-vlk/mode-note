@@ -8,7 +8,8 @@ import TonicChoice from "@/components/dropdowns/TonicChoice";
 import TuningChoice from "@/components/dropdowns/TuningChoice";
 import ScalesChoice from "@/components/dropdowns/ScalesChoice";
 import { useNavStore } from "@/stores/useNavStore";
-import { WIZARD_STAGES } from "@/resources/types";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
+import { WIZARD_STAGES, Instruments } from "@/resources/types";
 import { EventName, trackEvent } from "@/resources/analytics";
 
 const WizardSetupStage: FC = () => {
@@ -16,10 +17,18 @@ const WizardSetupStage: FC = () => {
   const setHasDoneSetup = useNavStore((s) => s.setHasDoneSetup);
   const setWizardStage = useNavStore((state) => state.setWizardStage);
   const wizardStage = useNavStore((state) => state.wizardStage);
+  const instrument = useInstrumentStore((s) => s.instrument);
   const currentIndex = WIZARD_STAGES.indexOf(wizardStage);
 
   const handleNextStage = () => {
-    const nextIndex = currentIndex + 1;
+    let nextIndex = currentIndex + 1;
+
+    if (
+      instrument === Instruments.Keys &&
+      WIZARD_STAGES[nextIndex] === "tuning"
+    )
+      nextIndex++;
+
     if (nextIndex < WIZARD_STAGES.length) {
       setWizardStage(WIZARD_STAGES[nextIndex]);
     } else {
@@ -29,7 +38,15 @@ const WizardSetupStage: FC = () => {
   };
 
   const handleBack = () => {
-    const prevIndex = currentIndex - 1;
+    let prevIndex = currentIndex - 1;
+
+    if (
+      instrument === Instruments.Keys &&
+      WIZARD_STAGES[prevIndex] === "tuning"
+    ) {
+      prevIndex--;
+    }
+
     if (prevIndex >= 0) {
       setWizardStage(WIZARD_STAGES[prevIndex]);
     }
