@@ -8,10 +8,10 @@ import {
 } from "lucide-react";
 import { type FC, ReactNode } from "react";
 import { useInstrumentStore } from "@/stores/useInstrumentStore";
-import Switch from "@/components/settings/Switch";
 import { twJoin } from "tailwind-merge";
 import { getNoteName } from "@/hooks/getNoteValues";
 import type { NotePitch } from "@/resources/themes";
+import SharpToggle from "./SharpToggle";
 
 type Props = {
   icon: ReactNode;
@@ -43,22 +43,12 @@ const TuningButton: FC<Props> = ({
 };
 
 const TuningControls: FC = () => {
-  const isSharp = useInstrumentStore((s) => s.isSharp);
-  const setIsSharp = useInstrumentStore((s) => s.setIsSharp);
   const currentTuning = useInstrumentStore((s) => s.currentTuning);
   const setCustomTuning = useInstrumentStore((s) => s.setCustomTuning);
 
   return (
     <div className="flex items-center justify-between px-3 pb-2">
-      <Switch
-        isChecked={isSharp}
-        onChange={() => {
-          setIsSharp(!isSharp);
-        }}
-        iconLeft="♭"
-        iconRight={<span className="-mt-px">♯</span>}
-        aria-label="Toggle sharp/flat"
-      />
+      <SharpToggle />
       <div className="flex gap-1 items-center">
         <p className="text-xs lg:text-sm pr-0.5 text-grey-light">Tune all: </p>
         <TuningButton

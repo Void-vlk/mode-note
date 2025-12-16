@@ -9,6 +9,9 @@ import SetupWizardStage from "@/components/settings/SetupStage";
 import Instrument from "@/components/instrument/Instrument";
 import { twJoin } from "tailwind-merge";
 import { applySidebarOffset } from "@/resources/movement";
+import { Scales } from "@/resources/scales";
+import Keyboard from "@/components/keys/Keyboard";
+import { Instruments } from "@/resources/types";
 
 gsap.registerPlugin(useGSAP);
 
@@ -17,11 +20,18 @@ export default function Home() {
   const hasHydrated = useNavStore((s) => s.hasHydrated);
   const hasDoneSetup = useNavStore((s) => s.hasDoneSetup);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
+  const isScaleInfoOpen = useNavStore((s) => s.isScaleInfoOpen);
   const isMobile = useNavStore((s) => s.isMobile);
   const setIsMobile = useNavStore((s) => s.setIsMobile);
-  const hasScaleInfoContent = useNavStore((s) => s.hasScaleInfoContent);
+  const instrument = useInstrumentStore((s) => s.instrument);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
   const isRightHanded = useInstrumentStore((s) => s.isRightHanded);
+  const scalePattern = useInstrumentStore((s) => s.scale.scalePattern);
+  const tonicNote = useInstrumentStore((s) => s.scale.tonicNote);
+
+  const hasScaleInfoContent =
+    isScaleInfoOpen && tonicNote !== null && scalePattern !== Scales.Chromatic;
+
   const { contextSafe } = useGSAP({ scope: container });
 
   useEffect(() => {
@@ -37,6 +47,12 @@ export default function Home() {
   useGSAP(
     () => {
       if (!container.current) return;
+
+      if (instrument === Instruments.Keys) {
+        gsap.set(container.current, { clearProps: "transform" });
+        return;
+      }
+
       applySidebarOffset(
         container.current,
         isSidebarOpen,
@@ -44,12 +60,16 @@ export default function Home() {
         isRightHanded
       );
     },
-    { dependencies: [isSidebarOpen, fretQuantity, isRightHanded] }
+    { dependencies: [isSidebarOpen, fretQuantity, isRightHanded, instrument] }
   );
 
   useGSAP(() => {
     if (!container.current) return;
     const onResize = () => {
+      if (instrument === Instruments.Keys) {
+        gsap.set(container.current!, { clearProps: "transform" });
+        return;
+      }
       applySidebarOffset(
         container.current!,
         isSidebarOpen,
@@ -59,7 +79,7 @@ export default function Home() {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [isSidebarOpen, fretQuantity, isRightHanded]);
+  }, [isSidebarOpen, fretQuantity, isRightHanded, instrument]);
 
   // Move Instrument if ScaleInfoPopup is open
   useGSAP(
@@ -104,13 +124,21 @@ export default function Home() {
           <main
             className={twJoin(
               "w-full items-center flex xl:justify-center h-svh max-h-svh md:h-lvh overflow-x-auto custom-scrollbar overflow-y-hidden",
-              isRightHanded
+              instrument === Instruments.Keys || isRightHanded
                 ? "flex-row direction-ltr"
                 : "flex-row-reverse direction-rtl mr-2"
             )}
             ref={container}
           >
-            {hasDoneSetup ? <Instrument show={true} /> : <SetupWizardStage />}
+            {hasDoneSetup ? (
+              instrument === Instruments.Keys ? (
+                <Keyboard />
+              ) : (
+                <Instrument show={true} />
+              )
+            ) : (
+              <SetupWizardStage />
+            )}
           </main>
         )}
       </Transition>

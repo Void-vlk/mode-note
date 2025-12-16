@@ -2,7 +2,7 @@
 import { X } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { type FC, ReactNode, useEffect, useMemo, useRef } from "react";
+import { type FC, ReactNode, useMemo, useRef } from "react";
 import { SwitchTransition, Transition } from "react-transition-group";
 import { twJoin } from "tailwind-merge";
 
@@ -24,7 +24,6 @@ const ScaleInfoPopup: FC = () => {
   const container = useRef<HTMLDivElement>(null);
 
   const isScaleInfoOpen = useNavStore((s) => s.isScaleInfoOpen);
-  const setHasScaleInfoContent = useNavStore((s) => s.setHasScaleInfoContent);
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
   const isMobile = useNavStore((s) => s.isMobile);
   const fretQuantity = useInstrumentStore((s) => s.fretQuantity);
@@ -43,17 +42,13 @@ const ScaleInfoPopup: FC = () => {
   const hasScaleContent =
     directory && directory.baseScaleId !== Scales.Chromatic;
 
-  // show content if open & has valid scale
-  useEffect(() => {
-    setHasScaleInfoContent(isScaleInfoOpen && !!hasScaleContent);
-  }, [isScaleInfoOpen, hasScaleContent, setHasScaleInfoContent]);
-
   const showRelativeMajor = scalePattern !== Scales.Major;
   const showRelativeMinor = scalePattern !== Scales.Minor;
 
   // get name, rotation index for selected mode
-  const scaleName = SCALES[scalePattern].name;
-  const selectedMode = MODE_ROTATION_INDEX[scalePattern]!;
+  const scaleData = SCALES[scalePattern as Scales];
+  const scaleName = scaleData?.name;
+  const selectedMode = MODE_ROTATION_INDEX[scalePattern] ?? 0;
   const majorScalePattern = SCALES[Scales.Major].pattern; // 0,2,4,5,7,9,11
   const { rotatedPattern: selectedPattern } = rotatePatternForMode(
     majorScalePattern,
@@ -62,9 +57,9 @@ const ScaleInfoPopup: FC = () => {
 
   // get W/H step intervals, note pitches for selected scale
   const scaleSteps = getStepsFromPattern(selectedPattern);
-  const scaleIntervals = SCALES[scalePattern].intervals;
+  const scaleIntervals = SCALES[scalePattern]?.intervals;
   const scaleNotePitches = selectedPattern.map(
-    (offset) => ((tonicNote! + offset) % 12) as NotePitch
+    (offset) => (((tonicNote ?? 0) + offset) % 12) as NotePitch
   );
 
   const { contextSafe } = useGSAP({ scope: container });

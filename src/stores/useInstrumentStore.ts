@@ -85,6 +85,8 @@ export const useInstrumentStore = create<InstrumentState>()(
 
       setInstrument: (instrument: Instruments) =>
         set(() => {
+          if (instrument === Instruments.Keys) return { instrument };
+          // Guitar/Bass have stringQty and tuning
           const stringQty = DEFAULT_STRINGS[instrument];
           return {
             instrument,

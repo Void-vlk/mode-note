@@ -25,7 +25,6 @@ const ScalePositionChoice: FC<Props> = ({ isInSetup = false }) => {
         isChecked={scalePositionMode === "3NPS"}
         onChange={() => {
           const newMode = scalePositionMode === "Shape" ? "3NPS" : "Shape";
-          console.log("Toggle changed to:", newMode);
           setScalePositionMode(newMode);
         }}
         isInSetup={isInSetup}

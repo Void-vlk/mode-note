@@ -1,10 +1,8 @@
-import { type Tuning, Instruments } from "@/resources/types";
+import { Instruments, type TuningsMap } from "@/resources/types";
 import { type StringQty } from "@/resources/themes";
 
-export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
+export const TUNINGS: TuningsMap = {
   [Instruments.Guitar]: {
-    4: [],
-    5: [],
     6: [
       {
         id: "6g0",
@@ -445,13 +443,14 @@ export const TUNINGS: Record<Instruments, Record<StringQty, Tuning[]>> = {
         stringTunings: [11, 4, 9, 2, 7, 11, 4],
       },
     ],
-    8: [],
-    9: [],
-    10: [],
+  },
+  [Instruments.Keys]: {
+    0: [],
   },
 };
 
 export const STRING_QTY_OPTIONS: Record<Instruments, StringQty[]> = {
   [Instruments.Guitar]: [6, 7, 8, 9, 10],
   [Instruments.Bass]: [4, 5, 6, 7],
+  [Instruments.Keys]: [],
 };

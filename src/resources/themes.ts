@@ -13,7 +13,7 @@ export type OptionValue =
 export const NOTE_PITCHES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
 export type NotePitch = (typeof NOTE_PITCHES)[number];
 
-export const STRING_QUANTITIES = [4, 5, 6, 7, 8, 9, 10] as const;
+export const STRING_QUANTITIES = [0, 4, 5, 6, 7, 8, 9, 10] as const;
 export type StringQty = (typeof STRING_QUANTITIES)[number];
 
 export type FretboardTheme = (typeof FRETBOARD_THEMES)[number];
@@ -108,4 +108,5 @@ export const STRING_THICKNESS = {
     6: ["h-2", "h-1.75", "h-1.5", "h-1.25", "h-1", "h-0.75"],
     7: ["h-2.25", "h-2", "h-1.75", "h-1.5", "h-1.25", "h-1", "h-0.75"],
   },
+  [Instruments.Keys]: {},
 } as const;

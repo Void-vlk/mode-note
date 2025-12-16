@@ -4,11 +4,11 @@ import { twJoin, twMerge } from "tailwind-merge";
 
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import { ScaleInfoButton } from "@/components/dropdowns/ScalesChoice";
-import Switch from "@/components/settings/Switch";
 import { getTonicNotes } from "@/hooks/getNoteValues";
 import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { NotePitch } from "@/resources/themes";
 import { EventName, trackEvent } from "@/resources/analytics";
+import SharpToggle from "./SharpToggle";
 
 type Props = { isInSetup?: boolean };
 
@@ -16,7 +16,6 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
   const scale = useInstrumentStore((s) => s.scale);
   const setScale = useInstrumentStore((s) => s.setScale);
   const isSharp = useInstrumentStore((s) => s.isSharp);
-  const setIsSharp = useInstrumentStore((s) => s.setIsSharp);
 
   const handleTonicSelect = (pitch: number) => {
     const newTonicNote =
@@ -27,15 +26,7 @@ const TonicChoice: FC<Props> = ({ isInSetup = false }) => {
   return (
     <>
       <div className="flex items-center -mb-1">
-        <Switch
-          isChecked={isSharp}
-          onChange={() => {
-            setIsSharp(!isSharp);
-          }}
-          iconLeft="♭"
-          iconRight="♯"
-          className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3")}
-        />
+        <SharpToggle className={twMerge(isInSetup ? "mx-auto mb-3" : "ml-3")} />
         {!isInSetup && <ScaleInfoButton />}
       </div>
       <MenuSelectionList

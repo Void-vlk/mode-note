@@ -10,7 +10,7 @@ export const getStringQuantities = (instrument: Instruments): StringQty[] =>
 export const getInstrumentTunings = (
   instrument: Instruments,
   stringQty: StringQty
-): Tuning[] => TUNINGS[instrument][stringQty] ?? [];
+): Tuning[] => (TUNINGS[instrument] as Record<StringQty, Tuning[]>)[stringQty] ?? [];
 
 // check tuning
 export const isTuningMatching = (
@@ -27,6 +27,6 @@ export const defaultTuning = (
   instrument: Instruments,
   stringQty: StringQty
 ): NotePitch[] => {
-  const tunings = TUNINGS[instrument][stringQty];
+  const tunings = (TUNINGS[instrument] as Record<StringQty, Tuning[]>)[stringQty];
   return tunings && tunings.length > 0 ? tunings[0].stringTunings : [];
 };

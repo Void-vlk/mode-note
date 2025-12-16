@@ -15,3 +15,18 @@ export const NOTE_PITCHES: Record<NotePitch, NoteVariant> = {
   10: { sharp: "A♯", flat: "B♭" },
   11: { natural: "B" },
 } as const;
+
+const A4_FREQUENCY = 440;
+const A4_PITCH_INDEX = 9;
+const A4_OCTAVE = 4;
+
+export function frequencyFromOctaveIndex(octave: number, pitchIndex: NotePitch): number {
+  const semitonesFromA4 = (octave - A4_OCTAVE) * 12 + (pitchIndex - A4_PITCH_INDEX);
+  return A4_FREQUENCY * Math.pow(2, semitonesFromA4 / 12);
+}
+
+export function splitSemitone(absoluteSemitone: number): [number, NotePitch] {
+  const octave = Math.floor(absoluteSemitone / 12);
+  const pitchIndex = ((absoluteSemitone % 12) + 12) % 12;
+  return [octave, pitchIndex as NotePitch];
+}

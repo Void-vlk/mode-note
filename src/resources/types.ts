@@ -6,6 +6,7 @@ export const WIZARD_STAGES = ["instrument", "tuning", "scale"] as const;
 export enum Instruments {
   Guitar = "guitar",
   Bass = "bass",
+  Keys = "keys",
 }
 
 export type Instrument = {
@@ -16,12 +17,29 @@ export type Instrument = {
 export const INSTRUMENTS: Record<Instruments, Instrument> = {
   [Instruments.Guitar]: { id: Instruments.Guitar, label: "Guitar" },
   [Instruments.Bass]: { id: Instruments.Bass, label: "Bass" },
+  [Instruments.Keys]: { id: Instruments.Keys, label: "Keyboard" },
 };
 
 export const DEFAULT_STRINGS: Record<Instruments, StringQty> = {
   [Instruments.Guitar]: 6,
   [Instruments.Bass]: 4,
+  [Instruments.Keys]: 0,
 } as const;
+
+// Allowed string quantities per instrument
+type GuitarStringQty = 6 | 7 | 8 | 9 | 10;
+type BassStringQty = 4 | 5 | 6 | 7;
+type KeysStringQty = 0;
+
+export type InstrumentStringQtyMap = {
+  [Instruments.Guitar]: GuitarStringQty;
+  [Instruments.Bass]: BassStringQty;
+  [Instruments.Keys]: KeysStringQty;
+};
+
+export type TuningsMap = {
+  [K in Instruments]: Record<InstrumentStringQtyMap[K], Tuning[]>;
+};
 
 export enum NoteDisplay {
   Note = "note",

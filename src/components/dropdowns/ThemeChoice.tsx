@@ -4,7 +4,9 @@ import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import ContentToggle from "@/components/settings/ContentToggle";
 import { FRETBOARD_THEMES, NOTE_THEMES } from "@/resources/themes";
 
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { useThemeStore } from "@/stores/useThemeStore";
+import { Instruments } from "@/resources/types";
 
 const ThemeChoice: FC = () => {
   const fretboardTheme = useThemeStore((s) => s.fretboardTheme);
@@ -13,19 +15,10 @@ const ThemeChoice: FC = () => {
   const setStringTheme = useThemeStore((s) => s.setStringTheme);
   const noteTheme = useThemeStore((s) => s.noteTheme);
   const setNoteTheme = useThemeStore((s) => s.setNoteTheme);
+  const instrument = useInstrumentStore((s) => s.instrument);
 
   return (
     <>
-      <MenuSelectionList
-        options={FRETBOARD_THEMES.map((theme) => ({
-          value: theme,
-          label: theme,
-          checked: fretboardTheme === theme,
-          onSelect: () => setFretboardTheme(theme),
-        }))}
-        contentHeader="Fretboard Wood"
-      />
-
       <MenuSelectionList
         options={NOTE_THEMES.map((theme) => ({
           value: theme,
@@ -35,18 +28,30 @@ const ThemeChoice: FC = () => {
         }))}
         contentHeader="Note Colour"
       />
-
-      <ContentToggle
-        isChecked={stringTheme === "gold"}
-        onChange={() =>
-          setStringTheme(stringTheme === "gold" ? "silver" : "gold")
-        }
-        optionHeader="String Colour"
-        isInSetup={false}
-        leftOption="Ag"
-        rightOption="Au"
-        aria-label="Toggle string colour"
-      />
+      {instrument !== Instruments.Keys && (
+        <>
+          <MenuSelectionList
+            options={FRETBOARD_THEMES.map((theme) => ({
+              value: theme,
+              label: theme,
+              checked: fretboardTheme === theme,
+              onSelect: () => setFretboardTheme(theme),
+            }))}
+            contentHeader="Fretboard Wood"
+          />
+          <ContentToggle
+            isChecked={stringTheme === "gold"}
+            onChange={() =>
+              setStringTheme(stringTheme === "gold" ? "silver" : "gold")
+            }
+            optionHeader="String Colour"
+            isInSetup={false}
+            leftOption="Ag"
+            rightOption="Au"
+            aria-label="Toggle string colour"
+          />
+        </>
+      )}
     </>
   );
 };

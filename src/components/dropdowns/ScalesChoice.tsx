@@ -1,10 +1,10 @@
+import { Info } from "lucide-react";
 import { type FC } from "react";
 import { twMerge } from "tailwind-merge";
 
 import MenuSelectionList from "@/components/dropdowns/MenuSelectionList";
 import { useInstrumentStore } from "@/stores/useInstrumentStore";
 import { Scales, SCALES } from "@/resources/scales";
-import { Info } from "lucide-react";
 import { useThemeStore } from "@/stores/useThemeStore";
 import { useNavStore } from "@/stores/useNavStore";
 import { EventName, trackEvent } from "@/resources/analytics";

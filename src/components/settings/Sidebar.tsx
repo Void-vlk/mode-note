@@ -7,9 +7,10 @@ import { Transition } from "react-transition-group";
 
 import Dropdown from "@/components/dropdowns/DropdownAccordion";
 import { useNavStore } from "@/stores/useNavStore";
-import { MENU_CONTENT } from "@/resources/dropdown-content";
+import { getMenuContent } from "@/resources/dropdown-content";
 import BuyMeACoffee from "@/components/cookies/BuyMeACoffee";
 import ContactForFeedback from "@/components/cookies/ContactForFeedback";
+import { useInstrumentStore } from "@/stores/useInstrumentStore";
 
 const Sidebar: FC = () => {
   const container = useRef<HTMLDivElement>(null);
@@ -17,6 +18,9 @@ const Sidebar: FC = () => {
   const isSidebarOpen = useNavStore((s) => s.isSidebarOpen);
   const setIsSidebarOpen = useNavStore((s) => s.setIsSidebarOpen);
   const isMobile = useNavStore((s) => s.isMobile);
+  const instrument = useInstrumentStore((s) => s.instrument);
+
+  const menuContent = getMenuContent(instrument);
 
   const { contextSafe } = useGSAP({ scope: container });
 
@@ -71,7 +75,7 @@ const Sidebar: FC = () => {
               <h2 className="text-base xl:text-xl font-bold text-grey-light pb-3 xl:pb-4 mb-2 capitalize tracking-wide border-b border-grey-dark">
                 settings
               </h2>
-              <Dropdown content={MENU_CONTENT} />
+              <Dropdown content={menuContent} />
             </section>
             <section className="flex mx-4 mb-6 mt-auto gap-2 xl:gap-3">
               <BuyMeACoffee />

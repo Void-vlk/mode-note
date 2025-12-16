@@ -10,6 +10,7 @@ import SoundChoice from "@/components/metronome/SoundChoice";
 import ScalePositionChoice from "@/components/dropdowns/ScalePositionChoice";
 import NoteDisplayChoice from "@/components/dropdowns/NoteDisplayChoice";
 import AdvancedChoices from "@/components/dropdowns/AdvancedChoices";
+import { Instruments } from "@/resources/types";
 
 export type MenuContent = {
   id: string;
@@ -17,7 +18,7 @@ export type MenuContent = {
   content: ReactNode;
 };
 
-export const MENU_CONTENT: MenuContent[] = [
+const MENU_CONTENT: MenuContent[] = [
   {
     id: "instrument",
     heading: "Instrument",
@@ -59,6 +60,16 @@ export const MENU_CONTENT: MenuContent[] = [
     content: <AdvancedChoices />,
   },
 ];
+
+export const getMenuContent = (instrument: Instruments): MenuContent[] => {
+  if (instrument === Instruments.Keys) {
+    // Exclude tuning and scale position for keyboard
+    return MENU_CONTENT.filter(
+      (item) => item.id !== "tuning" && item.id !== "positions"
+    );
+  }
+  return MENU_CONTENT;
+};
 
 export const METRONOME_CONTENT: MenuContent[] = [
   {
