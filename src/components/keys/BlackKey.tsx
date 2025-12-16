@@ -46,6 +46,7 @@ const BlackKey: FC<Props> = ({
       onPointerLeave={(event) => {
         if (event.buttons === 1) onPointerUp(code);
       }}
+      onContextMenu={(e) => e.preventDefault()}
     >
       <KeyNoteDisplay
         label={label}
