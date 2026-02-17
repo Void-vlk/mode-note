@@ -12,7 +12,7 @@ const MetronomeController = dynamic(
   () => import("@/components/metronome/MetronomeController"),
   {
     ssr: false,
-  }
+  },
 );
 
 const Nav: FC = () => {
@@ -37,7 +37,7 @@ const Nav: FC = () => {
         alt="Logo"
         className="w-auto h-7 xl:h-8 absolute left-1/2 top-4 -translate-x-1/2"
         priority
-        quality={80}
+        height={32}
       />
       <section className="rounded-full flex bg-black items-center justify-center shadow shadow-grey-light/10">
         <div className="w-12 md:w-40 xl:w-48 ml-3 xl:ml-4">
