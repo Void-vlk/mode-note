@@ -44,7 +44,9 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
             });
           },
         }))}
-        className={twMerge(isInSetup && "grid-cols-3 gap-3 mb-4 w-full md:!px-8")}
+        className={twMerge(
+          isInSetup && "grid-cols-3 gap-3 mb-4 w-full md:px-8!",
+        )}
         contentHeader="Instrument Type"
       />
       {currentInstrument !== Instruments.Keys && (
@@ -62,7 +64,7 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
                 });
               },
             }))}
-            className={twMerge(isInSetup && "grid-cols-3 gap-3 mb-4 md:!px-8")}
+            className={twMerge(isInSetup && "grid-cols-3 gap-3 mb-4 md:px-8!")}
             contentHeader="String Quantity"
           />
 
@@ -79,8 +81,8 @@ const InstrumentChoice: FC<Props> = ({ isInSetup = false }) => {
               },
             }))}
             className={twMerge(
-              isInSetup && "gap-3 mb-4 md:!px-8",
-              "grid-cols-3"
+              isInSetup && "gap-3 mb-4 md:px-8!",
+              "grid-cols-3",
             )}
             contentHeader="Fret Quantity"
           />

@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -35,7 +34,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwind-scrollbar": "^4.0.2",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5"
   }
 }
