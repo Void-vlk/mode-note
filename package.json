@@ -12,11 +12,13 @@
     "@floating-ui/react": "^0.27.16",
     "@gsap/react": "^2.1.2",
     "@microsoft/clarity": "^1.0.0",
+    "@tailwindcss/postcss": "^4.1.18",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.515.0",
     "next": "^16.0.10",
+    "postcss": "^8.5.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-transition-group": "^4.4.5",
@@ -25,7 +27,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -35,7 +36,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwind-scrollbar": "^4.0.2",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5"
   }
 }

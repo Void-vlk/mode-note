@@ -28,7 +28,7 @@ const Fretboard: FC<{ className: string }> = ({ className }) => {
         return (
           <div
             key={index}
-            className="relative flex-shrink-0 h-full fret-spacing"
+            className="relative shrink-0 h-full fret-spacing"
           >
             <div
               className={twJoin(

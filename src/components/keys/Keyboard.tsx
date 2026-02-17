@@ -106,9 +106,9 @@ const Keyboard: FC = () => {
       {() => (
         <div
           ref={container}
-          className="mx-auto w-full max-w-[1200px] px-1 overflow-x-auto custom-scrollbar select-none"
+          className="mx-auto w-full max-w-300 px-1 overflow-x-auto custom-scrollbar select-none"
         >
-          <div className="rounded-xl bg-neutral-700 p-3 min-w-[1040px]">
+          <div className="rounded-xl bg-neutral-700 p-3 min-w-260">
             <div className="mb-4 grid grid-cols-[1fr_auto] gap-4">
               <div className="keyboard-section">
                 <KeyboardControls noteNowPlaying={noteNowPlaying} />
