@@ -2,6 +2,9 @@
   "name": "mode-note-v2",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -17,10 +20,10 @@
     "@vercel/speed-insights": "^1.2.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.515.0",
-    "next": "^16.2.6",
+    "next": "^16.4.1",
     "postcss": "^8.5.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "react-transition-group": "^4.4.5",
     "tailwind-merge": "^3.3.1",
     "zustand": "^5.0.5"
@@ -32,7 +35,7 @@
     "@types/react-dom": "^19",
     "@types/react-transition-group": "^4.4.12",
     "eslint": "^9",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "^16.4.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwind-scrollbar": "^4.0.2",
